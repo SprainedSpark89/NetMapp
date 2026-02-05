@@ -1,0 +1,21 @@
+package io.github.SprainedSpark89.netmapp.version.base;
+
+public enum PacketType {
+	// c0.0.15a base stuff
+	timeOut, // might be the blank new class thing
+	login,
+	startWorldData,
+	worldData,
+	worldDataEnd,
+	blockUpdate,
+	entityJoin,
+	entityMove,
+	entityRemove,
+	
+	// c0.0.16a
+	entitySetPos,
+	entityMoveRot,
+	entityRot,
+	chat,
+	kick
+}
