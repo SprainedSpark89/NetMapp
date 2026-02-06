@@ -13,18 +13,18 @@ public class ConversionPacket {
 	public List<Packet> steps = new ArrayList<Packet>();
 	
 	
-	public LeftOverEntry makeLeftOver(Class clazz, Object object, String string, Versions version) {
+	public LeftOverEntry makeLeftOver(Class<?> clazz, Object object, String string, Versions version) {
 		return new LeftOverEntry(clazz, object, string, version);
 	}
 }
 
 class LeftOverEntry {
-	public Class clazz;
+	public Class<?> clazz;
 	public Object value;
 	public String leftOverDesc;
 	public Versions source;
 	
-	public LeftOverEntry(Class clazz, Object value, String desc, Versions ver) {
+	public LeftOverEntry(Class<?> clazz, Object value, String desc, Versions ver) {
 		this.clazz = clazz;
 		this.value = value;
 		this.leftOverDesc = desc;

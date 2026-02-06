@@ -11,6 +11,7 @@ public enum PacketType {
 	entityJoin,
 	entityMove,
 	entityRemove,
+	setBlock,
 	
 	// c0.0.16a
 	entitySetPos,
