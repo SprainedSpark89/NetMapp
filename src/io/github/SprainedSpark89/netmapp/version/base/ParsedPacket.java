@@ -6,4 +6,5 @@ public class ParsedPacket {
 	public Packet packet;
 	public List<Object> values = new ArrayList<Object>();
 	public String textDescriptor;
+	public byte[] rawData;
 }

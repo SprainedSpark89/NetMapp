@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 
 import io.github.SprainedSpark89.netmapp.version.base.Packet;
 import io.github.SprainedSpark89.netmapp.version.base.ParsedPacket;
+import io.github.SprainedSpark89.netmapp.version.base.ServerSimulator;
 import io.github.SprainedSpark89.netmapp.version.base.Utils;
 import io.github.SprainedSpark89.netmapp.version.base.VersionRegisterHook;
 import io.github.SprainedSpark89.netmapp.version.base.Versions;
@@ -82,6 +83,7 @@ public class NetMapp {
 						// Handle the connection in its own thread
 						final SocketChannel clientChannel = accept;
 						new Thread(() -> {
+							ServerSimulator packetProcessor = new ServerSimulator();
 							try {
 								SocketChannel ch = clientChannel;
 								System.out.println("Handling client " + ch.getRemoteAddress());
@@ -100,6 +102,7 @@ public class NetMapp {
 												+ packet.getClass().getSimpleName() + "\nData: "
 												+ pPacket.textDescriptor);
 										
+										packetProcessor.parsePackets(pPacket, clientChannel, connectedVersion);
 										
 										buf.clear();
 									} else if (read == -1) {
@@ -137,6 +140,7 @@ public class NetMapp {
 	public ParsedPacket parsePacket(Packet packet, byte[] data) {
 		ParsedPacket processPacket = new ParsedPacket();
 		processPacket.packet = packet;
+		processPacket.rawData = data;
 	    // basic sanity check
 	    if (data == null || data.length < 1) return null;
 
