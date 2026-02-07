@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import io.github.SprainedSpark89.netmapp.version.base.Packet;
+import io.github.SprainedSpark89.netmapp.version.base.ParsedPacket;
 import io.github.SprainedSpark89.netmapp.version.base.Utils;
 import io.github.SprainedSpark89.netmapp.version.base.VersionRegisterHook;
 import io.github.SprainedSpark89.netmapp.version.base.Versions;
@@ -93,10 +94,11 @@ public class NetMapp {
 										buf.get(data);
 										getConnectedTCPVersion(data);
 										Packet packet = Utils.getPacketFromID(data[0], connectedVersion);
+										ParsedPacket pPacket = parsePacket(packet, data);
 										log.info("Connected Version is " + connectedVersion.version + "\n" +
 										byteArrayToString(data) + "\nHex: " + bytesToHex(data) + "\n"
 												+ packet.getClass().getSimpleName() + "\nData: "
-												+ parsePacket(packet, data));
+												+ pPacket.textDescriptor);
 										
 										
 										buf.clear();
@@ -132,7 +134,9 @@ public class NetMapp {
 		}
 	}
 	
-	public String parsePacket(Packet packet, byte[] data) {
+	public ParsedPacket parsePacket(Packet packet, byte[] data) {
+		ParsedPacket processPacket = new ParsedPacket();
+		processPacket.packet = packet;
 	    // basic sanity check
 	    if (data == null || data.length < 1) return null;
 
@@ -152,26 +156,32 @@ public class NetMapp {
 	            if (clazz == Long.TYPE) {
 	                long v = buf.getLong();
 	                out.append("Long: ").append(v).append(", ");
+	                processPacket.values.add(v);
 
 	            } else if (clazz == Integer.TYPE) {
 	                int v = buf.getInt();
 	                out.append("Int: ").append(v).append(", ");
+	                processPacket.values.add(v);
 
 	            } else if (clazz == Short.TYPE) {
 	                short v = buf.getShort();
 	                out.append("Short: ").append(v).append(", ");
+	                processPacket.values.add(v);
 
 	            } else if (clazz == Byte.TYPE) {
 	                byte v = buf.get();
 	                out.append("Byte: ").append(v).append(", ");
+	                processPacket.values.add(v);
 
 	            } else if (clazz == Float.TYPE) {
 	                float v = buf.getFloat();
 	                out.append("Float: ").append(v).append(", ");
+	                processPacket.values.add(v);
 
 	            } else if (clazz == Double.TYPE) {
 	                double v = buf.getDouble();
 	                out.append("Double: ").append(v).append(", ");
+	                processPacket.values.add(v);
 
 	            } else if (clazz == byte[].class) {
 	                byte[] arr = new byte[1024];
@@ -179,6 +189,7 @@ public class NetMapp {
 	                out.append("ByteArray[1024]: ")
 	                   .append("[" + byteArrayToString(arr) + "]")
 	                   .append(", ");
+	                processPacket.values.add(arr);
 
 	            } else if (clazz == String.class) {
 	                byte[] strBytes = new byte[64];
@@ -189,7 +200,7 @@ public class NetMapp {
 	                        .trim();
 
 	                out.append("String: \"").append(str).append("\", ");
-
+	                processPacket.values.add(str);
 	            } else {
 	                out.append("UnknownType, ");
 	            }
@@ -204,8 +215,8 @@ public class NetMapp {
 	    if (out.length() >= 2) {
 	        out.setLength(out.length() - 2);
 	    }
-
-	    return out.toString();
+	    processPacket.textDescriptor = out.toString();
+	    return processPacket;
 	}
 
 
