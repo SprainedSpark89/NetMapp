@@ -18,8 +18,8 @@ public class PacketBlockUpdate extends Packet {
 		this.argsDesc.add("X");
 		this.argsDesc.add("Y");
 		this.argsDesc.add("Z");
-		this.argsDesc.add("Edit Mode"); // i don't know
-		this.argsDesc.add("Paint Texture"); // why is this being sent to the server?
+		this.argsDesc.add("Place or Break");
+		this.argsDesc.add("BlockID");
 		this.packetType = PacketType.blockUpdate;
 		this.packetID = 5;
 	}
