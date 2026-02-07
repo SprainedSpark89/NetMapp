@@ -21,7 +21,7 @@ public class PacketBlockUpdate extends Packet {
 		this.argsDesc.add("Edit Mode"); // i don't know
 		this.argsDesc.add("Paint Texture"); // why is this being sent to the server?
 		this.packetType = PacketType.blockUpdate;
-		this.packetID = 4;
+		this.packetID = 5;
 	}
 
 }

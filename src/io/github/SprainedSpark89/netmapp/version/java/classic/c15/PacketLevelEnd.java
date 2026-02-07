@@ -16,7 +16,7 @@ public class PacketLevelEnd extends Packet {
 		this.argsDesc.add("Level Height");
 		this.argsDesc.add("Level Depth");
 		this.packetType = PacketType.worldDataEnd;
-		this.packetID = 3;
+		this.packetID = 4;
 	}
 
 }

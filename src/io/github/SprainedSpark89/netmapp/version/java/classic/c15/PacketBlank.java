@@ -1,4 +1,4 @@
-package io.github.SprainedSpark89.netmapp.version.java.classic.c16;
+package io.github.SprainedSpark89.netmapp.version.java.classic.c15;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ public class PacketBlank extends Packet {
 		super(inputs, descriptions);
 		// TODO Auto-generated constructor stub
 		this.packetType = PacketType.timeOut;
+		this.packetID = 1;
 	}
 
 }

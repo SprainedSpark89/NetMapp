@@ -5,10 +5,14 @@ package io.github.SprainedSpark89.netmapp;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -129,67 +133,81 @@ public class NetMapp {
 	}
 	
 	public String parsePacket(Packet packet, byte[] data) {
-		int pos = 0;
-		String out = "";
-		out += "PacketID: " + packet.packetID + ", Data: ";
-		pos++; // skip the packet id
-		for(Class<?> clazz : packet.args) {
-			if(clazz == Long.TYPE) {
-				out += "Long: ";
-				for(int i = 0; i < Long.BYTES; i++) {
-					out += data[pos + i];
-				}
-				out += ", ";
-				pos += Long.BYTES;
-			} else if(clazz == Short.TYPE) {
-				out += "Short: ";
-				for(int i = 0; i < Short.BYTES; i++) {
-					out += data[pos + i];
-				}
-				out += ", ";
-				pos += Short.BYTES;
-			} else if(clazz == Byte.TYPE) {
-				out += "Byte: ";
-				for(int i = 0; i < Byte.BYTES; i++) {
-					out += data[pos + i];
-				}
-				out += ", ";
-				pos += Byte.BYTES;
-			} else if(clazz == Double.TYPE) {
-				out += "Double: ";
-				for(int i = 0; i < Double.BYTES; i++) {
-					out += data[pos + i];
-				}
-				out += ", ";
-				pos += Double.BYTES;
-			} else if(clazz == Float.TYPE) {
-				out += "Float: ";
-				for(int i = 0; i < Float.BYTES; i++) {
-					out += data[pos + i];
-				}
-				out += ", ";
-				pos += Float.BYTES;
-			} else if(clazz == byte[].class) {
-				out += "Byte Array: ";
-				for(int i = 0; i < 1024; i++) {
-					out += data[pos + i];
-				}
-				out += ", ";
-				pos += 1024;
-			} else if(clazz == String.class) {
-				out += "String: ";
-				for(int i = 0; i < 64; i++) { // go through 64 bytes
-					out += (char)data[pos + i];
-				}
-				out += ", ";
-				pos += 64;
-			} else {
-				out += "Unknown Class, ";
-			}
-		}
-		
-		return out.replaceAll(".*,\\s*$", "");
+	    // basic sanity check
+	    if (data == null || data.length < 1) return null;
+
+	    // packet ID mismatch
+	    if ((data[0] & 0xFF) != (packet.packetID & 0xFF)) return null;
+
+	    StringBuilder out = new StringBuilder();
+	    out.append("PacketID: ").append(packet.packetID).append(", Data: ");
+
+	    ByteBuffer buf = ByteBuffer.wrap(data).order(ByteOrder.BIG_ENDIAN);
+
+	    try {
+	        buf.position(1); // skip packet id
+
+	        for (Class<?> clazz : packet.args) {
+
+	            if (clazz == Long.TYPE) {
+	                long v = buf.getLong();
+	                out.append("Long: ").append(v).append(", ");
+
+	            } else if (clazz == Integer.TYPE) {
+	                int v = buf.getInt();
+	                out.append("Int: ").append(v).append(", ");
+
+	            } else if (clazz == Short.TYPE) {
+	                short v = buf.getShort();
+	                out.append("Short: ").append(v).append(", ");
+
+	            } else if (clazz == Byte.TYPE) {
+	                byte v = buf.get();
+	                out.append("Byte: ").append(v).append(", ");
+
+	            } else if (clazz == Float.TYPE) {
+	                float v = buf.getFloat();
+	                out.append("Float: ").append(v).append(", ");
+
+	            } else if (clazz == Double.TYPE) {
+	                double v = buf.getDouble();
+	                out.append("Double: ").append(v).append(", ");
+
+	            } else if (clazz == byte[].class) {
+	                byte[] arr = new byte[1024];
+	                buf.get(arr);
+	                out.append("ByteArray[1024]: ")
+	                   .append("[" + byteArrayToString(arr) + "]")
+	                   .append(", ");
+
+	            } else if (clazz == String.class) {
+	                byte[] strBytes = new byte[64];
+	                buf.get(strBytes);
+
+	                String str = new String(strBytes, StandardCharsets.UTF_8)
+	                        .replaceAll("\0", "")
+	                        .trim();
+
+	                out.append("String: \"").append(str).append("\", ");
+
+	            } else {
+	                out.append("UnknownType, ");
+	            }
+	        }
+
+	    } catch (BufferUnderflowException e) {
+	        // packet doesn't match this schema
+	        return null;
+	    }
+
+	    // remove trailing ", "
+	    if (out.length() >= 2) {
+	        out.setLength(out.length() - 2);
+	    }
+
+	    return out.toString();
 	}
+
 
 	public void getConnectedTCPVersion(byte[] packetData) {
 		List<Packet> loginPackets = Utils.getLoginPackets(Utils.getTCPVersions());

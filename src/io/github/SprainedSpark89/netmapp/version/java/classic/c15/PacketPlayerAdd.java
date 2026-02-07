@@ -26,7 +26,7 @@ public class PacketPlayerAdd extends Packet { // player join, not the login, jus
 		this.argsDesc.add("XRot"); // client * this by 360 then divides this by 256
 		this.argsDesc.add("YRot"); // client * this by 360 then divides this by 256
 		this.packetType = PacketType.entityJoin;
-		this.packetID = 6;
+		this.packetID = 7;
 	}
 
 }

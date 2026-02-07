@@ -17,7 +17,7 @@ public class PacketLevelData extends Packet {
 		this.argsDesc.add("Block Array (the world)");
 		this.argsDesc.add("Progress bar");
 		this.packetType = PacketType.worldData;
-		this.packetID = 2;
+		this.packetID = 3;
 	}
 	
 }

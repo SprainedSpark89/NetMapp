@@ -15,7 +15,9 @@ public class c0_0_15a extends ClassicVersion {
 		this.protocolNumber = (int)Float.NaN; // no protocol number
 		
 		Packet p;
-
+		
+		p = new PacketBlank(new ArrayList<Class<?>>(), new ArrayList<String>()); // Packet 1, just unknown use for now
+		this.packetList.put(p, p.packetType);
 
 		p = new PacketBlockUpdate(new ArrayList<Class<?>>(), new ArrayList<String>());
 		this.packetList.put(p, p.packetType);
