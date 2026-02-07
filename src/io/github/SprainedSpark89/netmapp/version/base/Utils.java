@@ -5,9 +5,44 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
+
 public class Utils {
 	
 	public static List<Versions> versionList = new ArrayList<Versions>();
+	
+	
+	/**
+	 * Includes PacketId in the length
+	 */
+	
+	public static int getPacketLength(Packet packet, Versions ver) {
+		if(ver instanceof ClassicVersion) {
+			int pCS = 1;
+			for(Class<?> clazz : packet.args) {
+				
+				if(clazz == Long.TYPE) {
+					pCS += Long.BYTES;
+				} else if(clazz == Short.TYPE) {
+					pCS += Short.BYTES;
+				} else if(clazz == Byte.TYPE) {
+					pCS += Byte.BYTES;
+				} else if(clazz == Double.TYPE) {
+					pCS += Double.BYTES;
+				} else if(clazz == Float.TYPE) {
+					pCS += Float.BYTES;
+				} else if(clazz == byte[].class) {
+					pCS += 1024;
+				} else if(clazz == String.class) {
+					pCS += 64;
+				} else {
+					System.out.println("Unknown Length of:" + clazz.getSimpleName());
+				}
+			}
+			return pCS;
+		}
+		return -1;
+	}
 	
 	public static Packet getPacketFromID(byte id, Versions ver) {
 		

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import io.github.SprainedSpark89.netmapp.version.base.Packet;
+import io.github.SprainedSpark89.netmapp.version.base.PacketType;
 import io.github.SprainedSpark89.netmapp.version.base.ParsedPacket;
 import io.github.SprainedSpark89.netmapp.version.base.ServerSimulator;
 import io.github.SprainedSpark89.netmapp.version.base.Utils;
@@ -95,14 +96,41 @@ public class NetMapp {
 										byte[] data = new byte[buf.remaining()];
 										buf.get(data);
 										getConnectedTCPVersion(data);
-										Packet packet = Utils.getPacketFromID(data[0], connectedVersion);
-										ParsedPacket pPacket = parsePacket(packet, data);
-										log.info("Connected Version is " + connectedVersion.version + "\n" +
-										byteArrayToString(data) + "\nHex: " + bytesToHex(data) + "\n"
-												+ packet.getClass().getSimpleName() + "\nData: "
-												+ pPacket.textDescriptor);
 										
-										packetProcessor.parsePackets(pPacket, clientChannel, connectedVersion);
+										
+										int offset = 0;
+
+										// Keep looping until we’ve consumed the whole buffer
+										while (offset < data.length) {
+										    // Parse packet at current offset
+										    Packet packet = packetParse(clientChannel, packetProcessor, data, offset);
+
+										    if (packet == null) {
+										        // Couldn’t parse a valid packet here — maybe incomplete data
+										        break;
+										    }
+
+										    // Get the length of this packet
+										    int packetLength = Utils.getPacketLength(packet, connectedVersion);
+
+										    // Make sure there’s enough data remaining
+										    if (offset + packetLength > data.length) {
+										        // Incomplete packet — wait for more data
+										        break;
+										    }
+
+										    // Process the packet
+										    //packetProcessor.process(packet, Arrays.copyOfRange(data, offset, offset + packetLength));
+
+										    // Move offset forward
+										    offset += packetLength;
+
+										    // Optional: skip login packets if you want special handling
+										    if (packet.packetType == PacketType.login) {
+										        break; // or handle differently
+										    }
+										}
+
 										
 										buf.clear();
 									} else if (read == -1) {
@@ -136,8 +164,21 @@ public class NetMapp {
 			networkingThreads.get(currentThreadID).start();
 		}
 	}
+
+	public Packet packetParse(final SocketChannel clientChannel, ServerSimulator packetProcessor, byte[] data, int offset)
+			throws IOException {
+		Packet packet = Utils.getPacketFromID(data[offset], connectedVersion);
+		ParsedPacket pPacket = parsePacket(packet, data, offset);
+		log.info("Connected Version is " + connectedVersion.version + "\n" +
+		byteArrayToString(data) + "\nHex: " + bytesToHex(data) + "\n"
+				+ packet.getClass().getSimpleName() + "\nData: "
+				+ pPacket.textDescriptor);
+		
+		packetProcessor.parsePackets(pPacket, clientChannel, connectedVersion, offset);
+		return packet;
+	}
 	
-	public ParsedPacket parsePacket(Packet packet, byte[] data) {
+	public ParsedPacket parsePacket(Packet packet, byte[] data, int offset) {
 		ParsedPacket processPacket = new ParsedPacket();
 		processPacket.packet = packet;
 		processPacket.rawData = data;
@@ -145,7 +186,7 @@ public class NetMapp {
 	    if (data == null || data.length < 1) return null;
 
 	    // packet ID mismatch
-	    if ((data[0] & 0xFF) != (packet.packetID & 0xFF)) return null;
+	    if ((data[offset] & 0xFF) != (packet.packetID & 0xFF)) return null;
 
 	    StringBuilder out = new StringBuilder();
 	    out.append("PacketID: ").append(packet.packetID).append(", Data: ");
@@ -153,7 +194,7 @@ public class NetMapp {
 	    ByteBuffer buf = ByteBuffer.wrap(data).order(ByteOrder.BIG_ENDIAN);
 
 	    try {
-	        buf.position(1); // skip packet id
+	        buf.position(1 + (offset)); // skip packet id
 
 	        for (Class<?> clazz : packet.args) {
 

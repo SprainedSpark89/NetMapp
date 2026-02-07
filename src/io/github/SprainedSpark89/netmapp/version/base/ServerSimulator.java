@@ -11,7 +11,7 @@ import java.util.zip.GZIPOutputStream;
 
 public class ServerSimulator { // basic server simulator which wont really be used at all except for testing
 	
-	public void parsePackets(ParsedPacket pPacket, SocketChannel client, Versions ver) throws IOException {
+	public void parsePackets(ParsedPacket pPacket, SocketChannel client, Versions ver, int offset) throws IOException {
 		if(pPacket.packet.packetType == PacketType.login) {
 			// resend client login to put client into proper mode
 			ByteBuffer buf = ByteBuffer.wrap(pPacket.rawData).order(ByteOrder.BIG_ENDIAN);
@@ -24,8 +24,8 @@ public class ServerSimulator { // basic server simulator which wont really be us
 			buf.order(ByteOrder.BIG_ENDIAN);
 			byte[] chunk = new byte[1024];
 			byte[] level = new byte[4096];
-			Arrays.fill(level, 0, 2048, (byte) 0);
-			Arrays.fill(level, 2048, 4096, (byte) 1);
+			Arrays.fill(level, 0, 2048, (byte) 1);
+			Arrays.fill(level, 2048, 4096, (byte) 0);
 			byte[] levelData = buildCompressedLevel(level);
 
             int length = levelData.length; // size 16x16x16, then compressed
@@ -54,6 +54,15 @@ public class ServerSimulator { // basic server simulator which wont really be us
             buf.putShort((short) 16);
             buf.flip();
             client.write(buf);
+		} else if(pPacket.packet.packetType == PacketType.blockUpdate) {
+			ByteBuffer buf = ByteBuffer.allocate(Utils.getPacketLength(pPacket.packet, ver)).order(ByteOrder.BIG_ENDIAN);
+			buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.setBlock).packetID);
+			buf.putShort((short) pPacket.values.get(0));
+			buf.putShort((short) pPacket.values.get(1));
+			buf.putShort((short) pPacket.values.get(2));
+			buf.put((byte)((byte)pPacket.values.get(3) * (byte)pPacket.values.get(4)));
+			buf.flip();
+			client.write(buf);
 		}
 	}
 	
