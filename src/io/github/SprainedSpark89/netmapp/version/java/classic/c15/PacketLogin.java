@@ -13,6 +13,7 @@ public class PacketLogin extends Packet {
 		this.args.add(String.class);
 		this.argsDesc.add("Username");
 		this.packetType = PacketType.login;
+		this.packetID = 0;
 	}
 
 }

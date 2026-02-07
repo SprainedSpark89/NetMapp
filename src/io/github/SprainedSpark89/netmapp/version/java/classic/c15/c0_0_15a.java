@@ -16,8 +16,6 @@ public class c0_0_15a extends ClassicVersion {
 		
 		Packet p;
 
-		p = new PacketBlank(new ArrayList<Class<?>>(), new ArrayList<String>());
-		this.packetList.put(p, p.packetType);
 
 		p = new PacketBlockUpdate(new ArrayList<Class<?>>(), new ArrayList<String>());
 		this.packetList.put(p, p.packetType);

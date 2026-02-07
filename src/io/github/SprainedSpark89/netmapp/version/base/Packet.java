@@ -6,6 +6,7 @@ public abstract class Packet {
 	public List<Class<?>> args = new ArrayList<Class<?>>();
 	public List<String> argsDesc = new ArrayList<String>();
 	public PacketType packetType;
+	public int packetID;
 	
 	public Packet(List<Class<?>> inputs, List<String> descriptions) {
 		args.addAll(inputs);

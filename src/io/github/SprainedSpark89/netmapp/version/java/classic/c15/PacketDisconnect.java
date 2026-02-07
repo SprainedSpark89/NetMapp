@@ -12,6 +12,7 @@ public class PacketDisconnect extends Packet {
 		this.args.add(Byte.TYPE);
 		this.argsDesc.add("PlayerID");
 		this.packetType = PacketType.entityRemove;
+		this.packetID = 8;
 	}
 
 }

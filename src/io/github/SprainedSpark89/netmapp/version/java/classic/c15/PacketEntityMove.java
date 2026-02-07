@@ -23,6 +23,7 @@ public class PacketEntityMove extends Packet {
 		this.argsDesc.add("XRot"); // client * this by 360 then divides this by 256
 		this.argsDesc.add("YRot"); // client * this by 360 then divides this by 256
 		this.packetType = PacketType.entityMoveRot;
+		this.packetID = 7;
 	}
 
 }

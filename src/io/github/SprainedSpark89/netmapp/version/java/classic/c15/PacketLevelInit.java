@@ -11,6 +11,7 @@ public class PacketLevelInit extends Packet {
 		super(inputs, descriptions);
 		// TODO Auto-generated constructor stub
 		this.packetType = PacketType.startWorldData;
+		this.packetID = 1;
 	}
 
 }

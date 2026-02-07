@@ -19,6 +19,7 @@ public class PacketSetBlock extends Packet {
 		this.argsDesc.add("Z");
 		this.argsDesc.add("Block ID");
 		this.packetType = PacketType.setBlock;
+		this.packetID = 5;
 	}
 
 }
