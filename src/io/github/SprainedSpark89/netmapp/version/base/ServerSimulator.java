@@ -74,97 +74,61 @@ public class ServerSimulator { // basic server simulator which wont really be us
 			}
 		} else if(ver instanceof AlphaVersion) {
 			if(pPacket.packet.packetType == PacketType.login) {
-				// Login Response
-				int packetSize = Byte.BYTES + 
-						Integer.BYTES +
-						Short.BYTES +
-						((String)pPacket.values.get(1)).getBytes(StandardCharsets.UTF_8).length +
-						Short.BYTES +
-						((String)pPacket.values.get(2)).getBytes(StandardCharsets.UTF_8).length;
+				// 1. Login Response
+				ByteBuffer buf = ByteBuffer.allocate(1 + 4 + 2 + 0 + 2 + 0).order(ByteOrder.BIG_ENDIAN);
+				buf.put((byte) 0); // Login packet ID (Packet0Login)
+				buf.putInt(0);     // Protocol version
+				buf.putShort((short) 0); // Username length
+				// (no username bytes)
+				buf.putShort((short) 0); // Password length
+				// (no password bytes)
+				writeFully(client, buf);
+
 				
-				
-				ByteBuffer buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
-				
-				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.login).packetID); // packet ID
-				
-				buf.putInt((int)0); // protocol
-				
-				buf.putShort((short)("").getBytes(StandardCharsets.UTF_8).length);
-				buf.put(("").getBytes(StandardCharsets.UTF_8)); // Username
-				
-				buf.putShort((short)("").getBytes(StandardCharsets.UTF_8).length);
-				buf.put(("").getBytes(StandardCharsets.UTF_8)); // Password String
-				
+
+				// Chunk
+				byte[] chunk = new byte[16 * 128 * 16];
+				//Arrays.fill(chunk, 0, ((16 * 128 * 16)/2)-1, (byte) 0); // Air
+				//Arrays.fill(chunk, ((16 * 128 * 16)/2)-1, 16 * 128 * 16, (byte) 1); // Stone
+				for (int x = 0; x < 16; x++) {
+				    for (int z = 0; z < 16; z++) {
+				        for (int y = 0; y < 128; y++) {
+				            int index = (x << 11) | (z << 7) | y; // x*2048 + z*128 + y
+				            if (y < 64) {
+				                chunk[index] = 1; // some block ID (stone)
+				            } else {
+				                chunk[index] = 0; // air
+				            }
+				        }
+				    }
+				}
+				Deflater deflater = new Deflater();
+				deflater.setInput(chunk);
+				deflater.finish();
+				byte[] compressed = new byte[chunk.length * 2];
+				int compressedLen = deflater.deflate(compressed);
+				deflater.end();
+
+				buf = ByteBuffer.allocate(1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen).order(ByteOrder.BIG_ENDIAN);
+				buf.put((byte)10);
+				buf.putInt(0);         // chunk X
+				buf.putShort((short) 0); // chunk Y
+				buf.putInt(0);         // chunk Z
+				buf.put((byte) 15);    // xSize - 1
+				buf.put((byte) 127);   // ySize - 1
+				buf.put((byte) 15);    // zSize - 1
+				buf.putInt(compressedLen);
+				buf.put(compressed, 0, compressedLen);
 				writeFully(client, buf);
 				
-				buf.clear();
-				
-				// Set Player Pos
-				packetSize = Byte.BYTES +
-						Double.BYTES +
-						Double.BYTES +
-						Double.BYTES +
-						Float.BYTES + 
-						Float.BYTES;
-				
-				buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
-				
-				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.entityMoveRot).packetID); // packet ID
-				
-				buf.putDouble(0); // X
-				
-				buf.putDouble(65); // Y (should be 1 block above the stone)
-				
-				buf.putDouble(0); // Z
-				
-				buf.putFloat(0); // Yaw
-				
-				buf.putFloat(0); // Pitch
-				
-				writeFully(client, buf);
-				
-				buf.clear();
-				// Chunks
-				byte[] chunk = new byte[32768];
-				Arrays.fill(chunk, 0, 16384, (byte) 0);
-				Arrays.fill(chunk, 16384, 32768, (byte) 1);
-				Deflater deflate = new Deflater();
-				int deflatedLength;
-				deflate.setInput(chunk);
-				deflate.finish();
-				chunk = new byte[16 * 128 * 16 * 2]; // X Size, Y Size, Z Size, *2
-				deflatedLength = deflate.deflate(chunk);
-				deflate.end();
-				packetSize = Byte.BYTES +
-						Integer.BYTES +
-						Short.BYTES +
-						Integer.BYTES +
-						Byte.BYTES +
-						Byte.BYTES +
-						Byte.BYTES +
-						Integer.BYTES +
-						chunk.length;
-				
-				buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
-				
-				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.worldData).packetID); // Packet ID
-				
-				buf.putInt(0); // Chunk X
-				
-				buf.putShort((short) 0); // Chunk Y
-				
-				buf.putInt(0); // Chunk Z
-				
-				buf.put((byte) 15); // Chunk Size X - 1
-				
-				buf.put((byte) 127); // Chunk Size Y - 1
-				
-				buf.put((byte) 15); // Chunk Size Z - 1
-				
-				buf.putInt(deflatedLength); // Deflated Length
-				
-				buf.put(chunk); // Zipped Chunk Data
-				
+				// 2. Player Position / Rotation
+				buf = ByteBuffer.allocate(1 + 8 + 8 + 8 + 4 + 4).order(ByteOrder.BIG_ENDIAN);
+				buf.put((byte) 1);  // Entity position packet ID
+				buf.putDouble(8);   // X
+				buf.putDouble(67);  // Y
+				buf.putDouble(8);   // Z
+				buf.putFloat(0);    // Yaw
+				buf.putFloat(0);    // Pitch
 				writeFully(client, buf);
 			} else if(pPacket.packet.packetType == PacketType.blockUpdate) {
 				ByteBuffer buf = ByteBuffer.allocate(Utils.getPacketLength(pPacket.packet, ver)).order(ByteOrder.BIG_ENDIAN);

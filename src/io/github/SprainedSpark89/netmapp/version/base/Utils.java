@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.a1_0_5_01;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 
 public class Utils {
@@ -63,6 +65,10 @@ public class Utils {
 	 * baseVersion is just to limit the search range, you can use Versions if you really need to
 	 */
 	public static Versions getVersionFromProtocolNumber(Versions baseVersion, int protocol) {
+		if(baseVersion instanceof AlphaVersion && protocol == 10) { // yeah, i don't feel like dealing with some things
+			return new a1_0_5_01(Versions.instance);
+		}
+		
 		List<Versions> out = new ArrayList<Versions>();
 		for(Versions ver : versionList) {
 			if(ver.networkType.equals(baseVersion.networkType) && ver.protocolNumber == protocol) {
