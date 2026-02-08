@@ -16,37 +16,35 @@ public class c0_0_15a extends ClassicVersion {
 		
 		Packet p;
 		
+		p = new PacketLogin(new ArrayList<Class<?>>(), new ArrayList<String>());
+		this.packetList.put(p, p.packetType);
+		
 		p = new PacketBlank(new ArrayList<Class<?>>(), new ArrayList<String>()); // Packet 1, just unknown use for now
-		this.packetList.put(p, p.packetType);
-
-		p = new PacketBlockUpdate(new ArrayList<Class<?>>(), new ArrayList<String>());
-		this.packetList.put(p, p.packetType);
-
-		p = new PacketDisconnect(new ArrayList<Class<?>>(), new ArrayList<String>());
-		this.packetList.put(p, p.packetType);
-
-		p = new PacketEntityMove(new ArrayList<Class<?>>(), new ArrayList<String>());
-		this.packetList.put(p, p.packetType);
-
-		p = new PacketLevelData(new ArrayList<Class<?>>(), new ArrayList<String>());
-		this.packetList.put(p, p.packetType);
-
-		p = new PacketLevelEnd(new ArrayList<Class<?>>(), new ArrayList<String>());
 		this.packetList.put(p, p.packetType);
 
 		p = new PacketLevelInit(new ArrayList<Class<?>>(), new ArrayList<String>());
 		this.packetList.put(p, p.packetType);
-
-		p = new PacketLogin(new ArrayList<Class<?>>(), new ArrayList<String>());
+		
+		p = new PacketLevelData(new ArrayList<Class<?>>(), new ArrayList<String>());
+		this.packetList.put(p, p.packetType);
+		
+		p = new PacketLevelEnd(new ArrayList<Class<?>>(), new ArrayList<String>());
+		this.packetList.put(p, p.packetType);
+		
+		p = new PacketBlockUpdate(new ArrayList<Class<?>>(), new ArrayList<String>());
+		this.packetList.put(p, p.packetType);
+		
+		p = new PacketSetBlock(new ArrayList<Class<?>>(), new ArrayList<String>());
 		this.packetList.put(p, p.packetType);
 
 		p = new PacketPlayerAdd(new ArrayList<Class<?>>(), new ArrayList<String>());
 		this.packetList.put(p, p.packetType);
 
-		p = new PacketSetBlock(new ArrayList<Class<?>>(), new ArrayList<String>());
+		p = new PacketEntityMove(new ArrayList<Class<?>>(), new ArrayList<String>());
 		this.packetList.put(p, p.packetType);
-
-
+		
+		p = new PacketDisconnect(new ArrayList<Class<?>>(), new ArrayList<String>());
+		this.packetList.put(p, p.packetType);
 	}
 
 }

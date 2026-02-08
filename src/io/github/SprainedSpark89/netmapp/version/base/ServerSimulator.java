@@ -9,12 +9,13 @@ import java.nio.channels.SocketChannel;
 import java.util.Arrays;
 import java.util.zip.GZIPOutputStream;
 
+import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 import io.github.SprainedSpark89.netmapp.version.java.classic.c15.c0_0_15a;
 
 public class ServerSimulator { // basic server simulator which wont really be used at all except for testing
 
 	public void parsePackets(ParsedPacket pPacket, SocketChannel client, Versions ver, int offset) throws IOException {
-		if(ver instanceof c0_0_15a) {
+		if(ver instanceof ClassicVersion) {
 			if(pPacket.packet.packetType == PacketType.login) {
 				// resend client login to put client into proper mode
 				ByteBuffer buf = ByteBuffer.wrap(pPacket.rawData).order(ByteOrder.BIG_ENDIAN);
@@ -66,6 +67,8 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				buf.put((byte)((byte)pPacket.values.get(3) * (byte)pPacket.values.get(4)));
 				buf.flip();
 				client.write(buf);
+			} else if(pPacket.packet.packetType == PacketType.chat) {
+				client.write(ByteBuffer.wrap(pPacket.rawData).order(ByteOrder.BIG_ENDIAN));
 			}
 		}
 	}

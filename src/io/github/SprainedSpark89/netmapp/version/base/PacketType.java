@@ -2,7 +2,7 @@ package io.github.SprainedSpark89.netmapp.version.base;
 
 public enum PacketType {
 	// c0.0.15a base stuff
-	timeOut, // might be the blank new class thing
+	timeOut, // might be the blank new class thing, it's just like unused, just confusing
 	login,
 	startWorldData,
 	worldData,

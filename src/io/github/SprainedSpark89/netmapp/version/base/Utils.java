@@ -58,6 +58,21 @@ public class Utils {
 		return versionList;
 	}
 	
+	
+	/**
+	 * baseVersion is just to limit the search range, you can use Versions if you really need to
+	 */
+	public static Versions getVersionFromProtocolNumber(Versions baseVersion, int protocol) {
+		List<Versions> out = new ArrayList<Versions>();
+		Class<?> versionClass = baseVersion.getClass();
+		for(Versions ver : versionList) {
+			if(ver.getClass().isInstance(versionClass) && ver.protocolNumber == protocol) {
+				return ver;
+			}
+		}
+		return null;
+	}
+	
 	public static List<Versions> getTCPVersions() {
 		List<Versions> out = new ArrayList<Versions>();
 		for(Versions ver : versionList) {
