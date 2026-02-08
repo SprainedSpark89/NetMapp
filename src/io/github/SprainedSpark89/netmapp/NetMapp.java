@@ -23,6 +23,7 @@ import io.github.SprainedSpark89.netmapp.version.base.ServerSimulator;
 import io.github.SprainedSpark89.netmapp.version.base.Utils;
 import io.github.SprainedSpark89.netmapp.version.base.VersionRegisterHook;
 import io.github.SprainedSpark89.netmapp.version.base.Versions;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 import io.github.SprainedSpark89.netmapp.version.java.classic.c15.c0_0_15a;
 
@@ -100,6 +101,9 @@ public class NetMapp {
 										buf.get(data);
 										getConnectedTCPVersion(data);
 										
+										if(connectedVersion == null && data.length == 1) {
+											connectedVersion = new AlphaVersion(Versions.instance);
+										}
 										
 										int offset = 0;
 
@@ -290,6 +294,8 @@ public class NetMapp {
 						pCS += 1024;
 					} else if(clazz == String.class) {
 						pCS += 64;
+					} else if(clazz == Integer.TYPE) {
+						pCS += Integer.BYTES;
 					} else {
 						System.out.println("Unknown Length of:" + clazz.getSimpleName());
 					}
@@ -303,6 +309,9 @@ public class NetMapp {
 						if(connectedVersion instanceof ClassicVersion) {
 							int protocol = (int)(byte)pPacket.values.get(0);
 							connectedVersion = Utils.getVersionFromProtocolNumber(new ClassicVersion(Versions.instance), protocol);
+						} else if(connectedVersion instanceof AlphaVersion) {
+							int protocol = (int)pPacket.values.get(0);
+							connectedVersion = Utils.getVersionFromProtocolNumber(new AlphaVersion(Versions.instance), protocol);
 						}
 					}
 				}

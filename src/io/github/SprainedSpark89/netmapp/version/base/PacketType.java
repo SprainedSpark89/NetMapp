@@ -18,5 +18,8 @@ public enum PacketType {
 	entityMoveRot,
 	entityRot,
 	chat,
-	kick
+	kick,
+	
+	// c0.30
+	userPerms
 }

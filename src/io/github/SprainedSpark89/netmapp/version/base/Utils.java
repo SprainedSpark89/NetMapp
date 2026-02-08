@@ -64,9 +64,8 @@ public class Utils {
 	 */
 	public static Versions getVersionFromProtocolNumber(Versions baseVersion, int protocol) {
 		List<Versions> out = new ArrayList<Versions>();
-		Class<?> versionClass = baseVersion.getClass();
 		for(Versions ver : versionList) {
-			if(ver.getClass().isInstance(versionClass) && ver.protocolNumber == protocol) {
+			if(ver.networkType.equals(baseVersion.networkType) && ver.protocolNumber == protocol) {
 				return ver;
 			}
 		}
