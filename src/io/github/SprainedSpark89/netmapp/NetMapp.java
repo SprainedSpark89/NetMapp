@@ -301,7 +301,7 @@ public class NetMapp {
 					if(!(connectedVersion instanceof c0_0_15a)) {
 						ParsedPacket pPacket = parsePacket(packet, packetData, 0);
 						if(connectedVersion instanceof ClassicVersion) {
-							int protocol = (int)pPacket.values.get(0);
+							int protocol = (int)(byte)pPacket.values.get(0);
 							connectedVersion = Utils.getVersionFromProtocolNumber(new ClassicVersion(Versions.instance), protocol);
 						}
 					}
