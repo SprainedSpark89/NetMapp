@@ -54,12 +54,360 @@ public class NetMapp {
 	public NetMapp() throws IOException {
 		(new VersionRegisterHook()).registerVersions();
 		log = Logger.getLogger("NetMapp");
-		makeNetworkThread("C0.0.15a Thread", 5565, "TCP");
+		//makeClassicNetworkThread("C0.0.15a Thread", 5565, "TCP");
+		//makeClassicNetworkThread("Minecraft Java Edition Classic Thread", 25565, "TCP");
 		makeNetworkThread("Minecraft Java Edition Thread", 25565, "TCP");
 
 	}
-
+	
 	public void makeNetworkThread(String name, int port, String connectionType) throws IOException {
+		if(connectionType.contentEquals("TCP")) {
+			System.out.println("Opening TCP Networking Socket...");
+			sSC = ServerSocketChannel.open();
+			sSC.socket().bind(new InetSocketAddress(port));
+			System.out.println("Done!");
+
+			System.out.println("Making Thread");
+			int currentThreadID = networkingThreads.size(); 
+			networkingThreads.add(new Thread(() -> {
+				System.out.println("Started Thread!");
+				this.isRunning = true;
+				try {
+					while (this.isRunning) {
+						System.out.println("Waiting for Connection...");
+						final SocketChannel accept = sSC.accept();
+						if (accept == null) {
+							// non-blocking accept; yield briefly
+							try {
+								Thread.sleep(50);
+							} catch (InterruptedException e) {
+								Thread.currentThread().interrupt();
+							}
+						}
+						System.out.println("Got Connection! " + accept.getRemoteAddress());
+
+						// Handle the connection in its own thread
+						final SocketChannel clientChannel = accept;
+						new Thread(() -> {
+							ServerSimulator packetProcessor = new ServerSimulator();
+							try {
+								ByteBuffer stream = ByteBuffer.allocate(65536);
+								stream.order(ByteOrder.BIG_ENDIAN);
+								SocketChannel ch = clientChannel;
+								System.out.println("Handling client " + ch.getRemoteAddress());
+								ByteBuffer buf = ByteBuffer.allocate(8192);
+								while (ch.isOpen()) {
+									int read = ch.read(buf);
+									if (read > 0) {
+										buf.flip();
+										stream.put(buf);
+										buf.clear();
+										stream.flip();
+
+										// Keep looping until we’ve consumed the whole buffer
+										
+										
+										while (stream.remaining() > 0) {
+											if (connectedVersion == null) {
+											    Versions v = detectAlphaLogin(stream);
+											    if (v != null) {
+											        connectedVersion = v;
+											        //continue; // re-enter loop to parse packet
+											    } else {
+											    	break; // not enough data yet
+											    }
+											}
+												
+											stream.flip();
+											
+										    Packet p = Utils.getPacketFromID(stream.get(stream.position()), connectedVersion);
+										    if (p == null) break;
+
+										    ParsedPacket parsed = tryParseAlphaPacket(p, stream);
+										    if (parsed == null) break;
+
+										    log.info(parsed.textDescriptor);
+										    packetProcessor.parsePackets(parsed, clientChannel, connectedVersion, 0);
+											
+										}
+
+										
+
+										stream.compact();
+
+										
+										buf.clear();
+									} else if (read == -1) {
+										System.out.println("Client closed connection: " + ch.getRemoteAddress());
+										try {
+											ch.close();
+										} catch (IOException e) {
+											/* ignore */ }
+										break;
+									} else {
+										// no data available; avoid busy spin
+										try {
+											Thread.sleep(50);
+										} catch (InterruptedException e) {
+											Thread.currentThread().interrupt();
+											break;
+										}
+									}
+								}
+							} catch (IOException e) {
+								System.err.println("Connection handler IO error: " + e);
+								e.printStackTrace();
+								
+							}
+						}, "NetMapp-Client-" + name).start();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}, name));
+			System.out.println("Done!\nStarting Thread...");
+			networkingThreads.get(currentThreadID).start();
+		}
+	}
+	
+	public Versions detectAlphaLogin(ByteBuffer buf) {
+	    buf.mark();
+
+	    for (Packet packet : Utils.getLoginPackets(Utils.getTCPVersions())) {
+
+	        Versions base = Utils.getVersionFromPacket(packet);
+	        if (!(base instanceof AlphaVersion)) continue;
+
+	        buf.reset();
+	        buf.mark();
+
+	        try {
+	            if (buf.remaining() < 1) continue;
+
+	            byte id = buf.get();
+	            if ((id & 0xFF) != (packet.packetID & 0xFF)) continue;
+
+	            Integer protocol = null;
+
+	            for (Class<?> arg : packet.args) {
+
+	                if (arg == Short.TYPE) {
+	                    if (buf.remaining() < 2) throw new BufferUnderflowException();
+	                    short v = buf.getShort();
+	                    if (protocol == null) protocol = (int) v;
+
+	                } else if (arg == Integer.TYPE) {
+	                    if (buf.remaining() < 4) throw new BufferUnderflowException();
+	                    int v = buf.getInt();
+	                    if (protocol == null) protocol = v;
+
+	                } else if (arg == String.class) {
+	                    if (buf.remaining() < 2) throw new BufferUnderflowException();
+	                    short len = buf.getShort();
+	                    if (buf.remaining() < len) throw new BufferUnderflowException();
+	                    buf.position(buf.position() + len);
+
+	                } else {
+	                    throw new IllegalStateException("Unexpected alpha login arg: " + arg);
+	                }
+	            }
+
+	            if (protocol != null) {
+	                return Utils.getVersionFromProtocolNumber(
+	                        new AlphaVersion(Versions.instance),
+	                        protocol
+	                );
+	            }
+
+	        } catch (BufferUnderflowException e) {
+	            buf.reset();
+	        }
+	    }
+
+	    return null;
+	}
+
+	
+	public Packet packetAlphaParse(final SocketChannel clientChannel, ServerSimulator packetProcessor, ByteBuffer buf)
+			throws IOException {
+		Packet packet = Utils.getPacketFromID(
+			    buf.get(buf.position()),
+			    connectedVersion
+			);
+
+		ParsedPacket pPacket = tryParseAlphaPacket(packet, buf);
+		log.info("Connected Version is " + connectedVersion.version + "\n" +
+		byteArrayToString(buf.array()) + "\nHex: " + bytesToHex(buf.array()) + "\n"
+				+ packet.getClass().getSimpleName() + "\nData: "
+				+ pPacket.textDescriptor);
+		
+		packetProcessor.parsePackets(pPacket, clientChannel, connectedVersion, 0);
+		return packet;
+	}
+
+	public ParsedPacket tryParseAlphaPacket(Packet packet, ByteBuffer buf) {
+	    buf.mark();
+
+	    ParsedPacket out = new ParsedPacket();
+	    out.packet = packet;
+
+	    try {
+	        // Need at least packet id
+	        if (buf.remaining() < 1) {
+	            buf.reset();
+	            return null;
+	        }
+
+	        byte id = buf.get();
+	        if ((id & 0xFF) != (packet.packetID & 0xFF)) {
+	            buf.reset();
+	            return null;
+	        }
+
+	        StringBuilder desc = new StringBuilder();
+	        desc.append("PacketID: ").append(packet.packetID).append(", Data: ");
+
+	        for (Class<?> arg : packet.args) {
+
+	            if (arg == Byte.TYPE) {
+	                if (buf.remaining() < 1) throw new BufferUnderflowException();
+	                byte v = buf.get();
+	                out.values.add(v);
+	                desc.append("Byte: ").append(v).append(", ");
+
+	            } else if (arg == Short.TYPE) {
+	                if (buf.remaining() < 2) throw new BufferUnderflowException();
+	                short v = buf.getShort();
+	                out.values.add(v);
+	                desc.append("Short: ").append(v).append(", ");
+
+	            } else if (arg == Integer.TYPE) {
+	                if (buf.remaining() < 4) throw new BufferUnderflowException();
+	                int v = buf.getInt();
+	                out.values.add(v);
+	                desc.append("Integer: ").append(v).append(", ");
+
+	            } else if (arg == Long.TYPE) {
+	                if (buf.remaining() < 8) throw new BufferUnderflowException();
+	                long v = buf.getLong();
+	                out.values.add(v);
+	                desc.append("Long: ").append(v).append(", ");
+
+	            } else if (arg == String.class) {
+	                // Alpha strings are: short length + bytes
+	                if (buf.remaining() < 2) throw new BufferUnderflowException();
+	                short len = buf.getShort();
+	                if (buf.remaining() < len) throw new BufferUnderflowException();
+
+	                byte[] strBytes = new byte[len];
+	                buf.get(strBytes);
+
+	                String s = new String(strBytes, StandardCharsets.UTF_8);
+	                out.values.add(s);
+	                desc.append("String: \"").append(s).append("\", ");
+
+	            } else if (arg == byte[].class) {
+	                // Alpha arrays are usually short-length prefixed
+	                if (buf.remaining() < 2) throw new BufferUnderflowException();
+	                short len = buf.getShort();
+	                if (buf.remaining() < len) throw new BufferUnderflowException();
+
+	                byte[] arr = new byte[len];
+	                buf.get(arr);
+
+	                out.values.add(arr);
+	                desc.append("ByteArray[").append(len).append("], ");
+
+	            } else {
+	                throw new IllegalStateException("Unsupported arg type: " + arg);
+	            }
+	        }
+
+	        // trim trailing comma
+	        if (desc.length() >= 2) {
+	            desc.setLength(desc.length() - 2);
+	        }
+
+	        out.textDescriptor = desc.toString();
+	        int endPos = buf.position();
+	        buf.reset();
+
+	        byte[] raw = new byte[endPos - buf.position()];
+	        buf.get(raw);
+
+	        out.rawData = raw;
+
+	        return out;
+
+	    } catch (BufferUnderflowException e) {
+	        // Not enough data yet — rewind
+	        buf.reset();
+	        return null;
+	    }
+	}
+
+	
+	/*public boolean tryParseAlpha(
+	        ByteBuffer stream,
+	        SocketChannel ch,
+	        ServerSimulator processor
+	) throws IOException {
+
+	    stream.mark();
+
+	    if (stream.remaining() < 1) {
+	        stream.reset();
+	        return false;
+	    }
+
+	    byte packetId = stream.get();
+
+	    if (packetId != 0x00) {
+	        log.warning("Unknown Alpha packet id: " + packetId);
+	        return true; // skip
+	    }
+
+	    // username length
+	    if (stream.remaining() < 2) {
+	        stream.reset();
+	        return false;
+	    }
+
+	    short userLen = stream.getShort();
+
+	    if (stream.remaining() < userLen) {
+	        stream.reset();
+	        return false;
+	    }
+
+	    byte[] userBytes = new byte[userLen];
+	    stream.get(userBytes);
+	    String username = new String(userBytes, StandardCharsets.UTF_8);
+
+	    // password length
+	    if (stream.remaining() < 2) {
+	        stream.reset();
+	        return false;
+	    }
+
+	    short passLen = stream.getShort();
+
+	    if (stream.remaining() < passLen) {
+	        stream.reset();
+	        return false;
+	    }
+
+	    byte[] passBytes = new byte[passLen];
+	    stream.get(passBytes);
+	    String password = new String(passBytes, StandardCharsets.UTF_8);
+
+	    log.info("Alpha Login: " + username + " / " + password);
+
+	    return true; // consumed one full packet
+	}*/
+
+
+	public void makeClassicNetworkThread(String name, int port, String connectionType) throws IOException {
 		if(connectionType.contentEquals("TCP")) {
 			System.out.println("Opening TCP Networking Socket...");
 			sSC = ServerSocketChannel.open();
@@ -99,7 +447,7 @@ public class NetMapp {
 										buf.flip();
 										byte[] data = new byte[buf.remaining()];
 										buf.get(data);
-										getConnectedTCPVersion(data);
+										getConnectedClassicTCPVersion(data);
 										
 										if(connectedVersion == null && data.length == 1) {
 											connectedVersion = new AlphaVersion(Versions.instance);
@@ -108,9 +456,10 @@ public class NetMapp {
 										int offset = 0;
 
 										// Keep looping until we’ve consumed the whole buffer
+										if(!(connectedVersion instanceof AlphaVersion)) {
 										while (offset < data.length) {
 										    // Parse packet at current offset
-										    Packet packet = packetParse(clientChannel, packetProcessor, data, offset);
+										    Packet packet = packetClassicParse(clientChannel, packetProcessor, data, offset);
 
 										    if (packet == null) {
 										        // Couldn’t parse a valid packet here — maybe incomplete data
@@ -137,6 +486,12 @@ public class NetMapp {
 										        break; // or handle differently
 										    }
 										}
+										} else {
+											log.info("Connected Version is an unknown alpha version\n" +
+													byteArrayToString(data) + "\nHex: " + bytesToHex(data) + "\n"
+															+ "Unknown Packet" + "\nData: "
+															+ "No Descriptor");
+										}
 
 										
 										buf.clear();
@@ -161,7 +516,7 @@ public class NetMapp {
 								System.err.println("Connection handler IO error: " + e);
 								e.printStackTrace();
 							}
-						}, "NetMapp-Client-" + name).start();
+						}, "NetMapp-Classic-Client-" + name).start();
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -172,10 +527,10 @@ public class NetMapp {
 		}
 	}
 
-	public Packet packetParse(final SocketChannel clientChannel, ServerSimulator packetProcessor, byte[] data, int offset)
+	public Packet packetClassicParse(final SocketChannel clientChannel, ServerSimulator packetProcessor, byte[] data, int offset)
 			throws IOException {
 		Packet packet = Utils.getPacketFromID(data[offset], connectedVersion);
-		ParsedPacket pPacket = parsePacket(packet, data, offset);
+		ParsedPacket pPacket = parseClassicPacket(packet, data, offset);
 		log.info("Connected Version is " + connectedVersion.version + "\n" +
 		byteArrayToString(data) + "\nHex: " + bytesToHex(data) + "\n"
 				+ packet.getClass().getSimpleName() + "\nData: "
@@ -185,7 +540,7 @@ public class NetMapp {
 		return packet;
 	}
 	
-	public ParsedPacket parsePacket(Packet packet, byte[] data, int offset) {
+	public ParsedPacket parseClassicPacket(Packet packet, byte[] data, int offset) {
 		ParsedPacket processPacket = new ParsedPacket();
 		processPacket.packet = packet;
 		processPacket.rawData = data;
@@ -272,7 +627,7 @@ public class NetMapp {
 	}
 
 
-	public void getConnectedTCPVersion(byte[] packetData) {
+	public void getConnectedClassicTCPVersion(byte[] packetData) {
 		List<Packet> loginPackets = Utils.getLoginPackets(Utils.getTCPVersions());
 		for(Packet packet : loginPackets) {
 			if(packetData[0] == packet.packetID) { // byte checksum checking to try to find a match
@@ -305,7 +660,7 @@ public class NetMapp {
 					System.out.println("Found Login Packet that likely matches");
 					connectedVersion = Utils.getVersionFromPacket(packet);
 					if(!(connectedVersion instanceof c0_0_15a)) {
-						ParsedPacket pPacket = parsePacket(packet, packetData, 0);
+						ParsedPacket pPacket = parseClassicPacket(packet, packetData, 0);
 						if(connectedVersion instanceof ClassicVersion) {
 							int protocol = (int)(byte)pPacket.values.get(0);
 							connectedVersion = Utils.getVersionFromProtocolNumber(new ClassicVersion(Versions.instance), protocol);
