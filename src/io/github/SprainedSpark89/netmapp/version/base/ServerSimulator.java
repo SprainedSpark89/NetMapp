@@ -13,7 +13,6 @@ import java.util.zip.GZIPOutputStream;
 
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
-import io.github.SprainedSpark89.netmapp.version.java.classic.c15.c0_0_15a;
 
 public class ServerSimulator { // basic server simulator which wont really be used at all except for testing
 
@@ -127,8 +126,8 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				buf.clear();
 				// Chunks
 				byte[] chunk = new byte[32768];
-				Arrays.fill(chunk, 0, 16384, (byte) 1);
-				Arrays.fill(chunk, 16384, 32768, (byte) 0);
+				Arrays.fill(chunk, 0, 16384, (byte) 0);
+				Arrays.fill(chunk, 16384, 32768, (byte) 1);
 				Deflater deflate = new Deflater();
 				int deflatedLength;
 				deflate.setInput(chunk);
