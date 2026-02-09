@@ -21,5 +21,9 @@ public enum PacketType {
 	kick,
 	
 	// c0.30
-	userPerms
+	userPerms,
+	
+	//a1.0.5_01
+	multiBlockUpdate,
+	dig
 }

@@ -76,7 +76,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 			if(pPacket.packet.packetType == PacketType.login) {
 				// 1. Login Response
 				ByteBuffer buf = ByteBuffer.allocate(1 + 4 + 2 + 0 + 2 + 0).order(ByteOrder.BIG_ENDIAN);
-				buf.put((byte) 0); // Login packet ID (Packet0Login)
+				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.login).packetID); // Login packet ID (Packet0Login)
 				buf.putInt(0);     // Protocol version
 				buf.putShort((short) 0); // Username length
 				// (no username bytes)
@@ -84,9 +84,18 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				// (no password bytes)
 				writeFully(client, buf);
 
-				
+				// 2. Player Position / Rotation
+				buf = ByteBuffer.allocate(1 + 8 + 8 + 8 + 4 + 4).order(ByteOrder.BIG_ENDIAN);
+				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.entityMoveRot).packetID);  // Entity position packet ID
+				buf.putDouble(8);   // X
+				buf.putDouble(67);  // Y
+				buf.putDouble(8);   // Z
+				buf.putFloat(0);    // Yaw
+				buf.putFloat(0);    // Pitch
+				writeFully(client, buf);
 
 				// Chunk
+				
 				byte[] chunk = new byte[16 * 128 * 16];
 				//Arrays.fill(chunk, 0, ((16 * 128 * 16)/2)-1, (byte) 0); // Air
 				//Arrays.fill(chunk, ((16 * 128 * 16)/2)-1, 16 * 128 * 16, (byte) 1); // Stone
@@ -110,7 +119,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				deflater.end();
 
 				buf = ByteBuffer.allocate(1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen).order(ByteOrder.BIG_ENDIAN);
-				buf.put((byte)10);
+				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.worldData).packetID);
 				buf.putInt(0);         // chunk X
 				buf.putShort((short) 0); // chunk Y
 				buf.putInt(0);         // chunk Z
@@ -121,15 +130,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				buf.put(compressed, 0, compressedLen);
 				writeFully(client, buf);
 				
-				// 2. Player Position / Rotation
-				buf = ByteBuffer.allocate(1 + 8 + 8 + 8 + 4 + 4).order(ByteOrder.BIG_ENDIAN);
-				buf.put((byte) 1);  // Entity position packet ID
-				buf.putDouble(8);   // X
-				buf.putDouble(67);  // Y
-				buf.putDouble(8);   // Z
-				buf.putFloat(0);    // Yaw
-				buf.putFloat(0);    // Pitch
-				writeFully(client, buf);
+				
 			} else if(pPacket.packet.packetType == PacketType.blockUpdate) {
 				ByteBuffer buf = ByteBuffer.allocate(Utils.getPacketLength(pPacket.packet, ver)).order(ByteOrder.BIG_ENDIAN);
 				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.setBlock).packetID);
