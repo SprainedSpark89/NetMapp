@@ -12,6 +12,7 @@ import java.util.zip.Deflater;
 import java.util.zip.GZIPOutputStream;
 
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.a1_0_5;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 
 public class ServerSimulator { // basic server simulator which wont really be used at all except for testing
@@ -75,7 +76,9 @@ public class ServerSimulator { // basic server simulator which wont really be us
 		} else if(ver instanceof AlphaVersion) {
 			if(pPacket.packet.packetType == PacketType.login) {
 				// 1. Login Response
-				ByteBuffer buf = ByteBuffer.allocate(1 + 4 + 2 + 0 + 2 + 0).order(ByteOrder.BIG_ENDIAN);
+				int packetSize = 1 + 4 + 2 + 0 + 2 + 0;
+				
+				ByteBuffer buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
 				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.login).packetID); // Login packet ID (Packet0Login)
 				buf.putInt(0);     // Protocol version
 				buf.putShort((short) 0); // Username length
@@ -83,18 +86,8 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				buf.putShort((short) 0); // Password length
 				// (no password bytes)
 				writeFully(client, buf);
-
-				// 2. Player Position / Rotation
-				buf = ByteBuffer.allocate(1 + 8 + 8 + 8 + 4 + 4).order(ByteOrder.BIG_ENDIAN);
-				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.entityMoveRot).packetID);  // Entity position packet ID
-				buf.putDouble(8);   // X
-				buf.putDouble(67);  // Y
-				buf.putDouble(8);   // Z
-				buf.putFloat(0);    // Yaw
-				buf.putFloat(0);    // Pitch
-				writeFully(client, buf);
-
-				// Chunk
+				
+				// Chunk, -176 to 176, both axis
 				
 				byte[] chunk = new byte[16 * 128 * 16];
 				//Arrays.fill(chunk, 0, ((16 * 128 * 16)/2)-1, (byte) 0); // Air
@@ -117,20 +110,32 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				byte[] compressed = new byte[chunk.length * 2];
 				int compressedLen = deflater.deflate(compressed);
 				deflater.end();
-
-				buf = ByteBuffer.allocate(1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen).order(ByteOrder.BIG_ENDIAN);
-				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.worldData).packetID);
-				buf.putInt(0);         // chunk X
-				buf.putShort((short) 0); // chunk Y
-				buf.putInt(0);         // chunk Z
-				buf.put((byte) 15);    // xSize - 1
-				buf.put((byte) 127);   // ySize - 1
-				buf.put((byte) 15);    // zSize - 1
-				buf.putInt(compressedLen);
-				buf.put(compressed, 0, compressedLen);
+				
+				packetSize = 1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen;
+				for (int x = -176; x <= 176; x += 16) {
+					for (int z = -176; z <= 176; z += 16) {
+						writeAlphaChunk(client, ver, packetSize, compressed, compressedLen, x, (short) 0, z);
+					}
+				}
+				
+				
+				// 2. Player Position / Rotation
+				packetSize = 1 + 8 + 8 + 8 + 4 + 4;
+				if(!(ver instanceof a1_0_5)) {
+					packetSize++;
+				}
+				
+				buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
+				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.entityMoveRot).packetID);  // Entity position packet ID
+				buf.putDouble(8);   // X
+				buf.putDouble(67);  // Y
+				buf.putDouble(8);   // Z
+				buf.putFloat(0);    // Yaw
+				buf.putFloat(0);    // Pitch
+				if(!(ver instanceof a1_0_5)) {
+					buf.put((byte) 0);
+				}
 				writeFully(client, buf);
-				
-				
 			} else if(pPacket.packet.packetType == PacketType.blockUpdate) {
 				ByteBuffer buf = ByteBuffer.allocate(Utils.getPacketLength(pPacket.packet, ver)).order(ByteOrder.BIG_ENDIAN);
 				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.setBlock).packetID);
@@ -144,6 +149,22 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				client.write(ByteBuffer.wrap(pPacket.rawData).order(ByteOrder.BIG_ENDIAN));
 			}
 		}
+	}
+
+	public void writeAlphaChunk(SocketChannel client, Versions ver, int packetSize, byte[] compressed,
+			int compressedLen, int x, short y, int z) throws IOException {
+		ByteBuffer buf;
+		buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
+		buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.worldData).packetID);
+		buf.putInt(x);         // chunk X
+		buf.putShort((short) y); // chunk Y
+		buf.putInt(z);         // chunk Z
+		buf.put((byte) 15);    // xSize - 1
+		buf.put((byte) 127);   // ySize - 1
+		buf.put((byte) 15);    // zSize - 1
+		buf.putInt(compressedLen);
+		buf.put(compressed, 0, compressedLen);
+		writeFully(client, buf);
 	}
 	
 	private static void writeFully(SocketChannel ch, ByteBuffer buf) throws IOException {

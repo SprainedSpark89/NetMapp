@@ -106,21 +106,22 @@ public class NetMapp {
 
 										// Keep looping until we’ve consumed the whole buffer
 										
-										
+
 										while (stream.remaining() > 0) {
-											if (connectedVersion == null) {
-											    Versions v = detectAlphaLogin(stream);
-											    if (v != null) {
-											        connectedVersion = v;
-											        //continue; // re-enter loop to parse packet
-											    } else {
-											    	break; // not enough data yet
-											    }
-											}
-												
-											stream.flip();
-											
-										    Packet p = Utils.getPacketFromID(stream.get(stream.position()), connectedVersion);
+										    if (connectedVersion == null) {
+										        Versions v = detectAlphaLogin(stream);
+										        if (v != null) {
+										            connectedVersion = v;
+										        } else {
+										            break;
+										        }
+										    } else {
+										    	stream.flip();
+										    }
+
+										    byte id = stream.get(stream.position());
+										    Packet p = Utils.getPacketFromID(id, connectedVersion);
+
 										    if (p == null) break;
 
 										    ParsedPacket parsed = tryParseAlphaPacket(p, stream);
