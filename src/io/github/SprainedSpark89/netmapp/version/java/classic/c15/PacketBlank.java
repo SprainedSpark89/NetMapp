@@ -10,7 +10,7 @@ public class PacketBlank extends Packet {
 	public PacketBlank(List<Class<?>> inputs, List<String> descriptions) {
 		super(inputs, descriptions);
 		// TODO Auto-generated constructor stub
-		this.packetType = PacketType.timeOut;
+		this.packetType = PacketType.blank;
 		this.packetID = 1;
 	}
 

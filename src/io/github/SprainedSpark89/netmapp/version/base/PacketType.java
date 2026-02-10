@@ -2,7 +2,7 @@ package io.github.SprainedSpark89.netmapp.version.base;
 
 public enum PacketType {
 	// c0.0.15a base stuff
-	timeOut, // might be the blank new class thing, it's just like unused, just confusing
+	blank, // might be the blank new class thing, it's just like unused, just confusing
 	login,
 	startWorldData,
 	worldData,
@@ -25,5 +25,15 @@ public enum PacketType {
 	
 	//a1.0.5_01
 	multiBlockUpdate,
-	dig
+	dig,
+	
+	// a1.0.6
+	namedEntitySpawn,
+	chunkLoad,
+	blockPlace,
+	handSwap,
+	entity,
+	entityRelMoveRot,
+	entityRelMove,
+	keepAlive
 }
