@@ -7,15 +7,21 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.zip.Deflater;
 import java.util.zip.GZIPOutputStream;
 
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.a1_0_5;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.a1_0_5_01;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 
 public class ServerSimulator { // basic server simulator which wont really be used at all except for testing
+	
+	public Thread keepAliveThread;
+	
+	public static long lastPacketTimeInNano;
 
 	public void parsePackets(ParsedPacket pPacket, SocketChannel client, Versions ver, int offset) throws IOException {
 		if(ver instanceof ClassicVersion) {
@@ -136,23 +142,116 @@ public class ServerSimulator { // basic server simulator which wont really be us
 					buf.put((byte) 0);
 				}
 				writeFully(client, buf);
-			} else if(pPacket.packet.packetType == PacketType.blockUpdate) {
-				ByteBuffer buf = ByteBuffer.allocate(Utils.getPacketLength(pPacket.packet, ver)).order(ByteOrder.BIG_ENDIAN);
-				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.setBlock).packetID);
-				buf.putShort((short) pPacket.values.get(0));
-				buf.putShort((short) pPacket.values.get(1));
-				buf.putShort((short) pPacket.values.get(2));
-				buf.put((byte)((byte)pPacket.values.get(3) * (byte)pPacket.values.get(4)));
-				buf.flip();
-				client.write(buf);
-			} else if(pPacket.packet.packetType == PacketType.chat) {
-				client.write(ByteBuffer.wrap(pPacket.rawData).order(ByteOrder.BIG_ENDIAN));
+				
+				if(!(ver instanceof a1_0_5 || ver instanceof a1_0_5_01)) {
+					this.createKeepAliveThread(client, ver, 30);
+				}
+			} else if(pPacket.packet.packetType == PacketType.entityMoveRot) {
+				
+				if(!(ver instanceof a1_0_5 || ver instanceof a1_0_5_01)) {
+					int playerX = (int)(double)pPacket.values.get(0);
+					int playerZ = (int)(double)pPacket.values.get(2);
+					
+					int loadChunkPacketSize = Byte.BYTES+
+							Integer.BYTES+
+							Integer.BYTES+
+							Byte.BYTES;
+					byte[] chunk = new byte[16 * 128 * 16];
+					//Arrays.fill(chunk, 0, ((16 * 128 * 16)/2)-1, (byte) 0); // Air
+					//Arrays.fill(chunk, ((16 * 128 * 16)/2)-1, 16 * 128 * 16, (byte) 1); // Stone
+					for (int x = 0; x < 16; x++) {
+					    for (int z = 0; z < 16; z++) {
+					        for (int y = 0; y < 128; y++) {
+					            int index = (x << 11) | (z << 7) | y; // x*2048 + z*128 + y
+					            if (y < 64) {
+					                chunk[index] = 1; // some block ID (stone)
+					            } else {
+					                chunk[index] = 0; // air
+					            }
+					        }
+					    }
+					}
+					
+					Deflater deflater = new Deflater();
+					deflater.setInput(chunk);
+					deflater.finish();
+					byte[] compressed = new byte[chunk.length * 2];
+					int compressedLen = deflater.deflate(compressed);
+					deflater.end();
+					
+					int packetSize = 1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen;
+					for (int x = -16; x <= 16; x += 16) {
+						for (int z = -16; z <= 16; z += 16) {
+							writeAlphaChunk(client, ver, packetSize, compressed, compressedLen, x, (short) 0, z);
+						}
+					}
+					/*for (int x = -1; x <= 1; x += 1) {
+						for (int z = -1; z <= 1; z += 1) {
+							
+							
+							ByteBuffer buf = ByteBuffer.allocate(loadChunkPacketSize).order(ByteOrder.BIG_ENDIAN);
+							buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.chunkLoad).packetID);
+							buf.putInt((x + (playerX >> 4)));         // chunk X
+							buf.putInt((z + (playerZ >> 4)));         // chunk Z
+							buf.put((byte) 1);    // load
+							writeFully(client, buf);
+						}
+					}*/
+					
+				}
 			}
 		}
+	}
+	
+	public void createKeepAliveThread(SocketChannel client, Versions ver, long timingInSecconds){
+		this.keepAliveThread = new Thread(()->{
+			ByteBuffer buf = ByteBuffer.allocate(Byte.BYTES).order(ByteOrder.BIG_ENDIAN);
+			buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.keepAlive).packetID);
+			while(true) {
+				if(!client.isConnected()) {
+					break;
+				}
+
+				
+				
+				if(Duration.ofNanos(System.nanoTime() - lastPacketTimeInNano).getSeconds() >= timingInSecconds) {
+					
+					ByteBuffer bufCopy = buf.asReadOnlyBuffer();
+					try {
+						writeFully(client, bufCopy);
+						System.out.println("Sending Keep Alive...");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+					}
+					
+				/*try {
+					Thread.sleep(Duration.ofSeconds(timingInSecconds).toMillis());
+					
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+				}*/
+				}
+			}
+		});
+		this.keepAliveThread.start();
 	}
 
 	public void writeAlphaChunk(SocketChannel client, Versions ver, int packetSize, byte[] compressed,
 			int compressedLen, int x, short y, int z) throws IOException {
+		if(!(ver instanceof a1_0_5 || ver instanceof a1_0_5_01)) {
+			int loadChunkPacketSize = Byte.BYTES+
+					Integer.BYTES+
+					Integer.BYTES+
+					Byte.BYTES;
+			
+			ByteBuffer buf = ByteBuffer.allocate(loadChunkPacketSize).order(ByteOrder.BIG_ENDIAN);
+			buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.chunkLoad).packetID);
+			buf.putInt(x);         // chunk X
+			buf.putInt(z);         // chunk Z
+			buf.put((byte) 1);    // load
+			writeFully(client, buf);
+		}
+		
 		ByteBuffer buf;
 		buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
 		buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.worldData).packetID);
@@ -165,13 +264,16 @@ public class ServerSimulator { // basic server simulator which wont really be us
 		buf.putInt(compressedLen);
 		buf.put(compressed, 0, compressedLen);
 		writeFully(client, buf);
+		
+		
 	}
 	
-	private static void writeFully(SocketChannel ch, ByteBuffer buf) throws IOException {
+	public static void writeFully(SocketChannel ch, ByteBuffer buf) throws IOException {
 	    buf.flip();
 	    while (buf.hasRemaining()) {
 	        ch.write(buf);
 	    }
+	    lastPacketTimeInNano = System.nanoTime();
 	}
 
 
