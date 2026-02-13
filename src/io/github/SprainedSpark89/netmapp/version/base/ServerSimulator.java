@@ -118,8 +118,8 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				deflater.end();
 				
 				packetSize = 1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen;
-				for (int x = -176; x <= 176; x += 16) {
-					for (int z = -176; z <= 176; z += 16) {
+				for (int x = -64; x <= 64; x += 16) {
+					for (int z = -64; z <= 64; z += 16) {
 						writeAlphaChunk(client, ver, packetSize, compressed, compressedLen, x, (short) 0, z);
 					}
 				}
@@ -133,9 +133,9 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				
 				buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
 				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.entityMoveRot).packetID);  // Entity position packet ID
-				buf.putDouble(8);   // X
+				buf.putDouble(0);   // X
 				buf.putDouble(67);  // Y
-				buf.putDouble(8);   // Z
+				buf.putDouble(0);   // Z
 				buf.putFloat(0);    // Yaw
 				buf.putFloat(0);    // Pitch
 				if(!(ver instanceof a1_0_5)) {
@@ -148,7 +148,9 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				}
 			} else if(pPacket.packet.packetType == PacketType.entityMoveRot) {
 				
-				if(!(ver instanceof a1_0_5 || ver instanceof a1_0_5_01)) {
+				// failed fix, client couldn't make it out of the chunk:
+				
+				/*if(!(ver instanceof a1_0_5 || ver instanceof a1_0_5_01)) {
 					int playerX = (int)(double)pPacket.values.get(0);
 					int playerZ = (int)(double)pPacket.values.get(2);
 					
@@ -156,7 +158,8 @@ public class ServerSimulator { // basic server simulator which wont really be us
 							Integer.BYTES+
 							Integer.BYTES+
 							Byte.BYTES;
-					byte[] chunk = new byte[16 * 128 * 16];
+					byte[] chunkStone = new byte[16 * 128 * 16];
+					byte[] chunkAir = new byte[16 * 128 * 16];
 					//Arrays.fill(chunk, 0, ((16 * 128 * 16)/2)-1, (byte) 0); // Air
 					//Arrays.fill(chunk, ((16 * 128 * 16)/2)-1, 16 * 128 * 16, (byte) 1); // Stone
 					for (int x = 0; x < 16; x++) {
@@ -164,26 +167,43 @@ public class ServerSimulator { // basic server simulator which wont really be us
 					        for (int y = 0; y < 128; y++) {
 					            int index = (x << 11) | (z << 7) | y; // x*2048 + z*128 + y
 					            if (y < 64) {
-					                chunk[index] = 1; // some block ID (stone)
+					                chunkStone[index] = 1; // some block ID (stone)
 					            } else {
-					                chunk[index] = 0; // air
+					                chunkStone[index] = 0; // air
 					            }
 					        }
 					    }
 					}
 					
-					Deflater deflater = new Deflater();
-					deflater.setInput(chunk);
-					deflater.finish();
-					byte[] compressed = new byte[chunk.length * 2];
-					int compressedLen = deflater.deflate(compressed);
-					deflater.end();
+					Deflater deflater1 = new Deflater();
+					deflater1.setInput(chunkStone);
+					deflater1.finish();
+					byte[] compressedStone = new byte[chunkStone.length * 2];
+					int compressedLen1 = deflater1.deflate(compressedStone);
+					deflater1.end();
 					
-					int packetSize = 1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen;
-					for (int x = -16; x <= 16; x += 16) {
-						for (int z = -16; z <= 16; z += 16) {
-							writeAlphaChunk(client, ver, packetSize, compressed, compressedLen, x, (short) 0, z);
+					Deflater deflater2 = new Deflater();
+					deflater2.setInput(chunkAir);
+					deflater2.finish();
+					byte[] compressedAir = new byte[chunkStone.length * 2];
+					int compressedLen2 = deflater2.deflate(compressedAir);
+					deflater2.end();
+					
+					int playerChunkX = playerX >> 4;
+					int playerChunkZ = playerZ >> 4;
+					
+					int packetSizeStone = 1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen1;
+					int packetSizeAir = 1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen2;
+					if(prevCX != playerChunkX || prevCZ != playerChunkZ) {
+					for (int x = -176; x <= 176; x += 16) {
+						for (int z = -176; z <= 176; z += 16) {
+							if(playerChunkX + x < -176 || playerChunkX + x > 176 || playerChunkZ + z < -176|| playerChunkZ + z > 176) {
+								writeAlphaChunk(client, ver, packetSizeAir, compressedAir, compressedLen2, x + playerChunkX, (short) 0, z + playerChunkZ);
+							} else {
+								writeAlphaChunk(client, ver, packetSizeStone, compressedStone, compressedLen1, x + playerChunkX, (short) 0, z + playerChunkZ);
+							}
 						}
+					}
 					}
 					/*for (int x = -1; x <= 1; x += 1) {
 						for (int z = -1; z <= 1; z += 1) {
@@ -197,11 +217,14 @@ public class ServerSimulator { // basic server simulator which wont really be us
 							writeFully(client, buf);
 						}
 					}*/
-					
-				}
+					//prevCX = playerChunkX;prevCZ = playerChunkZ;
+				//}
 			}
 		}
 	}
+	
+	//int prevCX = 0;
+	//int prevCZ = 0;
 	
 	public void createKeepAliveThread(SocketChannel client, Versions ver, long timingInSecconds){
 		this.keepAliveThread = new Thread(()->{
@@ -246,8 +269,8 @@ public class ServerSimulator { // basic server simulator which wont really be us
 			
 			ByteBuffer buf = ByteBuffer.allocate(loadChunkPacketSize).order(ByteOrder.BIG_ENDIAN);
 			buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.chunkLoad).packetID);
-			buf.putInt(x);         // chunk X
-			buf.putInt(z);         // chunk Z
+			buf.putInt(x/16);         // chunk X
+			buf.putInt(z/16);         // chunk Z
 			buf.put((byte) 1);    // load
 			writeFully(client, buf);
 		}
