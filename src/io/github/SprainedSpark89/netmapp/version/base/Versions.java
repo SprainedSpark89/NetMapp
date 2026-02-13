@@ -12,6 +12,8 @@ public class Versions {
 	public String networkType;
 	public int protocolNumber;
 	public static Versions instance;
+	public List<IDable> blocks = new ArrayList<IDable>();
+	public List<IDable> items = new ArrayList<IDable>();
 	
 	public Versions(Versions ver) {
 		this.instance = this;

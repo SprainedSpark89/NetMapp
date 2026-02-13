@@ -12,9 +12,11 @@ import java.util.Arrays;
 import java.util.zip.Deflater;
 import java.util.zip.GZIPOutputStream;
 
+import io.github.SprainedSpark89.netmapp.NetMapp;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.a1_0_5;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.a1_0_5_01;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.a1_0_7;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 
 public class ServerSimulator { // basic server simulator which wont really be used at all except for testing
@@ -131,15 +133,25 @@ public class ServerSimulator { // basic server simulator which wont really be us
 					packetSize++;
 				}
 				
+				if(ver instanceof a1_0_7) {
+					packetSize = Byte.BYTES + Byte.BYTES;
+				}
+				
 				buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
-				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.entityMoveRot).packetID);  // Entity position packet ID
-				buf.putDouble(0);   // X
-				buf.putDouble(67);  // Y
-				buf.putDouble(0);   // Z
-				buf.putFloat(0);    // Yaw
-				buf.putFloat(0);    // Pitch
-				if(!(ver instanceof a1_0_5)) {
+				if(ver instanceof a1_0_7) {
+					buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.flying).packetID);  // Entity flying packet ID
 					buf.put((byte) 0);
+				} else {
+					buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.entityMoveRot).packetID);  // Entity position packet ID
+				
+					buf.putDouble(0);   // X
+					buf.putDouble(67);  // Y
+					buf.putDouble(0);   // Z
+					buf.putFloat(0);    // Yaw
+					buf.putFloat(0);    // Pitch
+					if(!(ver instanceof a1_0_5)) {
+						buf.put((byte) 0);
+					}
 				}
 				writeFully(client, buf);
 				
@@ -219,9 +231,72 @@ public class ServerSimulator { // basic server simulator which wont really be us
 					}*/
 					//prevCX = playerChunkX;prevCZ = playerChunkZ;
 				//}
+			} else if(pPacket.packet.packetType == PacketType.blockPlace) {
+				byte blockID = (byte) pPacket.values.get(0);
+				if(heldID < 256 && heldID >= 0) {
+				int x = (int) pPacket.values.get(1);
+				byte y = (byte) pPacket.values.get(2);
+				int z = (int) pPacket.values.get(3);
+				byte face = (byte) pPacket.values.get(4);
+				
+				if(face == 0) {
+					y--;
+				} else if(face == 1) {
+					y++;
+				} else if(face == 2) {
+					z--;
+				} else if(face == 3) {
+					z++;
+				} else if(face == 4) {
+					x--;
+				} else if(face == 5) {
+					x++;
+				}
+				
+				int packetSize = Byte.BYTES +
+						Integer.BYTES +
+						Byte.BYTES +
+						Integer.BYTES +
+						Byte.BYTES +
+						Byte.BYTES;
+				ByteBuffer buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
+				buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.blockUpdate).packetID); // id
+				buf.putInt(x);
+				buf.put(y);
+				buf.putInt(z);
+				buf.put(blockID);
+				buf.put((byte) 0);
+				writeFully(client, buf);
+				}
+			} else if(pPacket.packet.packetType == PacketType.dig) {
+				byte status = (byte) pPacket.values.get(0);
+				if(status == 3) {
+					int x = (int) pPacket.values.get(1);
+					byte y = (byte) pPacket.values.get(2);
+					int z = (int) pPacket.values.get(3);
+				
+					int packetSize = Byte.BYTES +
+						Integer.BYTES +
+						Byte.BYTES +
+						Integer.BYTES +
+						Byte.BYTES +
+						Byte.BYTES;
+					ByteBuffer buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
+					buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.blockUpdate).packetID); // id
+					buf.putInt(x);
+					buf.put(y);
+					buf.putInt(z);
+					buf.put((byte) 0);
+					buf.put((byte) 0);
+					writeFully(client, buf);
+				}
+			} else if(pPacket.packet.packetType == PacketType.handSwap) {
+				heldID = (short) pPacket.values.get(1);
 			}
 		}
 	}
+	
+	public short heldID = 0;
 	
 	//int prevCX = 0;
 	//int prevCZ = 0;

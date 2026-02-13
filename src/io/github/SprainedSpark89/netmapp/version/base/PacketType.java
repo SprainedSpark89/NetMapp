@@ -35,5 +35,10 @@ public enum PacketType {
 	entity,
 	entityRelMoveRot,
 	entityRelMove,
-	keepAlive
+	keepAlive,
+	
+	// a1.0.7
+	flying,
+	playerPos,
+	playerLook
 }

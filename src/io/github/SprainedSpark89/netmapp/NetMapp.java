@@ -12,8 +12,8 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import io.github.SprainedSpark89.netmapp.version.base.Packet;
@@ -132,8 +132,24 @@ public class NetMapp {
 
 											Packet p;
 											try {
+												int pos = stream.position();
+												byte packetId = stream.get(pos);
+												
 												p = Utils.getPacketFromID(stream.get(stream.position()),
 														connectedVersion);
+												if(p == null) {
+													log.log(Level.SEVERE,
+												            "Failed to Parse Packet\n" +
+												            "Position: " + pos + "\n" +
+												            "Packet ID (unsigned): " + (packetId & 0xFF) + "\n" +
+												            "Packet ID (signed): " + packetId + "\n" +
+												            "Buffer Length: " + stream.limit()
+												        );
+													
+													log.severe("Nearby bytes: " + dumpAround(stream, pos, 16));
+													
+													return;
+												}
 											} catch (Exception e) {
 												break;
 											}
@@ -253,6 +269,20 @@ public class NetMapp {
 		buf.position(start);
 		return null;
 	}
+	
+	public static String dumpAround(ByteBuffer stream, int center, int radius) {
+	    StringBuilder sb = new StringBuilder();
+
+	    int start = Math.max(0, center - radius);
+	    int end = Math.min(stream.limit(), center + radius);
+
+	    for (int i = start; i < end; i++) {
+	        sb.append(String.format("%02X ", stream.get(i)));
+	    }
+
+	    return sb.toString();
+	}
+
 
 	public Packet packetAlphaParse(final SocketChannel clientChannel, ServerSimulator packetProcessor, ByteBuffer buf)
 			throws IOException {
@@ -268,7 +298,7 @@ public class NetMapp {
 	}
 
 	public ParsedPacket tryParseAlphaPacket(Packet packet, ByteBuffer buf) {
-		buf.mark();
+		int start = buf.position();
 
 		ParsedPacket out = new ParsedPacket();
 		out.packet = packet;
@@ -374,18 +404,24 @@ public class NetMapp {
 
 			out.textDescriptor = desc.toString();
 			int endPos = buf.position();
-			buf.reset();
 
-			byte[] raw = new byte[endPos - buf.position()];
+			buf.position(start);
+			int startPos = buf.position();
+
+			byte[] raw = new byte[endPos - startPos];
 			buf.get(raw);
 
 			out.rawData = raw;
 
+			// IMPORTANT: restore position to end of packet
+			buf.position(endPos);
+
 			return out;
+
 
 		} catch (BufferUnderflowException e) {
 			// Not enough data yet — rewind
-			buf.reset();
+			buf.position(start);
 			return null;
 		}
 	}
@@ -692,7 +728,7 @@ public class NetMapp {
 		}
 	}
 
-	public String byteArrayToString(byte[] bytes) {
+	public static String byteArrayToString(byte[] bytes) {
 		String out = "";
 		for (byte b : bytes) {
 			out += b + ",";

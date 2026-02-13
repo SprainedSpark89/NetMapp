@@ -7,6 +7,7 @@ import java.util.Map;
 
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.a1_0_6;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.a1_0_7;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 
 public class Utils {
@@ -49,7 +50,7 @@ public class Utils {
 	public static Packet getPacketFromID(byte id, Versions ver) {
 		
 		for (Packet packet : ver.packetList.keySet()) {
-			if (id == packet.packetID) {
+			if ((id & 0xFF) == (packet.packetID & 0xFF)) {
 				return packet;
 			}
 		}
@@ -66,7 +67,7 @@ public class Utils {
 	 */
 	public static Versions getVersionFromProtocolNumber(Versions baseVersion, int protocol) {
 		if(baseVersion instanceof AlphaVersion && protocol == 10) { // yeah, i don't feel like dealing with some things
-			return new a1_0_6(Versions.instance);
+			return new a1_0_7(Versions.instance);
 		}
 		
 		//List<Versions> out = new ArrayList<Versions>();

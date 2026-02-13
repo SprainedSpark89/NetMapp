@@ -11,7 +11,7 @@ public class PacketHeldSwitch extends Packet {
 		super(inputs, descriptions);
 		// TODO Auto-generated constructor stub
 		this.args.add(Integer.TYPE);
-		this.args.add(Integer.TYPE);
+		this.args.add(Short.TYPE);
 		this.argsDesc.add("EntityID");
 		this.argsDesc.add("ItemID");
 		this.packetID = 52;
