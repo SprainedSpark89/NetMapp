@@ -3,6 +3,7 @@ package io.github.SprainedSpark89.netmapp.version.java.alpha.a109;
 import java.util.List;
 
 import io.github.SprainedSpark89.netmapp.version.base.Packet;
+import io.github.SprainedSpark89.netmapp.version.base.PacketType;
 
 public class PacketItemSpawn extends Packet {
 
@@ -27,6 +28,8 @@ public class PacketItemSpawn extends Packet {
 		this.argsDesc.add("Rot");
 		this.argsDesc.add("Pitch");
 		this.argsDesc.add("Yaw");
+		this.packetID = 21;
+		this.packetType = PacketType.itemDrop;
 	}
 
 }

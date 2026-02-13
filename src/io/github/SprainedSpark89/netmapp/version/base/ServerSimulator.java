@@ -106,7 +106,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				        for (int y = 0; y < 128; y++) {
 				            int index = (x << 11) | (z << 7) | y; // x*2048 + z*128 + y
 				            if (y < 64) {
-				                chunk[index] = 1; // some block ID (stone)
+				                chunk[index] = 17; // some block ID (stone)
 				            } else {
 				                chunk[index] = 0; // air
 				            }
@@ -307,6 +307,20 @@ public class ServerSimulator { // basic server simulator which wont really be us
 					buf.put((byte) 0);
 					buf.put((byte) 0);
 					writeFully(client, buf);
+					/*if(!(ver instanceof a1_0_7 || ver instanceof a1_0_6)) {
+						packetSize = Byte.BYTES +
+								Integer.BYTES +
+								Short.BYTES +
+								Byte.BYTES +
+								Integer.BYTES +
+								Integer.BYTES +
+								Integer.BYTES +
+								Byte.BYTES +
+								Byte.BYTES +
+								Byte.BYTES;
+						buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
+						
+					}*/
 				}
 			} else if(pPacket.packet.packetType == PacketType.handSwap) {
 				heldID = (short) pPacket.values.get(1);

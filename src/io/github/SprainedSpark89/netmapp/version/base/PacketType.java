@@ -40,5 +40,8 @@ public enum PacketType {
 	// a1.0.7
 	flying,
 	playerPos,
-	playerLook
+	playerLook,
+	
+	//a1.0.9
+	itemDrop
 }
