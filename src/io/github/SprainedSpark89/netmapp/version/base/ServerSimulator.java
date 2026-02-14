@@ -9,6 +9,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.zip.Deflater;
 import java.util.zip.GZIPOutputStream;
 
@@ -276,13 +277,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				buf.putInt(x);
 				buf.put(y);
 				buf.putInt(z);
-				
-				if(ver instanceof a1_0_7 || ver instanceof a1_0_6) {
-					buf.put((byte) blockID);
-				} else {
-					buf.putShort((short) blockID);
-				}
-				
+				buf.put((byte) blockID);
 				buf.put((byte) 0);
 				writeFully(client, buf);
 				}
@@ -307,7 +302,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 					buf.put((byte) 0);
 					buf.put((byte) 0);
 					writeFully(client, buf);
-					/*if(!(ver instanceof a1_0_7 || ver instanceof a1_0_6)) {
+					if(!(ver instanceof a1_0_7 || ver instanceof a1_0_6)) {
 						packetSize = Byte.BYTES +
 								Integer.BYTES +
 								Short.BYTES +
@@ -319,8 +314,18 @@ public class ServerSimulator { // basic server simulator which wont really be us
 								Byte.BYTES +
 								Byte.BYTES;
 						buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
-						
-					}*/
+						buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.itemDrop).packetID); // id
+						buf.putInt(Math.abs("Item Id".hashCode()));
+						buf.putShort((short) 17); // yes, i know i shouldn't do this, but i also don't want to track the world's resources
+						buf.put((byte) 1);
+						buf.putInt((int)((x + .5) * 32));
+						buf.putInt((int)((y + .5) * 32));
+						buf.putInt((int)((z + .5) * 32));
+						buf.put((byte) 0);
+						buf.put((byte) 0);
+						buf.put((byte) 0);
+						writeFully(client, buf);
+					}
 				}
 			} else if(pPacket.packet.packetType == PacketType.handSwap) {
 				heldID = (short) pPacket.values.get(1);

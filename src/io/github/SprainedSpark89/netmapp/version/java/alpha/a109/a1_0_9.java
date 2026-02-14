@@ -8,7 +8,6 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketHandshake;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketKickDisconnect;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketMapChunk;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketPlayerMoveLook;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketBlockChange;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketDig;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketMultiBlockChange;
@@ -18,13 +17,13 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketEntityTP;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketHeldSwitch;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketKeepAlive;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketNamedEntitySpawn;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketPlace;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketPreChunk;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRelEntityMove;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRelEntityMoveLook;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRemoveEntity;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketFlying;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerLook;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerMoveLook;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerPos;
 
 public class a1_0_9 extends AlphaVersion {
@@ -62,7 +61,6 @@ public class a1_0_9 extends AlphaVersion {
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketPlace(new ArrayList<Class<?>>(), new ArrayList<String>()); // 15
-		p.packetID = 15;
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketHeldSwitch(new ArrayList<Class<?>>(), new ArrayList<String>()); // 16

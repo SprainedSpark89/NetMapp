@@ -160,7 +160,7 @@ public class NetMapp {
 												break;
 											}
 
-											log.info(parsed.textDescriptor);
+											log.info(parsed.textDescriptor + "\nPacket: " + parsed.packet.getClass().getSimpleName());
 											packetProcessor.parsePackets(parsed, clientChannel, connectedVersion, 0);
 										}
 

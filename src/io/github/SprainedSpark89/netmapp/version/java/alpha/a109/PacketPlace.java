@@ -20,7 +20,7 @@ public class PacketPlace extends Packet {
 		this.argsDesc.add("Y");
 		this.argsDesc.add("Z");
 		this.argsDesc.add("Face Placed On");
-		this.packetID = 51;
+		this.packetID = 15;
 		this.packetType = PacketType.blockPlace;
 	}
 
