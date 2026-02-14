@@ -23,7 +23,7 @@ public enum PacketType {
 	// c0.30
 	userPerms,
 	
-	//a1.0.5_01
+	// a1.0.5_01
 	multiBlockUpdate,
 	dig,
 	
@@ -42,6 +42,10 @@ public enum PacketType {
 	playerPos,
 	playerLook,
 	
-	//a1.0.9
-	itemDrop
+	// a1.0.9
+	itemDrop,
+	
+	// a1.0.10
+	itemInvAdd,
+	entityCollect
 }

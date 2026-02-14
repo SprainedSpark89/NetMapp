@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.a1_0_10;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.a1_0_6;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.a1_0_7;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.a1_0_9;
@@ -68,7 +69,7 @@ public class Utils {
 	 */
 	public static Versions getVersionFromProtocolNumber(Versions baseVersion, int protocol) {
 		if(baseVersion instanceof AlphaVersion && protocol == 10) { // yeah, i don't feel like dealing with some things
-			return new a1_0_9(Versions.instance);
+			return new a1_0_10(Versions.instance);
 		}
 		
 		//List<Versions> out = new ArrayList<Versions>();
