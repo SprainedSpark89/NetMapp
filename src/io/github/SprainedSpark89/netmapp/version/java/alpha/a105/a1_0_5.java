@@ -16,7 +16,7 @@ public class a1_0_5 extends AlphaVersion {
 		
 		Packet p;
 		
-		p = new PacketHandshake(new ArrayList<Class<?>>(), new ArrayList<String>());
+		p = new PacketLogin(new ArrayList<Class<?>>(), new ArrayList<String>());
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketPlayerMoveLook(new ArrayList<Class<?>>(), new ArrayList<String>());

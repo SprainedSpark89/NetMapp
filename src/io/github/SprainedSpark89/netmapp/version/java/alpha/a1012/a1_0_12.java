@@ -8,7 +8,7 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.PacketAddToInv;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.PacketChat;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.PacketCollect;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketHandshake;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketLogin;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketKickDisconnect;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketMapChunk;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketBlockChange;
@@ -45,7 +45,7 @@ public class a1_0_12 extends AlphaVersion {
 		p.packetID = 0;
 		this.packetList.put(p, p.packetType);
 		
-		p = new PacketHandshake(new ArrayList<Class<?>>(), new ArrayList<String>()); // 1
+		p = new PacketLogin(new ArrayList<Class<?>>(), new ArrayList<String>()); // 1
 		p.packetID = 1;
 		this.packetList.put(p, p.packetType);
 		

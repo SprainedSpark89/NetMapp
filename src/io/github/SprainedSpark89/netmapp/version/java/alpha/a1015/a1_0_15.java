@@ -1,10 +1,14 @@
-package io.github.SprainedSpark89.netmapp.version.java.alpha.a107;
+package io.github.SprainedSpark89.netmapp.version.java.alpha.a1015;
 
 import java.util.ArrayList;
 
 import io.github.SprainedSpark89.netmapp.version.base.Packet;
 import io.github.SprainedSpark89.netmapp.version.base.Versions;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.PacketAddToInv;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.PacketChat;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.PacketCollect;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1013.PacketEntityLook;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketLogin;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketKickDisconnect;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketMapChunk;
@@ -12,24 +16,27 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketBlockC
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketDig;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketMultiBlockChange;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketEntity;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketEntityLook;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketEntityTP;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketHeldSwitch;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketKeepAlive;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketNamedEntitySpawn;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketPlace;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketPreChunk;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRelEntityMove;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRelEntityMoveLook;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRemoveEntity;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketFlying;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerLook;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerMoveLook;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerPos;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.PacketItemSpawn;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.PacketPlace;
 
-public class a1_0_7 extends AlphaVersion {
+public class a1_0_15 extends AlphaVersion {
 
-	public a1_0_7(Versions ver) {
+	public a1_0_15(Versions ver) {
 		super(ver);
-		// TODO Auto-generated constructor stub
-		this.version = "a1.0.7";
-		this.protocolNumber = 10;
+		this.version = "a1.0.15";
+		this.protocolNumber = 13;
 		
 		Packet p;
 		
@@ -40,6 +47,11 @@ public class a1_0_7 extends AlphaVersion {
 		p = new PacketLogin(new ArrayList<Class<?>>(), new ArrayList<String>()); // 1
 		p.packetID = 1;
 		this.packetList.put(p, p.packetType);
+		
+		
+		p = new PacketChat(new ArrayList<Class<?>>(), new ArrayList<String>()); // 3
+		this.packetList.put(p, p.packetType);
+		
 		
 		p = new PacketFlying(new ArrayList<Class<?>>(), new ArrayList<String>()); // 10
 		this.packetList.put(p, p.packetType);
@@ -58,41 +70,53 @@ public class a1_0_7 extends AlphaVersion {
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketPlace(new ArrayList<Class<?>>(), new ArrayList<String>()); // 15
-		p.packetID = 15;
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketHeldSwitch(new ArrayList<Class<?>>(), new ArrayList<String>()); // 16
 		p.packetID = 16;
 		this.packetList.put(p, p.packetType);
 		
+		p = new PacketAddToInv(new ArrayList<Class<?>>(), new ArrayList<String>()); // 17
+		this.packetList.put(p, p.packetType);
 		
-		p = new PacketEntity(new ArrayList<Class<?>>(), new ArrayList<String>()); // 20
+		
+		p = new PacketNamedEntitySpawn(new ArrayList<Class<?>>(), new ArrayList<String>()); // 20
 		p.packetID = 20;
 		this.packetList.put(p, p.packetType);
 		
-		p = new PacketRelEntityMove(new ArrayList<Class<?>>(), new ArrayList<String>()); // 21
-		p.packetID = 21;
+		p = new PacketItemSpawn(new ArrayList<Class<?>>(), new ArrayList<String>()); // 21
 		this.packetList.put(p, p.packetType);
 		
-		p = new PacketEntityLook(new ArrayList<Class<?>>(), new ArrayList<String>()); // 22
-		p.packetID = 22;
+		p = new PacketCollect(new ArrayList<Class<?>>(), new ArrayList<String>()); // 22
 		this.packetList.put(p, p.packetType);
 		
-		p = new PacketRelEntityMoveLook(new ArrayList<Class<?>>(), new ArrayList<String>()); // 23
-		p.packetID = 23;
+		
+		p = new PacketRemoveEntity(new ArrayList<Class<?>>(), new ArrayList<String>()); // 29
+		p.packetID = 29;
 		this.packetList.put(p, p.packetType);
 		
-		p = new PacketNamedEntitySpawn(new ArrayList<Class<?>>(), new ArrayList<String>()); // 24
-		p.packetID = 24;
+		p = new PacketEntity(new ArrayList<Class<?>>(), new ArrayList<String>()); // 30
+		p.packetID = 30;
 		this.packetList.put(p, p.packetType);
 		
-		p = new PacketRemoveEntity(new ArrayList<Class<?>>(), new ArrayList<String>()); // 25
-		p.packetID = 25;
+		p = new PacketRelEntityMove(new ArrayList<Class<?>>(), new ArrayList<String>()); // 31
+		p.packetID = 31;
 		this.packetList.put(p, p.packetType);
 		
-		p = new PacketEntityTP(new ArrayList<Class<?>>(), new ArrayList<String>()); // 26
-		p.packetID = 26;
+		p = new PacketEntityLook(new ArrayList<Class<?>>(), new ArrayList<String>()); // 32
+		p.packetID = 32;
 		this.packetList.put(p, p.packetType);
+		
+		p = new PacketRelEntityMoveLook(new ArrayList<Class<?>>(), new ArrayList<String>()); // 33
+		p.packetID = 33;
+		this.packetList.put(p, p.packetType);
+		
+		
+		
+		p = new PacketEntityTP(new ArrayList<Class<?>>(), new ArrayList<String>()); // 34
+		p.packetID = 34;
+		this.packetList.put(p, p.packetType);
+		
 		
 		
 		p = new PacketPreChunk(new ArrayList<Class<?>>(), new ArrayList<String>()); // 50
