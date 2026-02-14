@@ -107,7 +107,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				        for (int y = 0; y < 128; y++) {
 				            int index = (x << 11) | (z << 7) | y; // x*2048 + z*128 + y
 				            if (y < 64) {
-				                chunk[index] = 17; // some block ID (stone)
+				                chunk[index] = 1; // some block ID (stone)
 				            } else {
 				                chunk[index] = 0; // air
 				            }
