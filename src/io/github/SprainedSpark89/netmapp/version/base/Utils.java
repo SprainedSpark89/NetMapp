@@ -113,6 +113,18 @@ public class Utils {
 		return out;
 	}
 	
+	public static List<Packet> getHandshakePackets(List<Versions> vers) {
+		List<Packet> out = new ArrayList<Packet>();
+		for(Versions ver : vers) {
+			for(Packet packet : ver.packetList.keySet()) {
+				if(packet.packetType == PacketType.handshake) {
+					out.add(packet);
+				}
+			}
+		}
+		return out;
+	}
+	
 	public static Versions getVersionFromPacket(Packet packet) {
 		for(Versions ver : versionList) {
 			if(ver.packetList.keySet().contains(packet)) {

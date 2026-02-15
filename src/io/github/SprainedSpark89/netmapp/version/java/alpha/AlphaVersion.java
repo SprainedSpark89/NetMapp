@@ -6,6 +6,7 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.a1_0_10;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1012.a1_0_12;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1013.a1_0_13;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.a1_0_15;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1016.a1_0_16;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.a1_0_5;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.a1_0_5_01;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.a1_0_6;
@@ -31,6 +32,7 @@ public class AlphaVersion extends JavaVersion {
 		instance.registerVersion(new a1_0_12(instance)); // a1.0.12, copy of a1.0.10 with protocol change
 		instance.registerVersion(new a1_0_13(instance)); // a1.0.13-a1.0.14
 		instance.registerVersion(new a1_0_15(instance)); // a1.0.15
+		instance.registerVersion(new a1_0_16(instance)); // a1.0.16
 	}
 
 }

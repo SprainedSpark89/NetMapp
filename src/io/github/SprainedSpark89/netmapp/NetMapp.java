@@ -40,6 +40,10 @@ public class NetMapp {
 	public static List<Thread> networkingThreads = new ArrayList<Thread>();
 
 	public static Versions connectedVersion;
+	
+	public static boolean skipPacket = false;
+	
+	public static int skipRead = 0;
 
 	/**
 	 * @param args
@@ -120,8 +124,12 @@ public class NetMapp {
 											int start = stream.position();
 
 											if (connectedVersion == null) {
-												Versions v = detectAlphaLogin(stream);
+												Versions v = detectAlphaLogin(stream, packetProcessor, clientChannel);
 												if (v == null) {
+													if(skipPacket) {
+														stream.position(skipRead);
+														break;
+													}
 													stream.position(start);
 													break;
 												}
@@ -205,7 +213,7 @@ public class NetMapp {
 		System.out.println(tag + " pos=" + b.position() + " lim=" + b.limit() + " cap=" + b.capacity());
 	}
 
-	public Versions detectAlphaLogin(ByteBuffer buf) {
+	public Versions detectAlphaLogin(ByteBuffer buf, ServerSimulator packProc, SocketChannel networking) throws IOException {
 		int start = buf.position();
 		buf.mark();
 
@@ -268,6 +276,25 @@ public class NetMapp {
 			}
 		}
 		buf.position(start);
+		
+		byte id = buf.get();
+		
+		boolean isHandshakePacket = false;
+		for(Packet packet : Utils.getHandshakePackets(Utils.getTCPVersions())) {
+			if((id & 0xFF) == (packet.packetID & 0xFF)) {
+				System.out.println("Got Handshake instead of Login!");
+				isHandshakePacket = true;
+			}
+		}
+		
+		buf.position(start);
+		
+		if(isHandshakePacket) {
+			packProc.handleHandshake(buf, networking);
+		}
+		
+		buf.position(start);
+		
 		return null;
 	}
 	
@@ -298,7 +325,7 @@ public class NetMapp {
 		return packet;
 	}
 
-	public ParsedPacket tryParseAlphaPacket(Packet packet, ByteBuffer buf) {
+	public static ParsedPacket tryParseAlphaPacket(Packet packet, ByteBuffer buf) {
 		int start = buf.position();
 
 		ParsedPacket out = new ParsedPacket();

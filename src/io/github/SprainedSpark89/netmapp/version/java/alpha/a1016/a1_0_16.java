@@ -1,4 +1,4 @@
-package io.github.SprainedSpark89.netmapp.version.java.alpha.a1015;
+package io.github.SprainedSpark89.netmapp.version.java.alpha.a1016;
 
 import java.util.ArrayList;
 
@@ -9,8 +9,12 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.PacketAddToInv
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.PacketChat;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.PacketCollect;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1013.PacketEntityLook;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketLogin;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.PacketAnimate;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.PacketPlayerMoveLook;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.PacketPlayerPos;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.PacketVehicleSpawn;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketKickDisconnect;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketLogin;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketMapChunk;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketBlockChange;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketDig;
@@ -29,12 +33,12 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerLoo
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.PacketItemSpawn;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.PacketPlace;
 
-public class a1_0_15 extends AlphaVersion {
+public class a1_0_16 extends AlphaVersion {
 
-	public a1_0_15(Versions ver) {
+	public a1_0_16(Versions ver) {
 		super(ver);
-		this.version = "a1.0.15";
-		this.protocolNumber = 13;
+		this.version = "a1.0.16";
+		this.protocolNumber = 14;
 		
 		Packet p;
 		
@@ -46,8 +50,8 @@ public class a1_0_15 extends AlphaVersion {
 		p.packetID = 1;
 		this.packetList.put(p, p.packetType);
 		
-		/*p = new PacketHandshake(new ArrayList<Class<?>>(), new ArrayList<String>()); // 2
-		this.packetList.put(p, p.packetType);*/
+		p = new PacketHandshake(new ArrayList<Class<?>>(), new ArrayList<String>()); // 2
+		this.packetList.put(p, p.packetType);
 		
 		p = new PacketChat(new ArrayList<Class<?>>(), new ArrayList<String>()); // 3
 		this.packetList.put(p, p.packetType);

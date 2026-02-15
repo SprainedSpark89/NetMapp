@@ -18,6 +18,7 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.a1_0_10;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1012.a1_0_12;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1013.a1_0_13;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1016.PacketHandshake;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.a1_0_5;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.a1_0_5_01;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.a1_0_6;
@@ -458,6 +459,46 @@ public class ServerSimulator { // basic server simulator which wont really be us
 	}
 
 	public short heldID = 0;
+	
+	
+	
+	
+	
+	
+	public void handleHandshake(ByteBuffer readBuffer, SocketChannel client) throws IOException {
+		int start = readBuffer.position();
+		int end = readBuffer.position();
+		ParsedPacket p = null;
+		for(Packet hand : Utils.getHandshakePackets(Utils.getTCPVersions())) {
+			readBuffer.position(start);
+			p = NetMapp.tryParseAlphaPacket(hand, readBuffer);
+			end = readBuffer.position();
+			if(p != null) {
+				break;
+			}
+		}
+		if(p == null) {
+			return;
+		}
+		
+		if(p.packet instanceof PacketHandshake) {
+			int packetSize = Byte.BYTES + Short.BYTES
+					+ "-".length();
+			ByteBuffer buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
+			buf.put((byte)p.packet.packetID);
+			buf.putShort((short) "-".length());
+			buf.put("-".getBytes(StandardCharsets.UTF_8));
+			writeFully(client, buf);
+		}
+		
+		NetMapp.skipPacket = true;
+		readBuffer.position(end);
+		NetMapp.skipRead = end;
+	}
+	
+	
+	
+	
 
 	// int prevCX = 0;
 	// int prevCZ = 0;
