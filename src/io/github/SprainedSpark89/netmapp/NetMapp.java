@@ -127,7 +127,9 @@ public class NetMapp {
 												Versions v = detectAlphaLogin(stream, packetProcessor, clientChannel);
 												if (v == null) {
 													if(skipPacket) {
-														stream.position(skipRead);
+														if(stream.limit() >= skipRead) {
+															stream.position(skipRead);
+														}
 														break;
 													}
 													stream.position(start);
@@ -284,6 +286,7 @@ public class NetMapp {
 			if((id & 0xFF) == (packet.packetID & 0xFF)) {
 				System.out.println("Got Handshake instead of Login!");
 				isHandshakePacket = true;
+				break;
 			}
 		}
 		

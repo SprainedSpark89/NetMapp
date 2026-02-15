@@ -52,5 +52,9 @@ public enum PacketType {
 	// a1.0.15
 	handshake,
 	animate,
-	vehicleSpawn
+	vehicleSpawn,
+	
+	// a1.0.17
+	time,
+	entityAdd
 }

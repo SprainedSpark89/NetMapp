@@ -227,7 +227,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				} else {
 					blockID = (short) pPacket.values.get(0);
 				}
-				if (heldID < 256 && heldID >= 0) {
+				if (heldID < 256 && heldID >= 0 && blockID < 256 && blockID >= 0) {
 					int x = (int) pPacket.values.get(1);
 					byte y = (byte) pPacket.values.get(2);
 					int z = (int) pPacket.values.get(3);
@@ -492,7 +492,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 		}
 		
 		NetMapp.skipPacket = true;
-		readBuffer.position(end);
+		readBuffer.position(start);
 		NetMapp.skipRead = end;
 	}
 	
