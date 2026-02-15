@@ -56,5 +56,10 @@ public enum PacketType {
 	
 	// a1.0.17
 	time,
-	entityAdd
+	entityAdd,
+	
+	// a1.1.0
+	setInventory,
+	setSpawn,
+	tileEntityData
 }

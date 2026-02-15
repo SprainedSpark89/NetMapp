@@ -349,121 +349,27 @@ public class NetMapp {
 
 			StringBuilder desc = new StringBuilder();
 			desc.append("PacketID: ").append(packet.packetID).append(", Data: ");
-
+			int i = 0;
+			boolean packetRead = false;
+			int stop = Integer.MAX_VALUE;
+			if(packet.read != null && packet.read.hasSpecialReadSequence) {
+				packetRead = packet.read.hasSpecialReadSequence;
+				stop = packet.read.argTransfer;
+			}
 			for (Class<?> arg : packet.args) {
-
-				if (arg == Byte.TYPE) {
-					if (buf.remaining() < Byte.BYTES)
-						throw new BufferUnderflowException();
-					byte v = buf.get();
-					out.values.add(v);
-					desc.append("Byte: ").append(v).append(", ");
-
-				} else if (arg == Short.TYPE) {
-					if (buf.remaining() < Short.BYTES)
-						throw new BufferUnderflowException();
-					short v = buf.getShort();
-					out.values.add(v);
-					desc.append("Short: ").append(v).append(", ");
-
-				} else if (arg == Integer.TYPE) {
-					if (buf.remaining() < Integer.BYTES)
-						throw new BufferUnderflowException();
-					int v = buf.getInt();
-					out.values.add(v);
-					desc.append("Integer: ").append(v).append(", ");
-
-				} else if (arg == Float.TYPE) {
-					if (buf.remaining() < Float.BYTES)
-						throw new BufferUnderflowException();
-					float v = buf.getFloat();
-					out.values.add(v);
-					desc.append("Float: ").append(v).append(", ");
-
-				} else if (arg == Long.TYPE) {
-					if (buf.remaining() < Long.BYTES)
-						throw new BufferUnderflowException();
-					long v = buf.getLong();
-					out.values.add(v);
-					desc.append("Long: ").append(v).append(", ");
-
-				} else if (arg == Double.TYPE) {
-					if (buf.remaining() < Double.BYTES)
-						throw new BufferUnderflowException();
-					double v = buf.getDouble();
-					out.values.add(v);
-					desc.append("Double: ").append(v).append(", ");
-
-				} else if (arg == String.class) {
-					// Alpha strings are: short length + bytes
-					if (buf.remaining() < 2)
-						throw new BufferUnderflowException();
-					short len = buf.getShort();
-					if (buf.remaining() < len)
-						throw new BufferUnderflowException();
-
-					byte[] strBytes = new byte[len];
-					buf.get(strBytes);
-
-					String s = new String(strBytes, StandardCharsets.UTF_8);
-					out.values.add(s);
-					desc.append("String: \"").append(s).append("\", ");
-
-				} else if (arg == byte[].class) {
-					// Alpha arrays are usually short-length prefixed
-					
-					
-					if(!out.packet.args.contains(short[].class)) {
-					if (buf.remaining() < 2)
-						throw new BufferUnderflowException();
-					short len = buf.getShort();
-					if (buf.remaining() < len)
-						throw new BufferUnderflowException();
-
-					byte[] arr = new byte[len & 0xFFFF];
-					buf.get(arr);
-
-					out.values.add(arr);
-					desc.append("ByteArray[").append(len).append("], ");
-					} else {
-						int size = 0;
-						
-						if(packet.packetType == PacketType.multiBlockUpdate) {
-							size = (short) out.values.get(2);
-						} else {
-							size = (int)(short) out.values.get(out.values.size() - 1);
-						}
-
-					    if (buf.remaining() < size)
-					        throw new BufferUnderflowException();
-
-					    byte[] arr = new byte[size];
-					    buf.get(arr);
-
-					    out.values.add(arr);
-					    desc.append("ByteArray[").append(size).append("], ");
-					}
-
-				} else if (arg == short[].class) {
-
-				    // assumes size was already parsed and added to out.values
-				    int size = (int)(short) out.values.get(out.values.size() - 1);
-
-				    if (buf.remaining() < size * 2)
-				        throw new BufferUnderflowException();
-
-				    short[] arr = new short[size];
-
-				    for (int i = 0; i < size; i++) {
-				        arr[i] = buf.getShort();
-				    }
-
-				    out.values.add(arr);
-				    desc.append("ShortArray[").append(size).append("], ");
-
+				
+				if((i < stop)) {
+					parseArgs(packet, buf, out, desc, arg);
 				} else {
-					throw new IllegalStateException("Unsupported arg type: " + arg);
+					if(packetRead) {
+						packet.read(buf, out, desc, arg);
+						break;
+					} else {
+						System.out.println("ERROR: Fucked Up");
+					}
 				}
+				
+				i++;
 			}
 
 			// trim trailing comma
@@ -492,6 +398,211 @@ public class NetMapp {
 			// Not enough data yet — rewind
 			buf.position(start);
 			return null;
+		}
+	}
+
+	public static void parseArgs(Packet packet, ByteBuffer buf, ParsedPacket out, StringBuilder desc, Class<?> arg)
+			throws BufferUnderflowException, IllegalStateException {
+		if (arg == Byte.TYPE) {
+			if (buf.remaining() < Byte.BYTES)
+				throw new BufferUnderflowException();
+			byte v = buf.get();
+			out.values.add(v);
+			desc.append("Byte: ").append(v).append(", ");
+
+		} else if (arg == Short.TYPE) {
+			if (buf.remaining() < Short.BYTES)
+				throw new BufferUnderflowException();
+			short v = buf.getShort();
+			out.values.add(v);
+			desc.append("Short: ").append(v).append(", ");
+
+		} else if (arg == Integer.TYPE) {
+			if (buf.remaining() < Integer.BYTES)
+				throw new BufferUnderflowException();
+			int v = buf.getInt();
+			out.values.add(v);
+			desc.append("Integer: ").append(v).append(", ");
+
+		} else if (arg == Float.TYPE) {
+			if (buf.remaining() < Float.BYTES)
+				throw new BufferUnderflowException();
+			float v = buf.getFloat();
+			out.values.add(v);
+			desc.append("Float: ").append(v).append(", ");
+
+		} else if (arg == Long.TYPE) {
+			if (buf.remaining() < Long.BYTES)
+				throw new BufferUnderflowException();
+			long v = buf.getLong();
+			out.values.add(v);
+			desc.append("Long: ").append(v).append(", ");
+
+		} else if (arg == Double.TYPE) {
+			if (buf.remaining() < Double.BYTES)
+				throw new BufferUnderflowException();
+			double v = buf.getDouble();
+			out.values.add(v);
+			desc.append("Double: ").append(v).append(", ");
+
+		} else if (arg == String.class) {
+			// Alpha strings are: short length + bytes
+			if (buf.remaining() < 2)
+				throw new BufferUnderflowException();
+			short len = buf.getShort();
+			if (buf.remaining() < len)
+				throw new BufferUnderflowException();
+
+			byte[] strBytes = new byte[len];
+			buf.get(strBytes);
+
+			String s = new String(strBytes, StandardCharsets.UTF_8);
+			out.values.add(s);
+			desc.append("String: \"").append(s).append("\", ");
+
+		} else if (arg == byte[].class) {
+			// Alpha arrays are usually short-length prefixed
+			
+			
+			if(!out.packet.args.contains(short[].class) && packet.packetType != PacketType.tileEntityData) {
+			if (buf.remaining() < 2)
+				throw new BufferUnderflowException();
+			short len = buf.getShort();
+			if (buf.remaining() < len)
+				throw new BufferUnderflowException();
+
+			byte[] arr = new byte[len & 0xFFFF];
+			buf.get(arr);
+
+			out.values.add(arr);
+			desc.append("ByteArray[").append(len).append("], ");
+			} else {
+				int size = 0;
+				
+				if(packet.packetType == PacketType.multiBlockUpdate) {
+					size = (short) out.values.get(2);
+				} else {
+					size = (int)(short) out.values.get(out.values.size() - 1);
+				}
+
+			    if (buf.remaining() < size)
+			        throw new BufferUnderflowException();
+
+			    byte[] arr = new byte[size];
+			    buf.get(arr);
+
+			    out.values.add(arr);
+			    desc.append("ByteArray[").append(size).append("], ");
+			}
+
+		} else if (arg == short[].class) {
+
+		    // assumes size was already parsed and added to out.values
+		    int size = (int)(short) out.values.get(out.values.size() - 1);
+
+		    if (buf.remaining() < size * 2)
+		        throw new BufferUnderflowException();
+
+		    short[] arr = new short[size];
+
+		    for (int i1 = 0; i1 < size; i1++) {
+		        arr[i1] = buf.getShort();
+		    }
+
+		    out.values.add(arr);
+		    desc.append("ShortArray[").append(size).append("], ");
+
+		} else {
+			throw new IllegalStateException("Unsupported arg type: " + arg);
+		}
+	}
+	
+	public static Object parseArgs(Packet packet, ByteBuffer buf, Class<?> arg, short length)
+			throws BufferUnderflowException, IllegalStateException {
+		if (arg == Byte.TYPE) {
+			if (buf.remaining() < Byte.BYTES)
+				throw new BufferUnderflowException();
+			byte v = buf.get();
+			return v;
+
+		} else if (arg == Short.TYPE) {
+			if (buf.remaining() < Short.BYTES)
+				throw new BufferUnderflowException();
+			short v = buf.getShort();
+			return v;
+
+		} else if (arg == Integer.TYPE) {
+			if (buf.remaining() < Integer.BYTES)
+				throw new BufferUnderflowException();
+			int v = buf.getInt();
+			return v;
+
+		} else if (arg == Float.TYPE) {
+			if (buf.remaining() < Float.BYTES)
+				throw new BufferUnderflowException();
+			float v = buf.getFloat();
+			return v;
+
+		} else if (arg == Long.TYPE) {
+			if (buf.remaining() < Long.BYTES)
+				throw new BufferUnderflowException();
+			long v = buf.getLong();
+			return v;
+
+		} else if (arg == Double.TYPE) {
+			if (buf.remaining() < Double.BYTES)
+				throw new BufferUnderflowException();
+			double v = buf.getDouble();
+			return v;
+
+		} else if (arg == String.class) {
+			// Alpha strings are: short length + bytes
+			if (buf.remaining() < 2)
+				throw new BufferUnderflowException();
+			short len = buf.getShort();
+			if (buf.remaining() < len)
+				throw new BufferUnderflowException();
+
+			byte[] strBytes = new byte[len];
+			buf.get(strBytes);
+
+			String s = new String(strBytes, StandardCharsets.UTF_8);
+			return s;
+
+		} else if (arg == byte[].class) {
+			// Alpha arrays are usually short-length prefixed
+			
+			
+			
+			if (buf.remaining() < 2)
+				throw new BufferUnderflowException();
+			short len = buf.getShort();
+			if (buf.remaining() < len)
+				throw new BufferUnderflowException();
+
+			byte[] arr = new byte[len & 0xFFFF];
+			buf.get(arr);
+
+			return arr;
+
+		} else if (arg == short[].class) {
+
+		    // assumes size was already parsed and added to out.values
+		    int size = (int)(short) length;
+
+		    if (buf.remaining() < size * 2)
+		        throw new BufferUnderflowException();
+
+		    short[] arr = new short[size];
+
+		    for (int i1 = 0; i1 < size; i1++) {
+		        arr[i1] = buf.getShort();
+		    }
+
+		    return arr;
+
+		} else {
+			throw new IllegalStateException("Unsupported arg type: " + arg);
 		}
 	}
 

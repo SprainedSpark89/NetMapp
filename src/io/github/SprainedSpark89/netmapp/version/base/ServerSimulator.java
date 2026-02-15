@@ -365,6 +365,14 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				buf.putShort((short) message.length());
 				buf.put(message.getBytes(StandardCharsets.UTF_8));
 				writeFully(client, buf);
+			} else if(pPacket.packet.packetType == PacketType.handshake) {
+				int packetSize = Byte.BYTES + Short.BYTES
+						+ "-".length();
+				ByteBuffer buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
+				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.handshake).packetID);
+				buf.putShort((short) "-".length());
+				buf.put("-".getBytes(StandardCharsets.UTF_8));
+				writeFully(client, buf);
 			}
 		}
 	}
