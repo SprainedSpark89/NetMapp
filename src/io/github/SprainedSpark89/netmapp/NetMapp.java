@@ -24,6 +24,7 @@ import io.github.SprainedSpark89.netmapp.version.base.Utils;
 import io.github.SprainedSpark89.netmapp.version.base.VersionRegisterHook;
 import io.github.SprainedSpark89.netmapp.version.base.Versions;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketMultiBlockChange;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 import io.github.SprainedSpark89.netmapp.version.java.classic.c15.c0_0_15a;
 
@@ -380,17 +381,55 @@ public class NetMapp {
 
 				} else if (arg == byte[].class) {
 					// Alpha arrays are usually short-length prefixed
+					
+					
+					if(!out.packet.args.contains(short[].class)) {
 					if (buf.remaining() < 2)
 						throw new BufferUnderflowException();
 					short len = buf.getShort();
 					if (buf.remaining() < len)
 						throw new BufferUnderflowException();
 
-					byte[] arr = new byte[len];
+					byte[] arr = new byte[len & 0xFFFF];
 					buf.get(arr);
 
 					out.values.add(arr);
 					desc.append("ByteArray[").append(len).append("], ");
+					} else {
+						int size = 0;
+						
+						if(packet.packetType == PacketType.multiBlockUpdate) {
+							size = (short) out.values.get(2);
+						} else {
+							size = (int)(short) out.values.get(out.values.size() - 1);
+						}
+
+					    if (buf.remaining() < size)
+					        throw new BufferUnderflowException();
+
+					    byte[] arr = new byte[size];
+					    buf.get(arr);
+
+					    out.values.add(arr);
+					    desc.append("ByteArray[").append(size).append("], ");
+					}
+
+				} else if (arg == short[].class) {
+
+				    // assumes size was already parsed and added to out.values
+				    int size = (int)(short) out.values.get(out.values.size() - 1);
+
+				    if (buf.remaining() < size * 2)
+				        throw new BufferUnderflowException();
+
+				    short[] arr = new short[size];
+
+				    for (int i = 0; i < size; i++) {
+				        arr[i] = buf.getShort();
+				    }
+
+				    out.values.add(arr);
+				    desc.append("ShortArray[").append(size).append("], ");
 
 				} else {
 					throw new IllegalStateException("Unsupported arg type: " + arg);

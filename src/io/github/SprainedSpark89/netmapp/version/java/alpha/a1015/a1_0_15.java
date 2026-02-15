@@ -26,8 +26,6 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRelEntity
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRemoveEntity;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketFlying;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerLook;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerMoveLook;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerPos;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.PacketItemSpawn;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.PacketPlace;
 
@@ -48,6 +46,8 @@ public class a1_0_15 extends AlphaVersion {
 		p.packetID = 1;
 		this.packetList.put(p, p.packetType);
 		
+		p = new PacketHandshake(new ArrayList<Class<?>>(), new ArrayList<String>()); // 2
+		this.packetList.put(p, p.packetType);
 		
 		p = new PacketChat(new ArrayList<Class<?>>(), new ArrayList<String>()); // 3
 		this.packetList.put(p, p.packetType);
@@ -79,6 +79,9 @@ public class a1_0_15 extends AlphaVersion {
 		p = new PacketAddToInv(new ArrayList<Class<?>>(), new ArrayList<String>()); // 17
 		this.packetList.put(p, p.packetType);
 		
+		p = new PacketAnimate(new ArrayList<Class<?>>(), new ArrayList<String>()); // 18
+		this.packetList.put(p, p.packetType);
+		
 		
 		p = new PacketNamedEntitySpawn(new ArrayList<Class<?>>(), new ArrayList<String>()); // 20
 		p.packetID = 20;
@@ -88,6 +91,9 @@ public class a1_0_15 extends AlphaVersion {
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketCollect(new ArrayList<Class<?>>(), new ArrayList<String>()); // 22
+		this.packetList.put(p, p.packetType);
+		
+		p = new PacketVehicleSpawn(new ArrayList<Class<?>>(), new ArrayList<String>()); // 23
 		this.packetList.put(p, p.packetType);
 		
 		

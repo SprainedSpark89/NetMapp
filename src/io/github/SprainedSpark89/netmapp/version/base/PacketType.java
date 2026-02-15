@@ -47,5 +47,10 @@ public enum PacketType {
 	
 	// a1.0.10
 	itemInvAdd,
-	entityCollect
+	entityCollect,
+	
+	// a1.0.15
+	handshake,
+	animate,
+	vehicleSpawn
 }

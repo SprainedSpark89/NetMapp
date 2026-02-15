@@ -15,6 +15,9 @@ import java.util.zip.GZIPOutputStream;
 
 import io.github.SprainedSpark89.netmapp.NetMapp;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.a1_0_10;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1012.a1_0_12;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1013.a1_0_13;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.a1_0_5;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.a1_0_5_01;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.a1_0_6;
@@ -104,22 +107,8 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				writeFully(client, buf);
 
 				// Chunk, -176 to 176, both axis
-
-				byte[] chunk = new byte[16 * 128 * 16]; // not going to bother with adding any other arrays into this
-				// Arrays.fill(chunk, 0, ((16 * 128 * 16)/2)-1, (byte) 0); // Air
-				// Arrays.fill(chunk, ((16 * 128 * 16)/2)-1, 16 * 128 * 16, (byte) 1); // Stone
-				for (int x = 0; x < 16; x++) {
-					for (int z = 0; z < 16; z++) {
-						for (int y = 0; y < 128; y++) {
-							int index = (x << 11) | (z << 7) | y; // x*2048 + z*128 + y
-							if (y < 64) {
-								chunk[index] = 1; // some block ID (stone)
-							} else {
-								chunk[index] = 0; // air
-							}
-						}
-					}
-				}
+				
+				byte[] chunk = makeChunk(ver);
 				Deflater deflater = new Deflater();
 				deflater.setInput(chunk);
 				deflater.finish();
@@ -364,6 +353,82 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				writeFully(client, buf);
 			}
 		}
+	}
+
+	public byte[] makeChunk(Versions ver) {
+		int blockCount = 16 * 128 * 16;
+		
+		
+		byte[] blocks = new byte[blockCount]; // not going to bother with adding any other arrays into this
+		// Arrays.fill(chunk, 0, ((16 * 128 * 16)/2)-1, (byte) 0); // Air
+		// Arrays.fill(chunk, ((16 * 128 * 16)/2)-1, 16 * 128 * 16, (byte) 1); // Stone
+		for (int x = 0; x < 16; x++) {
+			for (int z = 0; z < 16; z++) {
+				for (int y = 0; y < 128; y++) {
+					int index = (x << 11) | (z << 7) | y; // x*2048 + z*128 + y
+					if (y < 64) {
+						blocks[index] = 1; // some block ID (stone)
+					} else {
+						blocks[index] = 0; // air
+					}
+				}
+			}
+		}
+		
+		if(!(ver instanceof a1_0_5
+			|| ver instanceof a1_0_5_01
+			|| ver instanceof a1_0_6
+			|| ver instanceof a1_0_7 
+			|| ver instanceof a1_0_9
+			|| ver instanceof a1_0_10
+			|| ver instanceof a1_0_12
+			|| ver instanceof a1_0_13)) {
+			
+		byte[] finalChunk = new byte[blockCount * 5 / 2];
+
+		byte[] metadata = new byte[blockCount / 2];
+		
+		byte[] blockLight = new byte[blockCount / 2];
+		Arrays.fill(blockLight, (byte) 0xFF);
+		
+		byte[] skyLight = new byte[blockCount / 2];
+		
+		
+		for (int x = 0; x < 16; x++) {
+			for (int z = 0; z < 16; z++) {
+				for (int y = 0; y < 128; y++) {
+					int index = x << 11 | z << 7 | y;
+					int light = 0; // no light
+					if (y >= 64) {
+						light = 15; // full light
+					}
+					
+					if((index & 1) == 0) {
+						skyLight[index >> 1] = (byte)(skyLight[index >> 1] & 240 | light & 15); 
+					} else {
+						skyLight[index >> 1] = (byte)(skyLight[index >> 1] & 240 | (light & 15) << 4);
+					}
+				}
+			}
+		}
+		
+		int offset = 0;
+
+		System.arraycopy(blocks, 0, finalChunk, offset, blocks.length);
+		offset += blocks.length;
+
+		System.arraycopy(metadata, 0, finalChunk, offset, metadata.length);
+		offset += metadata.length;
+
+		System.arraycopy(blockLight, 0, finalChunk, offset, blockLight.length);
+		offset += blockLight.length;
+
+		System.arraycopy(skyLight, 0, finalChunk, offset, skyLight.length);
+		
+		return finalChunk;
+		}
+		
+		return blocks;
 	}
 
 	public short heldID = 0;
