@@ -115,11 +115,24 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				byte[] compressed = new byte[chunk.length * 2];
 				int compressedLen = deflater.deflate(compressed);
 				deflater.end();
+				
+				byte[] chunkA = new byte[(16*128*16) * 5 / 2];
+				Deflater deflaterA = new Deflater();
+				deflaterA.setInput(chunkA);
+				deflaterA.finish();
+				byte[] compressedA = new byte[chunkA.length * 2];
+				int compressedLenA = deflaterA.deflate(compressedA);
+				deflaterA.end();
 
 				packetSize = 1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen;
-				for (int x = -64; x <= 64; x += 16) {
-					for (int z = -64; z <= 64; z += 16) {
-						writeAlphaChunk(client, ver, packetSize, compressed, compressedLen, x, (short) 0, z);
+				int packetSizeA = 1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLenA;
+				for (int x = -80; x <= 80; x += 16) {
+					for (int z = -80; z <= 80; z += 16) {
+						if(Math.abs(x) != 80 && Math.abs(z) != 80) {
+							writeAlphaChunk(client, ver, packetSize, compressed, compressedLen, x, (short) 0, z);
+						} else {
+							writeAlphaChunk(client, ver, packetSizeA, compressedA, compressedLenA, x, (short) 0, z);
+						}
 					}
 				}
 
@@ -389,28 +402,41 @@ public class ServerSimulator { // basic server simulator which wont really be us
 		byte[] metadata = new byte[blockCount / 2];
 		
 		byte[] blockLight = new byte[blockCount / 2];
-		Arrays.fill(blockLight, (byte) 0xFF);
 		
 		byte[] skyLight = new byte[blockCount / 2];
 		
+		//Arrays.fill(skyLight, (byte) 0xFF);
 		
 		for (int x = 0; x < 16; x++) {
 			for (int z = 0; z < 16; z++) {
 				for (int y = 0; y < 128; y++) {
-					int index = x << 11 | z << 7 | y;
-					int light = 0; // no light
-					if (y >= 64) {
-						light = 15; // full light
-					}
-					
-					if((index & 1) == 0) {
-						skyLight[index >> 1] = (byte)(skyLight[index >> 1] & 240 | light & 15); 
+					int index = ((x << 11) | (z << 7) | y) >> 1; // x*2048 + z*128 + y
+					int light;
+					int lightI;
+					if (y < 64) {
+						light = 0;
+						lightI = 0;
 					} else {
-						skyLight[index >> 1] = (byte)(skyLight[index >> 1] & 240 | (light & 15) << 4);
+						light = 15;
+						lightI = 0;
 					}
+					int nibbleIndex = (x << 11) | (z << 7) | y; // x*2048 + z*128 + y
+					int byteIndex = nibbleIndex >> 1;          // each byte has 2 nibbles
+					boolean highNibble = (nibbleIndex & 1) != 0;
+
+					if(highNibble) {
+					    skyLight[byteIndex] = (byte)((skyLight[byteIndex] & 0x0F) | (light << 4));
+					    blockLight[byteIndex] = (byte)((blockLight[byteIndex] & 0x0F) | (lightI << 4));
+					} else {
+					    skyLight[byteIndex] = (byte)((skyLight[byteIndex] & 0xF0) | light);
+					    blockLight[byteIndex] = (byte)((blockLight[byteIndex] & 0xF0) | lightI);
+					}
+
 				}
 			}
 		}
+
+
 		
 		int offset = 0;
 
