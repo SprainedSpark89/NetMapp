@@ -61,5 +61,15 @@ public enum PacketType {
 	// a1.1.0
 	setInventory,
 	setSpawn,
-	tileEntityData
+	tileEntityData,
+	
+	// a1.2.2
+	entityClick,
+	entityVel,
+	entitySit,
+	
+	// a1.2.3
+	health,
+	respawn,
+	entityTrigger
 }
