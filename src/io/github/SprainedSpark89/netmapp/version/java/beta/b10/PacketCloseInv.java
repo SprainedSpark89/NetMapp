@@ -1,0 +1,19 @@
+package io.github.SprainedSpark89.netmapp.version.java.beta.b10;
+
+import java.util.List;
+
+import io.github.SprainedSpark89.netmapp.version.base.Packet;
+import io.github.SprainedSpark89.netmapp.version.base.PacketType;
+
+public class PacketCloseInv extends Packet {
+
+	public PacketCloseInv(List<Class<?>> inputs, List<String> descriptions) {
+		super(inputs, descriptions);
+		// TODO Auto-generated constructor stub
+		this.args.add(Byte.TYPE);
+		this.argsDesc.add("InvID");
+		this.packetID = 101;
+		this.packetType = PacketType.closeInv;
+	}
+
+}

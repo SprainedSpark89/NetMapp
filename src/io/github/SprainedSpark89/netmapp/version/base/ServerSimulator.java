@@ -9,7 +9,6 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.zip.Deflater;
 import java.util.zip.GZIPOutputStream;
 
@@ -28,6 +27,7 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.a1_0_6;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.a1_0_7;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.a1_0_9;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a110.a1_1_0;
+import io.github.SprainedSpark89.netmapp.version.java.beta.BetaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 
 public class ServerSimulator { // basic server simulator which wont really be used at all except for testing
@@ -41,6 +41,8 @@ public class ServerSimulator { // basic server simulator which wont really be us
 			handleClassic(pPacket, client, ver);
 		} else if (ver instanceof AlphaVersion) {
 			handleAlpha(pPacket, client, ver);
+		} else if(ver instanceof BetaVersion) {
+			handleBeta(pPacket, client, ver);
 		}
 	}
 	
@@ -53,21 +55,9 @@ public class ServerSimulator { // basic server simulator which wont really be us
 	public void handleBeta(ParsedPacket pPacket, SocketChannel client, Versions ver) throws IOException {
 		if (pPacket.packet.packetType == PacketType.login) {
 			// 1. Login Response
-			int packetSize = 1 + 4 + 2 + 0 + 2 + 0;
-			if(!(ver instanceof a1_0_5
-					|| ver instanceof a1_0_5_01
-					|| ver instanceof a1_0_6
-					|| ver instanceof a1_0_7 
-					|| ver instanceof a1_0_9
-					|| ver instanceof a1_0_10
-					|| ver instanceof a1_0_12
-					|| ver instanceof a1_0_13
-					|| ver instanceof a1_0_15
-					|| ver instanceof a1_0_16
-					|| ver instanceof a1_0_17
-					|| ver instanceof a1_1_0)) {
-				packetSize += Long.BYTES + Byte.BYTES;
-			}
+			int packetSize = 1 + 4 + 2 + 0 + 2 + 0 + Long.BYTES + Byte.BYTES;
+			
+			
 
 			ByteBuffer buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
 			buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.login).packetID); // Login packet ID
@@ -78,21 +68,10 @@ public class ServerSimulator { // basic server simulator which wont really be us
 			buf.putShort((short) 0); // Password length
 			// (no password bytes)
 			
-			if(!(ver instanceof a1_0_5
-					|| ver instanceof a1_0_5_01
-					|| ver instanceof a1_0_6
-					|| ver instanceof a1_0_7 
-					|| ver instanceof a1_0_9
-					|| ver instanceof a1_0_10
-					|| ver instanceof a1_0_12
-					|| ver instanceof a1_0_13
-					|| ver instanceof a1_0_15
-					|| ver instanceof a1_0_16
-					|| ver instanceof a1_0_17
-					|| ver instanceof a1_1_0)) {
+			
 				buf.putLong(0L);
 				buf.put((byte) 0);
-			}
+			
 			
 			writeFully(client, buf);
 
@@ -128,99 +107,31 @@ public class ServerSimulator { // basic server simulator which wont really be us
 
 			// 2. Player Position / Rotation
 			packetSize = 1 + 8 + 8 + 8 + 4 + 4;
-			if (!(ver instanceof a1_0_5)) {
-				packetSize++;
-			}
-
-			if (ver instanceof a1_0_7) {
-				packetSize = Byte.BYTES + Byte.BYTES;
-			}
+			
+			packetSize++;
 
 			buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
-			if (!(ver instanceof a1_0_5 || ver instanceof a1_0_5_01 || ver instanceof a1_0_6)) {
+			
 				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.flying).packetID); // Entity flying
 																									// packet ID
 				buf.put((byte) 0);
-			} else {
-				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.entityMoveRot).packetID); // Entity
-																										// position
-																										// packet ID
+				writeFully(client, buf);
 
-				buf.putDouble(0); // X
-				buf.putDouble(67); // Y
-				buf.putDouble(0); // Z
-				buf.putFloat(0); // Yaw
-				buf.putFloat(0); // Pitch
-				if (!(ver instanceof a1_0_5)) {
-					buf.put((byte) 0);
-				}
-			}
-			writeFully(client, buf);
-
-			if (!(ver instanceof a1_0_5 || ver instanceof a1_0_5_01)) {
+			
 				this.createKeepAliveThread(client, ver, 30);
-			}
+			
 		} else if (pPacket.packet.packetType == PacketType.entityMoveRot) {
 
-			// failed fix, client couldn't make it out of the chunk:
-
-			/*
-			 * if(!(ver instanceof a1_0_5 || ver instanceof a1_0_5_01)) { int playerX =
-			 * (int)(double)pPacket.values.get(0); int playerZ =
-			 * (int)(double)pPacket.values.get(2);
-			 * 
-			 * int loadChunkPacketSize = Byte.BYTES+ Integer.BYTES+ Integer.BYTES+
-			 * Byte.BYTES; byte[] chunkStone = new byte[16 * 128 * 16]; byte[] chunkAir =
-			 * new byte[16 * 128 * 16]; //Arrays.fill(chunk, 0, ((16 * 128 * 16)/2)-1,
-			 * (byte) 0); // Air //Arrays.fill(chunk, ((16 * 128 * 16)/2)-1, 16 * 128 * 16,
-			 * (byte) 1); // Stone for (int x = 0; x < 16; x++) { for (int z = 0; z < 16;
-			 * z++) { for (int y = 0; y < 128; y++) { int index = (x << 11) | (z << 7) | y;
-			 * // x*2048 + z*128 + y if (y < 64) { chunkStone[index] = 1; // some block ID
-			 * (stone) } else { chunkStone[index] = 0; // air } } } }
-			 * 
-			 * Deflater deflater1 = new Deflater(); deflater1.setInput(chunkStone);
-			 * deflater1.finish(); byte[] compressedStone = new byte[chunkStone.length * 2];
-			 * int compressedLen1 = deflater1.deflate(compressedStone); deflater1.end();
-			 * 
-			 * Deflater deflater2 = new Deflater(); deflater2.setInput(chunkAir);
-			 * deflater2.finish(); byte[] compressedAir = new byte[chunkStone.length * 2];
-			 * int compressedLen2 = deflater2.deflate(compressedAir); deflater2.end();
-			 * 
-			 * int playerChunkX = playerX >> 4; int playerChunkZ = playerZ >> 4;
-			 * 
-			 * int packetSizeStone = 1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen1; int
-			 * packetSizeAir = 1 + 4 + 2 + 4 + 1 + 1 + 1 + 4 + compressedLen2; if(prevCX !=
-			 * playerChunkX || prevCZ != playerChunkZ) { for (int x = -176; x <= 176; x +=
-			 * 16) { for (int z = -176; z <= 176; z += 16) { if(playerChunkX + x < -176 ||
-			 * playerChunkX + x > 176 || playerChunkZ + z < -176|| playerChunkZ + z > 176) {
-			 * writeAlphaChunk(client, ver, packetSizeAir, compressedAir, compressedLen2, x
-			 * + playerChunkX, (short) 0, z + playerChunkZ); } else {
-			 * writeAlphaChunk(client, ver, packetSizeStone, compressedStone,
-			 * compressedLen1, x + playerChunkX, (short) 0, z + playerChunkZ); } } } } /*for
-			 * (int x = -1; x <= 1; x += 1) { for (int z = -1; z <= 1; z += 1) {
-			 * 
-			 * 
-			 * ByteBuffer buf =
-			 * ByteBuffer.allocate(loadChunkPacketSize).order(ByteOrder.BIG_ENDIAN);
-			 * buf.put((byte)Utils.invertMap(ver.packetList).get(PacketType.chunkLoad).
-			 * packetID); buf.putInt((x + (playerX >> 4))); // chunk X buf.putInt((z +
-			 * (playerZ >> 4))); // chunk Z buf.put((byte) 1); // load writeFully(client,
-			 * buf); } }
-			 */
-			// prevCX = playerChunkX;prevCZ = playerChunkZ;
-			// }
 		} else if (pPacket.packet.packetType == PacketType.blockPlace) {
 			int blockID;
-			if (ver instanceof a1_0_7 || ver instanceof a1_0_6) {
-				blockID = (byte) pPacket.values.get(0);
-			} else {
-				blockID = (short) pPacket.values.get(0);
-			}
+			
+				blockID = (short) pPacket.values.get(4);
+			
 			if (heldID < 256 && heldID >= 0 && blockID < 256 && blockID >= 0) {
-				int x = (int) pPacket.values.get(1);
-				byte y = (byte) pPacket.values.get(2);
-				int z = (int) pPacket.values.get(3);
-				byte face = (byte) pPacket.values.get(4);
+				int x = (int) pPacket.values.get(0);
+				byte y = (byte) pPacket.values.get(1);
+				int z = (int) pPacket.values.get(2);
+				byte face = (byte) pPacket.values.get(3);
 
 				if (face == 0) {
 					y--;
@@ -238,10 +149,10 @@ public class ServerSimulator { // basic server simulator which wont really be us
 
 				int packetSize = Byte.BYTES + Integer.BYTES + Byte.BYTES + Integer.BYTES + Byte.BYTES + Byte.BYTES;
 
-				if (!(ver instanceof a1_0_7 || ver instanceof a1_0_6)) {
-					packetSize -= Byte.BYTES;
-					packetSize += Short.BYTES;
-				}
+				
+				packetSize -= Byte.BYTES;
+				packetSize += Short.BYTES;
+				
 
 				ByteBuffer buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
 				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.blockUpdate).packetID); // id
@@ -250,6 +161,27 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				buf.putInt(z);
 				buf.put((byte) blockID);
 				buf.put((byte) 0);
+				writeFully(client, buf);
+			} else {
+				byte menu = 1;
+				
+				if(blockID == 290) {
+					menu = 2;
+				}
+				
+				int packetSize = Byte.BYTES +
+						Byte.BYTES +
+						Byte.BYTES +
+						Short.BYTES +
+						"Crafting Menu".getBytes().length +
+						Byte.BYTES;
+				ByteBuffer buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
+				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.openInv).packetID); // id
+				buf.put((byte)Math.abs((byte)"Crafting Menu".hashCode()));
+				buf.put(menu);
+				buf.putShort((short)"Crafting Menu".getBytes().length);
+				buf.put("Crafting Menu".getBytes());
+				buf.put((byte) 46);
 				writeFully(client, buf);
 			}
 		} else if (pPacket.packet.packetType == PacketType.dig) {
@@ -268,7 +200,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				buf.put((byte) 0);
 				buf.put((byte) 0);
 				writeFully(client, buf);
-				if (!(ver instanceof a1_0_7 || ver instanceof a1_0_6)) {
+				
 					packetSize = Byte.BYTES + Integer.BYTES + Short.BYTES + Byte.BYTES + Integer.BYTES
 							+ Integer.BYTES + Integer.BYTES + Byte.BYTES + Byte.BYTES + Byte.BYTES;
 					buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
@@ -284,7 +216,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 					buf.put((byte) 0);
 					buf.put((byte) 0);
 					writeFully(client, buf);
-					if (!(ver instanceof a1_0_9)) {
+					
 
 						packetSize = Byte.BYTES + Integer.BYTES + Integer.BYTES;
 						buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
@@ -293,18 +225,20 @@ public class ServerSimulator { // basic server simulator which wont really be us
 						buf.putInt(-1);
 						writeFully(client, buf);
 
-						packetSize = Byte.BYTES + Short.BYTES + Byte.BYTES + Short.BYTES;
+						packetSize = Byte.BYTES + Byte.BYTES + Short.BYTES + Short.BYTES + Byte.BYTES + Short.BYTES;
 						buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
-						buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.itemInvAdd).packetID); // id
+						buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.slotContents).packetID); // id
+						buf.put((byte) 0);
+						buf.putShort((short) 0);
 						buf.putShort((short) 17);
 						buf.put((byte) 1);
 						buf.putShort((short) 0);
 						writeFully(client, buf);
-					}
-				}
+					
+				
 			}
 		} else if (pPacket.packet.packetType == PacketType.handSwap) {
-			heldID = (short) pPacket.values.get(1);
+			//heldID = (short) pPacket.values.get(0);
 		} else if (pPacket.packet.packetType == PacketType.itemDrop) {
 
 			int entityID = (int) pPacket.values.get(0);
@@ -329,7 +263,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 			buf.put((byte) 0);
 			buf.put((byte) 0);
 			writeFully(client, buf);
-			if (!(ver instanceof a1_0_9)) {
+			
 
 				packetSize = Byte.BYTES + Integer.BYTES + Integer.BYTES;
 				buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
@@ -338,14 +272,16 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				buf.putInt(-1);
 				writeFully(client, buf);
 
-				packetSize = Byte.BYTES + Short.BYTES + Byte.BYTES + Short.BYTES;
+				packetSize = Byte.BYTES + Byte.BYTES + Short.BYTES + Short.BYTES + Byte.BYTES + Byte.BYTES;
 				buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
-				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.itemInvAdd).packetID); // id
-				buf.putShort(itemID);
-				buf.put(itemAmount);
+				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.slotContents).packetID); // id
+				buf.put((byte) 0);
+				buf.put((byte) 0);
+				buf.putShort((short) itemID);
+				buf.put((byte) itemAmount);
 				buf.putShort((short) 0);
 				writeFully(client, buf);
-			}
+			
 		} else if (pPacket.packet.packetType == PacketType.chat) {
 			String message = (String) pPacket.values.get(0);
 			int packetSize = Byte.BYTES + Short.BYTES + message.length();
@@ -795,7 +731,6 @@ public class ServerSimulator { // basic server simulator which wont really be us
 		for (int x = 0; x < 16; x++) {
 			for (int z = 0; z < 16; z++) {
 				for (int y = 0; y < 128; y++) {
-					int index = ((x << 11) | (z << 7) | y) >> 1; // x*2048 + z*128 + y
 					int light;
 					int lightI;
 					if (y < 64) {

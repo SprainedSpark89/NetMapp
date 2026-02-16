@@ -25,6 +25,7 @@ import io.github.SprainedSpark89.netmapp.version.base.VersionRegisterHook;
 import io.github.SprainedSpark89.netmapp.version.base.Versions;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketMultiBlockChange;
+import io.github.SprainedSpark89.netmapp.version.java.beta.BetaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 import io.github.SprainedSpark89.netmapp.version.java.classic.c15.c0_0_15a;
 
@@ -222,7 +223,7 @@ public class NetMapp {
 		for (Packet packet : Utils.getLoginPackets(Utils.getTCPVersions())) {
 
 			Versions base = Utils.getVersionFromPacket(packet);
-			if (!(base instanceof AlphaVersion))
+			if ((base instanceof ClassicVersion))
 				continue;
 
 			buf.reset();
@@ -270,7 +271,11 @@ public class NetMapp {
 
 				if (protocol != null) {
 					buf.position(start);
-					return Utils.getVersionFromProtocolNumber(new AlphaVersion(Versions.instance), protocol);
+					Versions verReturn = Utils.getVersionFromProtocolNumber(new AlphaVersion(Versions.instance), protocol);
+					if(verReturn == null) {
+						verReturn = Utils.getVersionFromProtocolNumber(new BetaVersion(Versions.instance), protocol);
+					}
+					return verReturn;
 				}
 
 			} catch (BufferUnderflowException e) {

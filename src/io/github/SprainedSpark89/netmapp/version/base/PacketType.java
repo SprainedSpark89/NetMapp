@@ -74,5 +74,14 @@ public enum PacketType {
 	entityTrigger,
 	
 	// a1.2.3_05
-	explosion
+	explosion,
+	
+	// b1.0
+	openInv,
+	closeInv,
+	invClick,
+	slotContents,
+	setInvData,
+	invCheck,
+	signData
 }
