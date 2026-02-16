@@ -18,12 +18,16 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.a1_0_10;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1012.a1_0_12;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1013.a1_0_13;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.a1_0_15;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1016.PacketHandshake;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1016.a1_0_16;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a1017.a1_0_17;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.a1_0_5;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.a1_0_5_01;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.a1_0_6;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.a1_0_7;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.a1_0_9;
+import io.github.SprainedSpark89.netmapp.version.java.alpha.a110.a1_1_0;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 
 public class ServerSimulator { // basic server simulator which wont really be used at all except for testing
@@ -96,6 +100,20 @@ public class ServerSimulator { // basic server simulator which wont really be us
 			if (pPacket.packet.packetType == PacketType.login) {
 				// 1. Login Response
 				int packetSize = 1 + 4 + 2 + 0 + 2 + 0;
+				if(!(ver instanceof a1_0_5
+						|| ver instanceof a1_0_5_01
+						|| ver instanceof a1_0_6
+						|| ver instanceof a1_0_7 
+						|| ver instanceof a1_0_9
+						|| ver instanceof a1_0_10
+						|| ver instanceof a1_0_12
+						|| ver instanceof a1_0_13
+						|| ver instanceof a1_0_15
+						|| ver instanceof a1_0_16
+						|| ver instanceof a1_0_17
+						|| ver instanceof a1_1_0)) {
+					packetSize += Long.BYTES + Byte.BYTES;
+				}
 
 				ByteBuffer buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
 				buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.login).packetID); // Login packet ID
@@ -105,6 +123,23 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				// (no username bytes)
 				buf.putShort((short) 0); // Password length
 				// (no password bytes)
+				
+				if(!(ver instanceof a1_0_5
+						|| ver instanceof a1_0_5_01
+						|| ver instanceof a1_0_6
+						|| ver instanceof a1_0_7 
+						|| ver instanceof a1_0_9
+						|| ver instanceof a1_0_10
+						|| ver instanceof a1_0_12
+						|| ver instanceof a1_0_13
+						|| ver instanceof a1_0_15
+						|| ver instanceof a1_0_16
+						|| ver instanceof a1_0_17
+						|| ver instanceof a1_1_0)) {
+					buf.putLong(0L);
+					buf.put((byte) 0);
+				}
+				
 				writeFully(client, buf);
 
 				// Chunk, -176 to 176, both axis
