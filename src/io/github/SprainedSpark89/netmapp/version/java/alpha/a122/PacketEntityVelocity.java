@@ -17,9 +17,9 @@ public class PacketEntityVelocity extends Packet {
 		this.args.add(Short.TYPE);
 		this.args.add(Short.TYPE);
 		this.argsDesc.add("EntityID");
-		this.argsDesc.add("X Vel"); // double, * 32000, int casted, then short casted
-		this.argsDesc.add("Y Vel"); // double, * 32000, int casted, then short casted
-		this.argsDesc.add("Z Vel"); // double, * 32000, int casted, then short casted
+		this.argsDesc.add("X Vel"); // double, * 32000, int casted, then short casted, 32000 replaced with 8000 in a1.2.3_05
+		this.argsDesc.add("Y Vel"); // double, * 32000, int casted, then short casted, 32000 replaced with 8000 in a1.2.3_05
+		this.argsDesc.add("Z Vel"); // double, * 32000, int casted, then short casted, 32000 replaced with 8000 in a1.2.3_05
 		this.packetType = PacketType.entityVel;
 		this.packetID = 28;
 	}

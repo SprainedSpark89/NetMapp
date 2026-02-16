@@ -71,5 +71,8 @@ public enum PacketType {
 	// a1.2.3
 	health,
 	respawn,
-	entityTrigger
+	entityTrigger,
+	
+	// a1.2.3_05
+	explosion
 }
