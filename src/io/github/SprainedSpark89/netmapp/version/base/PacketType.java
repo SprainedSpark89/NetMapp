@@ -83,5 +83,10 @@ public enum PacketType {
 	slotContents,
 	setInvData,
 	invCheck,
-	signData
+	signData,
+	
+	// b1.2
+	actionChange,
+	spawnPainting,
+	entityDataSync
 }
