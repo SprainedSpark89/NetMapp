@@ -5,9 +5,9 @@ import java.util.List;
 import io.github.SprainedSpark89.netmapp.version.base.Packet;
 import io.github.SprainedSpark89.netmapp.version.base.PacketType;
 
-public class PackSetSlot extends Packet {
+public class PacketSetSlot extends Packet {
 
-	public PackSetSlot(List<Class<?>> inputs, List<String> descriptions) {
+	public PacketSetSlot(List<Class<?>> inputs, List<String> descriptions) {
 		super(inputs, descriptions);
 		// TODO Auto-generated constructor stub
 		this.args.add(Integer.TYPE);

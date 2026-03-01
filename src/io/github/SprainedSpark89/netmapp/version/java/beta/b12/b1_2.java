@@ -12,7 +12,6 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.PacketPlayerMo
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.PacketPlayerPos;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.PacketVehicleSpawn;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1016.PacketHandshake;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a1017.PacketAddEntity;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1017.PacketTime;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketKickDisconnect;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketMapChunk;
@@ -29,7 +28,6 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRelEntity
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRemoveEntity;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketFlying;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerLook;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.PacketItemSpawn;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a110.PacketSetSpawn;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a120.PacketLogin;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a122.PacketEntityMount;
@@ -39,18 +37,14 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a123.PacketEntityTri
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a123.PacketRespawn;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a123_05.PacketExplosion;
 import io.github.SprainedSpark89.netmapp.version.java.beta.BetaVersion;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PackSetSlot;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketCloseInv;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketCurrentSlot;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketHealth;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketInvClick;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketInvContents;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketInvData;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketInvVerify;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketOpenInv;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketPlace;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketSignData;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketSlotContents;
 
 public class b1_2 extends BetaVersion {
 
@@ -78,7 +72,7 @@ public class b1_2 extends BetaVersion {
 		p = new PacketTime(new ArrayList<Class<?>>(), new ArrayList<String>()); // 4
 		this.packetList.put(p, p.packetType);
 		
-		p = new PackSetSlot(new ArrayList<Class<?>>(), new ArrayList<String>()); // 5
+		p = new PacketSetSlot(new ArrayList<Class<?>>(), new ArrayList<String>()); // 5
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketSetSpawn(new ArrayList<Class<?>>(), new ArrayList<String>()); // 6
@@ -176,6 +170,9 @@ public class b1_2 extends BetaVersion {
 		p = new PacketEntityMount(new ArrayList<Class<?>>(), new ArrayList<String>()); // 39
 		this.packetList.put(p, p.packetType);
 		
+		p = new PacketEntityDataSync(new ArrayList<Class<?>>(), new ArrayList<String>()); // 40
+		this.packetList.put(p, p.packetType);
+		
 		
 		p = new PacketPreChunk(new ArrayList<Class<?>>(), new ArrayList<String>()); // 50
 		p.packetID = 50;
@@ -191,6 +188,9 @@ public class b1_2 extends BetaVersion {
 		
 		p = new PacketBlockChange(new ArrayList<Class<?>>(), new ArrayList<String>()); // 53
 		p.packetID = 53;
+		this.packetList.put(p, p.packetType);
+		
+		p = new PacketTriggerBlockEvent(new ArrayList<Class<?>>(), new ArrayList<String>()); // 54
 		this.packetList.put(p, p.packetType);
 		
 		

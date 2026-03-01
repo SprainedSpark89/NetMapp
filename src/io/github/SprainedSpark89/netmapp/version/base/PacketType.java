@@ -88,5 +88,6 @@ public enum PacketType {
 	// b1.2
 	actionChange,
 	spawnPainting,
-	entityDataSync
+	entityDataSync,
+	blockEventTrigger
 }

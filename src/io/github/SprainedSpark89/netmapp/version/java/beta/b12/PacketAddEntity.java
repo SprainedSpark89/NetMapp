@@ -10,19 +10,31 @@ import io.github.SprainedSpark89.netmapp.version.base.PacketType;
 import io.github.SprainedSpark89.netmapp.version.base.ParsedPacket;
 import io.github.SprainedSpark89.netmapp.version.base.SpecialRead;
 
-public class PacketEntityDataSync extends Packet {
+public class PacketAddEntity extends Packet {
 
-	public PacketEntityDataSync(List<Class<?>> inputs, List<String> descriptions) {
+	public PacketAddEntity(List<Class<?>> inputs, List<String> descriptions) {
 		super(inputs, descriptions);
 		// TODO Auto-generated constructor stub
 		this.args.add(Integer.TYPE);
+		this.args.add(Byte.TYPE);
+		this.args.add(Integer.TYPE);
+		this.args.add(Integer.TYPE);
+		this.args.add(Integer.TYPE);
+		this.args.add(Byte.TYPE);
+		this.args.add(Byte.TYPE);
 		this.args.add(Object[].class);
 		this.argsDesc.add("EntityID");
-		this.argsDesc.add("Data"); // HELL
-		this.packetID = 40;
-		this.packetType = PacketType.entityDataSync;
+		this.argsDesc.add("Entity Type");
+		this.argsDesc.add("X");
+		this.argsDesc.add("Y");
+		this.argsDesc.add("Z");
+		this.argsDesc.add("Yaw");
+		this.argsDesc.add("Pitch");
+		this.argsDesc.add("Data");
+		this.packetID = 24;
+		this.packetType = PacketType.entityAdd;
 		
-		this.read = new SpecialRead(true, 1);
+		this.read = new SpecialRead(true, 7);
 	}
 	
 	@Override

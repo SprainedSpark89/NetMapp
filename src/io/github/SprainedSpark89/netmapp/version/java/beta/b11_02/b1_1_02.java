@@ -43,7 +43,7 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a123.PacketEntityTri
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a123.PacketRespawn;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a123_05.PacketExplosion;
 import io.github.SprainedSpark89.netmapp.version.java.beta.BetaVersion;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PackSetSlot;
+import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketSetSlot;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketCloseInv;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketCurrentSlot;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketHealth;
@@ -82,7 +82,7 @@ public class b1_1_02 extends BetaVersion {
 		p = new PacketTime(new ArrayList<Class<?>>(), new ArrayList<String>()); // 4
 		this.packetList.put(p, p.packetType);
 		
-		p = new PackSetSlot(new ArrayList<Class<?>>(), new ArrayList<String>()); // 5
+		p = new PacketSetSlot(new ArrayList<Class<?>>(), new ArrayList<String>()); // 5
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketSetSpawn(new ArrayList<Class<?>>(), new ArrayList<String>()); // 6

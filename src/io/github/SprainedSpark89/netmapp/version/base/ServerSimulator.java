@@ -28,6 +28,8 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.a1_0_7;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.a1_0_9;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a110.a1_1_0;
 import io.github.SprainedSpark89.netmapp.version.java.beta.BetaVersion;
+import io.github.SprainedSpark89.netmapp.version.java.beta.b10.b1_0;
+import io.github.SprainedSpark89.netmapp.version.java.beta.b11_02.b1_1_02;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 
 public class ServerSimulator { // basic server simulator which wont really be used at all except for testing
@@ -201,14 +203,23 @@ public class ServerSimulator { // basic server simulator which wont really be us
 				buf.put((byte) 0);
 				writeFully(client, buf);
 				
+				
+				
 					packetSize = Byte.BYTES + Integer.BYTES + Short.BYTES + Byte.BYTES + Integer.BYTES
 							+ Integer.BYTES + Integer.BYTES + Byte.BYTES + Byte.BYTES + Byte.BYTES;
+					if(!(ver instanceof b1_0 || ver instanceof b1_1_02)) {
+						packetSize += Short.BYTES;
+					}
 					buf = ByteBuffer.allocate(packetSize).order(ByteOrder.BIG_ENDIAN);
 					buf.put((byte) Utils.invertMap(ver.packetList).get(PacketType.itemDrop).packetID); // id
 					buf.putInt(Math.abs("Item Id".hashCode()));
 					buf.putShort((short) 17); // yes, i know i shouldn't do this, but i also don't want to track the
 												// world's resources
 					buf.put((byte) 1);
+					if(!(ver instanceof b1_0 || ver instanceof b1_1_02)) {
+						buf.putShort((short) 0);
+					}
+					
 					buf.putInt((int) ((x + .5) * 32));
 					buf.putInt((int) ((y + .5) * 32));
 					buf.putInt((int) ((z + .5) * 32));

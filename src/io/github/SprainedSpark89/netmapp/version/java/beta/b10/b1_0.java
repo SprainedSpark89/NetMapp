@@ -70,7 +70,7 @@ public class b1_0 extends BetaVersion {
 		p = new PacketTime(new ArrayList<Class<?>>(), new ArrayList<String>()); // 4
 		this.packetList.put(p, p.packetType);
 		
-		p = new PackSetSlot(new ArrayList<Class<?>>(), new ArrayList<String>()); // 5
+		p = new PacketSetSlot(new ArrayList<Class<?>>(), new ArrayList<String>()); // 5
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketSetSpawn(new ArrayList<Class<?>>(), new ArrayList<String>()); // 6
