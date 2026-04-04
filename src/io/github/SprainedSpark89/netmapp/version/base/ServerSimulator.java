@@ -32,12 +32,13 @@ import io.github.SprainedSpark89.netmapp.version.java.beta.b10.b1_0;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b11_02.b1_1_02;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 
+@Deprecated
 public class ServerSimulator { // basic server simulator which wont really be used at all except for testing
-
+	@Deprecated
 	public Thread keepAliveThread;
-
+	@Deprecated
 	public static long lastPacketTimeInNano;
-
+	@Deprecated
 	public void parsePackets(ParsedPacket pPacket, SocketChannel client, Versions ver, int offset) throws IOException {
 		if (ver instanceof ClassicVersion) {
 			handleClassic(pPacket, client, ver);
@@ -54,6 +55,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 	 * @param ver
 	 * @throws IOException
 	 */
+	@Deprecated
 	public void handleBeta(ParsedPacket pPacket, SocketChannel client, Versions ver) throws IOException {
 		if (pPacket.packet.packetType == PacketType.login) {
 			// 1. Login Response
@@ -318,6 +320,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 	 * @param ver
 	 * @throws IOException
 	 */
+	@Deprecated
 	public void handleAlpha(ParsedPacket pPacket, SocketChannel client, Versions ver) throws IOException {
 		if (pPacket.packet.packetType == PacketType.login) {
 			// 1. Login Response
@@ -639,6 +642,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 	 * @param ver
 	 * @throws IOException
 	 */
+	@Deprecated
 	public void handleClassic(ParsedPacket pPacket, SocketChannel client, Versions ver) throws IOException {
 		if (pPacket.packet.packetType == PacketType.login) {
 			// resend client login to put client into proper mode
@@ -700,6 +704,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 		}
 	}
 
+	@Deprecated
 	public byte[] makeChunk(Versions ver) {
 		int blockCount = 16 * 128 * 16;
 		
@@ -787,7 +792,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 		
 		return blocks;
 	}
-
+	@Deprecated
 	public short heldID = 0;
 	
 	
@@ -795,6 +800,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 	
 	
 	
+	@Deprecated
 	public void handleHandshake(ByteBuffer readBuffer, SocketChannel client) throws IOException {
 		int start = readBuffer.position();
 		int end = readBuffer.position();
@@ -832,7 +838,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 
 	// int prevCX = 0;
 	// int prevCZ = 0;
-
+	@Deprecated
 	public void createKeepAliveThread(SocketChannel client, Versions ver, long timingInSecconds) {
 		this.keepAliveThread = new Thread(() -> {
 			ByteBuffer buf = ByteBuffer.allocate(Byte.BYTES).order(ByteOrder.BIG_ENDIAN);
@@ -862,7 +868,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 		});
 		this.keepAliveThread.start();
 	}
-
+	@Deprecated
 	public void writeAlphaChunk(SocketChannel client, Versions ver, int packetSize, byte[] compressed,
 			int compressedLen, int x, short y, int z) throws IOException {
 		if (!(ver instanceof a1_0_5 || ver instanceof a1_0_5_01)) {
@@ -890,7 +896,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 		writeFully(client, buf);
 
 	}
-
+	@Deprecated
 	public static void writeFully(SocketChannel ch, ByteBuffer buf) throws IOException {
 		buf.flip();
 		while (buf.hasRemaining()) {
@@ -898,7 +904,7 @@ public class ServerSimulator { // basic server simulator which wont really be us
 		}
 		lastPacketTimeInNano = System.nanoTime();
 	}
-
+	@Deprecated
 	public byte[] buildCompressedLevel(byte[] rawBlocks) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		GZIPOutputStream gzip = new GZIPOutputStream(baos);
