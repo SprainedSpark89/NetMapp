@@ -1,19 +1,477 @@
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\NetMapp.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\base\ConversionPacket.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\base\Packet.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\base\PacketType.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\base\Utils.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\base\Versions.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\JavaVersion.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\ClassicVersion.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\c0_0_15a.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\PacketBlank.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\PacketBlockUpdate.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\PacketDisconnect.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\PacketEntityMove.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\PacketLevelData.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\PacketLevelEnd.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\PacketLevelInit.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\PacketLogin.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\PacketPlayerAdd.java
-D:\NetMapp\src\io\github\SprainedSpark89\netmapp\version\java\classic\c15\PacketSetBlock.java
+Folder PATH listing for volume Seagate Portable Drive
+Volume serial number is 009C-6D08
+D:.
+¦   .classpath
+¦   .gitattributes
+¦   .gitignore
+¦   .project
+¦   README.md
+¦   sources.txt
+¦   
++---.settings
+¦       org.eclipse.core.resources.prefs
+¦       org.eclipse.jdt.core.prefs
+¦       
++---bin
+¦   +---io
+¦       +---github
+¦           +---SprainedSpark89
+¦               +---netmapp
+¦                   ¦   NetMapp.class
+¦                   ¦   
+¦                   +---version
+¦                       +---base
+¦                       ¦       ConversionPacket.class
+¦                       ¦       IDable.class
+¦                       ¦       LeftOverEntry.class
+¦                       ¦       Packet.class
+¦                       ¦       PacketType.class
+¦                       ¦       ParsedPacket.class
+¦                       ¦       ServerSimulator.class
+¦                       ¦       SpecialRead.class
+¦                       ¦       Utils.class
+¦                       ¦       VersionRegisterHook.class
+¦                       ¦       Versions.class
+¦                       ¦       
+¦                       +---java
+¦                       ¦   ¦   JavaVersion.class
+¦                       ¦   ¦   
+¦                       ¦   +---alpha
+¦                       ¦   ¦   ¦   AlphaVersion.class
+¦                       ¦   ¦   ¦   
+¦                       ¦   ¦   +---a1010
+¦                       ¦   ¦   ¦       a1_0_10.class
+¦                       ¦   ¦   ¦       PacketAddToInv.class
+¦                       ¦   ¦   ¦       PacketChat.class
+¦                       ¦   ¦   ¦       PacketCollect.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a1012
+¦                       ¦   ¦   ¦       a1_0_12.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a1013
+¦                       ¦   ¦   ¦       a1_0_13.class
+¦                       ¦   ¦   ¦       PacketEntityLook.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a1015
+¦                       ¦   ¦   ¦       a1_0_15.class
+¦                       ¦   ¦   ¦       PacketAnimate.class
+¦                       ¦   ¦   ¦       PacketPlayerMoveLook.class
+¦                       ¦   ¦   ¦       PacketPlayerPos.class
+¦                       ¦   ¦   ¦       PacketVehicleSpawn.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a1016
+¦                       ¦   ¦   ¦       a1_0_16.class
+¦                       ¦   ¦   ¦       PacketHandshake.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a1017
+¦                       ¦   ¦   ¦       a1_0_17.class
+¦                       ¦   ¦   ¦       PacketAddEntity.class
+¦                       ¦   ¦   ¦       PacketTime.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a105
+¦                       ¦   ¦   ¦       a1_0_5.class
+¦                       ¦   ¦   ¦       PacketKickDisconnect.class
+¦                       ¦   ¦   ¦       PacketLogin.class
+¦                       ¦   ¦   ¦       PacketMapChunk.class
+¦                       ¦   ¦   ¦       PacketPlayerMoveLook.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a105_01
+¦                       ¦   ¦   ¦       a1_0_5_01.class
+¦                       ¦   ¦   ¦       PacketBlockChange.class
+¦                       ¦   ¦   ¦       PacketDig.class
+¦                       ¦   ¦   ¦       PacketMultiBlockChange.class
+¦                       ¦   ¦   ¦       PacketPlayerMoveLook.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a106
+¦                       ¦   ¦   ¦       a1_0_6.class
+¦                       ¦   ¦   ¦       PacketEntity.class
+¦                       ¦   ¦   ¦       PacketEntityLook.class
+¦                       ¦   ¦   ¦       PacketEntityTP.class
+¦                       ¦   ¦   ¦       PacketHeldSwitch.class
+¦                       ¦   ¦   ¦       PacketKeepAlive.class
+¦                       ¦   ¦   ¦       PacketNamedEntitySpawn.class
+¦                       ¦   ¦   ¦       PacketPlace.class
+¦                       ¦   ¦   ¦       PacketPreChunk.class
+¦                       ¦   ¦   ¦       PacketRelEntityMove.class
+¦                       ¦   ¦   ¦       PacketRelEntityMoveLook.class
+¦                       ¦   ¦   ¦       PacketRemoveEntity.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a107
+¦                       ¦   ¦   ¦       a1_0_7.class
+¦                       ¦   ¦   ¦       PacketFlying.class
+¦                       ¦   ¦   ¦       PacketPlayerLook.class
+¦                       ¦   ¦   ¦       PacketPlayerMoveLook.class
+¦                       ¦   ¦   ¦       PacketPlayerPos.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a109
+¦                       ¦   ¦   ¦       a1_0_9.class
+¦                       ¦   ¦   ¦       PacketItemSpawn.class
+¦                       ¦   ¦   ¦       PacketPlace.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a110
+¦                       ¦   ¦   ¦       a1_1_0.class
+¦                       ¦   ¦   ¦       PacketSetInv.class
+¦                       ¦   ¦   ¦       PacketSetSpawn.class
+¦                       ¦   ¦   ¦       PacketTileEntityData.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a120
+¦                       ¦   ¦   ¦       a1_2_0.class
+¦                       ¦   ¦   ¦       PacketLogin.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a122
+¦                       ¦   ¦   ¦       a1_2_2.class
+¦                       ¦   ¦   ¦       PacketEntityClick.class
+¦                       ¦   ¦   ¦       PacketEntityMount.class
+¦                       ¦   ¦   ¦       PacketEntityVelocity.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a123
+¦                       ¦   ¦   ¦       a1_2_3.class
+¦                       ¦   ¦   ¦       PacketEntityClick.class
+¦                       ¦   ¦   ¦       PacketEntityTrigger.class
+¦                       ¦   ¦   ¦       PacketHealth.class
+¦                       ¦   ¦   ¦       PacketRespawn.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a123_05
+¦                       ¦   ¦           a1_2_3_05.class
+¦                       ¦   ¦           PacketExplosion.class
+¦                       ¦   ¦           
+¦                       ¦   +---beta
+¦                       ¦   ¦   ¦   BetaVersion.class
+¦                       ¦   ¦   ¦   
+¦                       ¦   ¦   +---b10
+¦                       ¦   ¦   ¦       b1_0.class
+¦                       ¦   ¦   ¦       PacketCloseInv.class
+¦                       ¦   ¦   ¦       PacketCurrentSlot.class
+¦                       ¦   ¦   ¦       PacketHealth.class
+¦                       ¦   ¦   ¦       PacketInvClick.class
+¦                       ¦   ¦   ¦       PacketInvContents.class
+¦                       ¦   ¦   ¦       PacketInvData.class
+¦                       ¦   ¦   ¦       PacketInvVerify.class
+¦                       ¦   ¦   ¦       PacketOpenInv.class
+¦                       ¦   ¦   ¦       PacketPlace.class
+¦                       ¦   ¦   ¦       PacketSetSlot.class
+¦                       ¦   ¦   ¦       PacketSignData.class
+¦                       ¦   ¦   ¦       PacketSlotContents.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b11_02
+¦                       ¦   ¦   ¦       b1_1_02.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b12
+¦                       ¦   ¦           b1_2.class
+¦                       ¦   ¦           PacketAddEntity.class
+¦                       ¦   ¦           PacketEntityDataSync.class
+¦                       ¦   ¦           PacketInvClick.class
+¦                       ¦   ¦           PacketItemSpawn.class
+¦                       ¦   ¦           PacketPaintingSpawn.class
+¦                       ¦   ¦           PacketPlace.class
+¦                       ¦   ¦           PacketPlayerActionChange.class
+¦                       ¦   ¦           PacketSetSlot.class
+¦                       ¦   ¦           PacketSlotContents.class
+¦                       ¦   ¦           PacketTriggerBlockEvent.class
+¦                       ¦   ¦           
+¦                       ¦   +---classic
+¦                       ¦       ¦   ClassicVersion.class
+¦                       ¦       ¦   
+¦                       ¦       +---c15
+¦                       ¦       ¦       c0_0_15a.class
+¦                       ¦       ¦       PacketBlank.class
+¦                       ¦       ¦       PacketBlockUpdate.class
+¦                       ¦       ¦       PacketDisconnect.class
+¦                       ¦       ¦       PacketEntityMove.class
+¦                       ¦       ¦       PacketLevelData.class
+¦                       ¦       ¦       PacketLevelEnd.class
+¦                       ¦       ¦       PacketLevelInit.class
+¦                       ¦       ¦       PacketLogin.class
+¦                       ¦       ¦       PacketPlayerAdd.class
+¦                       ¦       ¦       PacketSetBlock.class
+¦                       ¦       ¦       
+¦                       ¦       +---c16
+¦                       ¦       ¦       c0_0_16a.class
+¦                       ¦       ¦       PacketChat.class
+¦                       ¦       ¦       PacketEntityMove.class
+¦                       ¦       ¦       PacketEntityMoveRotate.class
+¦                       ¦       ¦       PacketEntityRotation.class
+¦                       ¦       ¦       PacketEntityTP.class
+¦                       ¦       ¦       PacketKick.class
+¦                       ¦       ¦       PacketLogin.class
+¦                       ¦       ¦       
+¦                       ¦       +---c17
+¦                       ¦       ¦       c0_0_17a.class
+¦                       ¦       ¦       
+¦                       ¦       +---c18
+¦                       ¦       ¦       c0_0_18a.class
+¦                       ¦       ¦       
+¦                       ¦       +---c19
+¦                       ¦       ¦       c0_0_19a.class
+¦                       ¦       ¦       
+¦                       ¦       +---c20
+¦                       ¦       ¦       c0_0_20a.class
+¦                       ¦       ¦       PacketLogin.class
+¦                       ¦       ¦       
+¦                       ¦       +---c30
+¦                       ¦               c0_30.class
+¦                       ¦               PacketPermissions.class
+¦                       ¦               
+¦                       +---LCE
+¦                           ¦   LCEVersion.class
+¦                           ¦   
+¦                           +---v1
+¦                               +---_3
+¦                                   +---_0494
+¦                                       +---_0
+¦                                               PacketKeepAlive.class
+¦                                               PacketLogin.class
+¦                                               v1_3_0494_0.class
+¦                                               
++---old ai stuff
+¦   +---src
+¦   ¦   +---io
+¦   ¦       +---github
+¦   ¦           +---SprainedSpark89
+¦   ¦               +---netmapp
+¦   ¦                   ¦   Converter.java
+¦   ¦                   ¦   Mapping.java
+¦   ¦                   ¦   MappingRegistry.java
+¦   ¦                   ¦   NetMapp.java
+¦   ¦                   ¦   Version.java
+¦   ¦                   ¦   
+¦   ¦                   +---model
+¦   ¦                           ArgDescriptor.java
+¦   ¦                           Packet.java
+¦   ¦                           
+¦   +---src.old
+¦       +---io
+¦           +---github
+¦               +---SprainedSpark89
+¦                   +---netmapp
+¦                       ¦   NetMapp.java
+¦                       ¦   
+¦                       +---converter
+¦                       ¦       PacketConversionSession.java
+¦                       ¦       PacketConverter.java
+¦                       ¦       
+¦                       +---mapper
+¦                       ¦       PacketMapper.java
+¦                       ¦       
+¦                       +---model
+¦                       ¦       FieldDefinition.java
+¦                       ¦       PacketDefinition.java
+¦                       ¦       SimplePacket.java
+¦                       ¦       
+¦                       +---registry
+¦                               VersionRegistry.java
+¦                               
++---src
+¦   +---io
+¦       +---github
+¦           +---SprainedSpark89
+¦               +---netmapp
+¦                   ¦   NetMapp.java
+¦                   ¦   
+¦                   +---version
+¦                       +---base
+¦                       ¦       ConversionPacket.java
+¦                       ¦       IDable.java
+¦                       ¦       Packet.java
+¦                       ¦       PacketType.java
+¦                       ¦       ParsedPacket.java
+¦                       ¦       ServerSimulator.java
+¦                       ¦       SpecialRead.java
+¦                       ¦       Utils.java
+¦                       ¦       VersionRegisterHook.java
+¦                       ¦       Versions.java
+¦                       ¦       
+¦                       +---java
+¦                       ¦   ¦   JavaVersion.java
+¦                       ¦   ¦   
+¦                       ¦   +---alpha
+¦                       ¦   ¦   ¦   AlphaVersion.java
+¦                       ¦   ¦   ¦   
+¦                       ¦   ¦   +---a1010
+¦                       ¦   ¦   ¦       a1_0_10.java
+¦                       ¦   ¦   ¦       PacketAddToInv.java
+¦                       ¦   ¦   ¦       PacketChat.java
+¦                       ¦   ¦   ¦       PacketCollect.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a1012
+¦                       ¦   ¦   ¦       a1_0_12.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a1013
+¦                       ¦   ¦   ¦       a1_0_13.java
+¦                       ¦   ¦   ¦       PacketEntityLook.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a1015
+¦                       ¦   ¦   ¦       a1_0_15.java
+¦                       ¦   ¦   ¦       PacketAnimate.java
+¦                       ¦   ¦   ¦       PacketPlayerMoveLook.java
+¦                       ¦   ¦   ¦       PacketPlayerPos.java
+¦                       ¦   ¦   ¦       PacketVehicleSpawn.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a1016
+¦                       ¦   ¦   ¦       a1_0_16.java
+¦                       ¦   ¦   ¦       PacketHandshake.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a1017
+¦                       ¦   ¦   ¦       a1_0_17.java
+¦                       ¦   ¦   ¦       PacketAddEntity.java
+¦                       ¦   ¦   ¦       PacketTime.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a105
+¦                       ¦   ¦   ¦       a1_0_5.java
+¦                       ¦   ¦   ¦       PacketKickDisconnect.java
+¦                       ¦   ¦   ¦       PacketLogin.java
+¦                       ¦   ¦   ¦       PacketMapChunk.java
+¦                       ¦   ¦   ¦       PacketPlayerMoveLook.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a105_01
+¦                       ¦   ¦   ¦       a1_0_5_01.java
+¦                       ¦   ¦   ¦       PacketBlockChange.java
+¦                       ¦   ¦   ¦       PacketDig.java
+¦                       ¦   ¦   ¦       PacketMultiBlockChange.java
+¦                       ¦   ¦   ¦       PacketPlayerMoveLook.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a106
+¦                       ¦   ¦   ¦       a1_0_6.java
+¦                       ¦   ¦   ¦       PacketEntity.java
+¦                       ¦   ¦   ¦       PacketEntityLook.java
+¦                       ¦   ¦   ¦       PacketEntityTP.java
+¦                       ¦   ¦   ¦       PacketHeldSwitch.java
+¦                       ¦   ¦   ¦       PacketKeepAlive.java
+¦                       ¦   ¦   ¦       PacketNamedEntitySpawn.java
+¦                       ¦   ¦   ¦       PacketPlace.java
+¦                       ¦   ¦   ¦       PacketPreChunk.java
+¦                       ¦   ¦   ¦       PacketRelEntityMove.java
+¦                       ¦   ¦   ¦       PacketRelEntityMoveLook.java
+¦                       ¦   ¦   ¦       PacketRemoveEntity.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a107
+¦                       ¦   ¦   ¦       a1_0_7.java
+¦                       ¦   ¦   ¦       PacketFlying.java
+¦                       ¦   ¦   ¦       PacketPlayerLook.java
+¦                       ¦   ¦   ¦       PacketPlayerMoveLook.java
+¦                       ¦   ¦   ¦       PacketPlayerPos.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a109
+¦                       ¦   ¦   ¦       a1_0_9.java
+¦                       ¦   ¦   ¦       PacketItemSpawn.java
+¦                       ¦   ¦   ¦       PacketPlace.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a110
+¦                       ¦   ¦   ¦       a1_1_0.java
+¦                       ¦   ¦   ¦       PacketSetInv.java
+¦                       ¦   ¦   ¦       PacketSetSpawn.java
+¦                       ¦   ¦   ¦       PacketTileEntityData.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a120
+¦                       ¦   ¦   ¦       a1_2_0.java
+¦                       ¦   ¦   ¦       PacketLogin.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a122
+¦                       ¦   ¦   ¦       a1_2_2.java
+¦                       ¦   ¦   ¦       PacketEntityClick.java
+¦                       ¦   ¦   ¦       PacketEntityMount.java
+¦                       ¦   ¦   ¦       PacketEntityVelocity.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a123
+¦                       ¦   ¦   ¦       a1_2_3.java
+¦                       ¦   ¦   ¦       PacketEntityClick.java
+¦                       ¦   ¦   ¦       PacketEntityTrigger.java
+¦                       ¦   ¦   ¦       PacketHealth.java
+¦                       ¦   ¦   ¦       PacketRespawn.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---a123_05
+¦                       ¦   ¦           a1_2_3_05.java
+¦                       ¦   ¦           PacketExplosion.java
+¦                       ¦   ¦           
+¦                       ¦   +---beta
+¦                       ¦   ¦   ¦   BetaVersion.java
+¦                       ¦   ¦   ¦   
+¦                       ¦   ¦   +---b10
+¦                       ¦   ¦   ¦       b1_0.java
+¦                       ¦   ¦   ¦       PacketCloseInv.java
+¦                       ¦   ¦   ¦       PacketCurrentSlot.java
+¦                       ¦   ¦   ¦       PacketHealth.java
+¦                       ¦   ¦   ¦       PacketInvClick.java
+¦                       ¦   ¦   ¦       PacketInvContents.java
+¦                       ¦   ¦   ¦       PacketInvData.java
+¦                       ¦   ¦   ¦       PacketInvVerify.java
+¦                       ¦   ¦   ¦       PacketOpenInv.java
+¦                       ¦   ¦   ¦       PacketPlace.java
+¦                       ¦   ¦   ¦       PacketSetSlot.java
+¦                       ¦   ¦   ¦       PacketSignData.java
+¦                       ¦   ¦   ¦       PacketSlotContents.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b11_02
+¦                       ¦   ¦   ¦       b1_1_02.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b12
+¦                       ¦   ¦           b1_2.java
+¦                       ¦   ¦           PacketAddEntity.java
+¦                       ¦   ¦           PacketEntityDataSync.java
+¦                       ¦   ¦           PacketInvClick.java
+¦                       ¦   ¦           PacketItemSpawn.java
+¦                       ¦   ¦           PacketPaintingSpawn.java
+¦                       ¦   ¦           PacketPlace.java
+¦                       ¦   ¦           PacketPlayerActionChange.java
+¦                       ¦   ¦           PacketSetSlot.java
+¦                       ¦   ¦           PacketSlotContents.java
+¦                       ¦   ¦           PacketTriggerBlockEvent.java
+¦                       ¦   ¦           
+¦                       ¦   +---classic
+¦                       ¦       ¦   ClassicVersion.java
+¦                       ¦       ¦   
+¦                       ¦       +---c15
+¦                       ¦       ¦       c0_0_15a.java
+¦                       ¦       ¦       PacketBlank.java
+¦                       ¦       ¦       PacketBlockUpdate.java
+¦                       ¦       ¦       PacketDisconnect.java
+¦                       ¦       ¦       PacketEntityMove.java
+¦                       ¦       ¦       PacketLevelData.java
+¦                       ¦       ¦       PacketLevelEnd.java
+¦                       ¦       ¦       PacketLevelInit.java
+¦                       ¦       ¦       PacketLogin.java
+¦                       ¦       ¦       PacketPlayerAdd.java
+¦                       ¦       ¦       PacketSetBlock.java
+¦                       ¦       ¦       
+¦                       ¦       +---c16
+¦                       ¦       ¦       c0_0_16a.java
+¦                       ¦       ¦       PacketChat.java
+¦                       ¦       ¦       PacketEntityMove.java
+¦                       ¦       ¦       PacketEntityMoveRotate.java
+¦                       ¦       ¦       PacketEntityRotation.java
+¦                       ¦       ¦       PacketEntityTP.java
+¦                       ¦       ¦       PacketKick.java
+¦                       ¦       ¦       PacketLogin.java
+¦                       ¦       ¦       
+¦                       ¦       +---c17
+¦                       ¦       ¦       c0_0_17a.java
+¦                       ¦       ¦       
+¦                       ¦       +---c18
+¦                       ¦       ¦       c0_0_18a.java
+¦                       ¦       ¦       
+¦                       ¦       +---c19
+¦                       ¦       ¦       c0_0_19a.java
+¦                       ¦       ¦       
+¦                       ¦       +---c20
+¦                       ¦       ¦       c0_0_20a.java
+¦                       ¦       ¦       PacketLogin.java
+¦                       ¦       ¦       
+¦                       ¦       +---c30
+¦                       ¦               c0_30.java
+¦                       ¦               PacketPermissions.java
+¦                       ¦               
+¦                       +---LCE
+¦                           ¦   LCEVersion.java
+¦                           ¦   
+¦                           +---v1
+¦                               +---_3
+¦                                   +---_0494
+¦                                       +---_0
+¦                                               PacketKeepAlive.java
+¦                                               PacketLogin.java
+¦                                               v1_3_0494_0.java
+¦                                               
++---tempclient
+        SendTest.class
+        SendTest.java
+        
