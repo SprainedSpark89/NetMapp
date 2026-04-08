@@ -89,5 +89,22 @@ public enum PacketType {
 	actionChange,
 	spawnPainting,
 	entityDataSync,
-	blockEventTrigger
+	blockEventTrigger,
+	
+	// b1.3
+	playerInput,
+	sleep,
+	
+	// b1.4
+	notification,
+	
+	// b1.5
+	forceAddEntity,
+	stat,
+	
+	// b1.6-preview
+	mapData,
+	
+	// b1.6-tb3
+	updateBlock
 }

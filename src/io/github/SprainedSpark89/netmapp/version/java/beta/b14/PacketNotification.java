@@ -1,0 +1,21 @@
+package io.github.SprainedSpark89.netmapp.version.java.beta.b14;
+
+import java.util.List;
+
+import io.github.SprainedSpark89.netmapp.version.base.Packet;
+import io.github.SprainedSpark89.netmapp.version.base.PacketType;
+
+public class PacketNotification extends Packet {
+
+	public PacketNotification(List<Class<?>> inputs, List<String> descriptions) {
+		super(inputs, descriptions);
+		this.args.add(Byte.TYPE);
+		this.argsDesc.add("Id");
+		
+		this.packetID = 70;
+		
+		this.packetType = PacketType.notification;
+		// TODO Auto-generated constructor stub
+	}
+
+}
