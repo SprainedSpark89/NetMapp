@@ -106,5 +106,19 @@ public enum PacketType {
 	mapData,
 	
 	// b1.6-tb3
-	updateBlock
+	updateBlock,
+	
+	// b1.8-pre1
+	creativeSlot,
+	effectRemove,
+	effectAdd,
+	serverListEntry,
+	playerListEntry,
+	executionPoints,
+	
+	// b1.8-pre2
+	executionPointOrbAdd,
+	
+	// b1.9-pre4
+	menuClick
 }

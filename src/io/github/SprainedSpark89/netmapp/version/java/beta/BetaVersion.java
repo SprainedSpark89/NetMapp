@@ -10,6 +10,7 @@ import io.github.SprainedSpark89.netmapp.version.java.beta.b14.b1_4;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b15.b1_5;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b16.b1_6;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b17.b1_7;
+import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.BetaPrereleaseVersion;
 import io.github.SprainedSpark89.netmapp.version.java.beta.preview.BetaPreviewVersion;
 import io.github.SprainedSpark89.netmapp.version.java.beta.test_build.BetaTestBuildVersion;
 
@@ -37,6 +38,9 @@ public class BetaVersion extends JavaVersion {
 		
 		instance.registerVersion(new b1_6(instance));
 		instance.registerVersion(new b1_7(instance));
+		
+		BetaPrereleaseVersion preVersion = new BetaPrereleaseVersion(instance);
+		preVersion.registerVersions(); // b1.8-pre1 to b1.8-pre2 and b1.9-pre1 to b1.9-pre6
 		
 	}
 
