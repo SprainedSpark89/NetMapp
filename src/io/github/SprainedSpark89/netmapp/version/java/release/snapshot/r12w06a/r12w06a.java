@@ -1,4 +1,4 @@
-package io.github.SprainedSpark89.netmapp.version.java.release.r11;
+package io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w06a;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,6 @@ import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketPaintingSpa
 import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketPlayerActionChange;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketSetSlot;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketTriggerBlockEvent;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b13.PacketAddEntity;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b13.PacketEntityDataSync;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b13.PacketSleep;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b14.PacketNotification;
@@ -66,17 +65,19 @@ import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre5.P
 import io.github.SprainedSpark89.netmapp.version.java.beta.preview.b16_preview.PacketMapData;
 import io.github.SprainedSpark89.netmapp.version.java.beta.test_build.b16_tb3.PacketBlockUpdate;
 import io.github.SprainedSpark89.netmapp.version.java.beta.test_build.b16_tb3.PacketVehicleSpawn;
-import io.github.SprainedSpark89.netmapp.version.java.release.ReleaseVersion;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.ReleaseSnapshotVersion;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r11w49a.PacketModPluginDataTransfer;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w01a.PacketLogin;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w01a.PacketRespawn;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w03a.PacketAddEntity;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w03a.PacketHeadAngles;
 
-public class r1_1 extends ReleaseVersion { // Literally just a packet removal
+public class r12w06a extends ReleaseSnapshotVersion {
 
-	public r1_1(Versions ver) {
+	public r12w06a(Versions ver) {
 		super(ver);
-		this.version = "1.1";
-		this.protocolNumber = 23;
+		this.version = "12w06a";
+		this.protocolNumber = 25;
 		
 		Packet p;
 		
@@ -192,6 +193,9 @@ public class r1_1 extends ReleaseVersion { // Literally just a packet removal
 		p.packetID = 34;
 		this.packetList.put(p, p.packetType);
 		
+		p = new PacketHeadAngles(new ArrayList<Class<?>>(), new ArrayList<String>()); // 35
+		this.packetList.put(p, p.packetType);
+		
 		
 		p = new PacketEntityTrigger(new ArrayList<Class<?>>(), new ArrayList<String>()); // 38
 		this.packetList.put(p, p.packetType);
@@ -278,6 +282,9 @@ public class r1_1 extends ReleaseVersion { // Literally just a packet removal
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketMapData(new ArrayList<Class<?>>(), new ArrayList<String>()); // 131
+		this.packetList.put(p, p.packetType);
+		
+		p = new PacketTileEntityData(new ArrayList<Class<?>>(), new ArrayList<String>()); // 132
 		this.packetList.put(p, p.packetType);
 		
 		
