@@ -120,5 +120,8 @@ public enum PacketType {
 	executionPointOrbAdd,
 	
 	// b1.9-pre4
-	menuClick
+	menuClick,
+	
+	//11w49a
+	modPluginData
 }

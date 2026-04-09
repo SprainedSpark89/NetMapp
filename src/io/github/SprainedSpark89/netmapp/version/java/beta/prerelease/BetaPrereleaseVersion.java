@@ -20,14 +20,15 @@ public class BetaPrereleaseVersion extends BetaVersion {
 	
 	@Override
 	public void registerVersions() {
-		instance.registerVersion(new b1_8_pre1(instance));
-		instance.registerVersion(new b1_8_pre2(instance));
-		instance.registerVersion(new b1_9_pre1(instance));
-		instance.registerVersion(new b1_9_pre2(instance));
-		instance.registerVersion(new b1_9_pre3(instance));
-		instance.registerVersion(new b1_9_pre4(instance));
-		instance.registerVersion(new b1_9_pre5(instance));
-		instance.registerVersion(new b1_9_pre6(instance));
+		instance.registerVersion(new b1_8_pre1(instance)); // b1.8-pre1
+		instance.registerVersion(new b1_8_pre2(instance)); // b1.8-pre2
+		
+		instance.registerVersion(new b1_9_pre1(instance)); // b1.9-pre1
+		instance.registerVersion(new b1_9_pre2(instance)); // b1.9-pre2
+		instance.registerVersion(new b1_9_pre3(instance)); // b1.9-pre3
+		instance.registerVersion(new b1_9_pre4(instance)); // b1.9-pre4
+		instance.registerVersion(new b1_9_pre5(instance)); // b1.9-pre5
+		instance.registerVersion(new b1_9_pre6(instance)); // b1.9-pre6-11w48a
 	}
 
 }

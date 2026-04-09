@@ -4,6 +4,7 @@ import io.github.SprainedSpark89.netmapp.version.base.Versions;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.beta.BetaVersion;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
+import io.github.SprainedSpark89.netmapp.version.java.release.ReleaseVersion;
 
 public class JavaVersion extends Versions {
 	
@@ -22,5 +23,8 @@ public class JavaVersion extends Versions {
 		
 		BetaVersion betaVersion = new BetaVersion(instance);
 		betaVersion.registerVersions();
+		
+		ReleaseVersion releaseVersion = new ReleaseVersion(instance);
+		releaseVersion.registerVersions();
 	}
 }

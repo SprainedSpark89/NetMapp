@@ -1,4 +1,4 @@
-package io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre6;
+package io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w01a;
 
 import java.util.ArrayList;
 
@@ -50,16 +50,13 @@ import io.github.SprainedSpark89.netmapp.version.java.beta.b13.PacketSleep;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b14.PacketNotification;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b15.PacketForceAddEntity;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b15.PacketStat;
-import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.BetaPrereleaseVersion;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketEffectAdd;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketEffectRemove;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketHealth;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketKeepAlive;
-import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketLogin;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketPlayerListEntry;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketServerListEntry;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre2.PacketExecutionPointOrbAdd;
-import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre2.PacketRespawn;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre2.PacketInvClick;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre2.PacketInvContents;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre2.PacketPlace;
@@ -70,13 +67,15 @@ import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre5.P
 import io.github.SprainedSpark89.netmapp.version.java.beta.preview.b16_preview.PacketMapData;
 import io.github.SprainedSpark89.netmapp.version.java.beta.test_build.b16_tb3.PacketBlockUpdate;
 import io.github.SprainedSpark89.netmapp.version.java.beta.test_build.b16_tb3.PacketVehicleSpawn;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.ReleaseSnapshotVersion;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r11w49a.PacketModPluginDataTransfer;
 
-public class b1_9_pre6 extends BetaPrereleaseVersion { // all that really happened between this and 11w48a is & 0xFF on some reading and writing packets, doesn't effect compatibility
+public class r12w01a extends ReleaseSnapshotVersion {
 
-	public b1_9_pre6(Versions ver) {
+	public r12w01a(Versions ver) {
 		super(ver);
-		this.version = "b1.9-pre6";
-		this.protocolNumber = 22;
+		this.version = "12w01a";
+		this.protocolNumber = 23;
 		
 		Packet p;
 		
@@ -287,6 +286,10 @@ public class b1_9_pre6 extends BetaPrereleaseVersion { // all that really happen
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketPlayerListEntry(new ArrayList<Class<?>>(), new ArrayList<String>()); // 201
+		this.packetList.put(p, p.packetType);
+		
+		
+		p = new PacketModPluginDataTransfer(new ArrayList<Class<?>>(), new ArrayList<String>()); // 250
 		this.packetList.put(p, p.packetType);
 		
 		
