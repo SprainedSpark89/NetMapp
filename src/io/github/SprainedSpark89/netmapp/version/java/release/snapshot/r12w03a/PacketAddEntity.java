@@ -22,6 +22,7 @@ public class PacketAddEntity extends Packet {
 		this.args.add(Integer.TYPE);
 		this.args.add(Byte.TYPE);
 		this.args.add(Byte.TYPE);
+		this.args.add(Byte.TYPE);
 		this.args.add(Object[].class);
 		this.argsDesc.add("EntityID");
 		this.argsDesc.add("Entity Type");
@@ -30,11 +31,12 @@ public class PacketAddEntity extends Packet {
 		this.argsDesc.add("Z");
 		this.argsDesc.add("Yaw");
 		this.argsDesc.add("Pitch");
+		this.argsDesc.add("Head Yaw");
 		this.argsDesc.add("Data");
 		this.packetID = 24;
 		this.packetType = PacketType.entityAdd;
 		
-		this.read = new SpecialRead(true, 7);
+		this.read = new SpecialRead(true, 8);
 	}
 	
 	@Override

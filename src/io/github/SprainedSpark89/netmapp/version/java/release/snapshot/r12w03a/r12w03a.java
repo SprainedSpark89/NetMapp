@@ -191,6 +191,9 @@ public class r12w03a extends ReleaseSnapshotVersion {
 		p.packetID = 34;
 		this.packetList.put(p, p.packetType);
 		
+		p = new PacketHeadAngles(new ArrayList<Class<?>>(), new ArrayList<String>()); // 35
+		this.packetList.put(p, p.packetType);
+		
 		
 		p = new PacketEntityTrigger(new ArrayList<Class<?>>(), new ArrayList<String>()); // 38
 		this.packetList.put(p, p.packetType);

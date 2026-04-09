@@ -122,6 +122,9 @@ public enum PacketType {
 	// b1.9-pre4
 	menuClick,
 	
-	//11w49a
-	modPluginData
+	// 11w49a
+	modPluginData,
+	
+	// 12w03a
+	headAngles
 }
