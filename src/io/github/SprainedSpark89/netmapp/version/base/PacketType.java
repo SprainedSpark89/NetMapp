@@ -134,5 +134,14 @@ public enum PacketType {
 	
 	// 12w17a
 	clientEncryption,
-	serverEncryption
+	serverEncryption,
+	
+	// 12w23a
+	miningProgress,
+	
+	// 12w24a
+	requestRespawn,
+	
+	// 12w27a
+	chunks
 }

@@ -15,6 +15,10 @@ import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w18a.r
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w19a.r12w19a;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w21a.r12w21a;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w22a.r12w22a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w23a.r12w23a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w24a.r12w24a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w25a.r12w25a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w27a.r12w27a;
 
 public class ReleaseSnapshotVersion extends ReleaseVersion {
 
@@ -38,6 +42,10 @@ public class ReleaseSnapshotVersion extends ReleaseVersion {
 		instance.registerVersion(new r12w19a(instance)); // 12w19a
 		instance.registerVersion(new r12w21a(instance)); // 12w21a-b
 		instance.registerVersion(new r12w22a(instance)); // 12w22a
+		instance.registerVersion(new r12w23a(instance)); // 12w23a-b
+		instance.registerVersion(new r12w24a(instance)); // 12w24a
+		instance.registerVersion(new r12w25a(instance)); // 12w25a-12w26a
+		instance.registerVersion(new r12w27a(instance)); // 12w27a
 	}
 
 }
