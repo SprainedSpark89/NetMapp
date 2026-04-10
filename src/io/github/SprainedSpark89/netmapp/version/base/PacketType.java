@@ -126,6 +126,13 @@ public enum PacketType {
 	modPluginData,
 	
 	// 12w03a
-	headAngles
+	headAngles,
 	
+	// 12w16a
+	clientSettings,
+	commandSuggestion,
+	
+	// 12w17a
+	clientEncryption,
+	serverEncryption
 }
