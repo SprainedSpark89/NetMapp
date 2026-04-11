@@ -5,14 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.github.SprainedSpark89.netmapp.version.java.alpha.AlphaVersion;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a1010.a1_0_10;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.a1_0_6;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.a1_0_7;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a109.a1_0_9;
-import io.github.SprainedSpark89.netmapp.version.java.beta.BetaVersion;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b11_02.b1_1_02;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b12.b1_2;
 import io.github.SprainedSpark89.netmapp.version.java.classic.ClassicVersion;
 
 public class Utils {
@@ -70,16 +62,7 @@ public class Utils {
 	/**
 	 * baseVersion is just to limit the search range, you can use Versions if you really need to
 	 */
-	public static Versions getVersionFromProtocolNumber(Versions baseVersion, int protocol) {
-		
-		if(baseVersion instanceof BetaVersion && protocol == 8) { // yeah, i don't feel like dealing with some things
-			return new b1_2(Versions.instance);
-		}
-		
-		if(baseVersion instanceof AlphaVersion && protocol == 10) { // yeah, i don't feel like dealing with some things
-			return new a1_0_10(Versions.instance);
-		}
-		
+	public static Versions getVersionFromProtocolNumber(Versions baseVersion, int protocol) { // i'm not dealing with same protocol handling, it's a pain
 		//List<Versions> out = new ArrayList<Versions>();
 		for(Versions ver : versionList) {
 			if(ver.networkType.equals(baseVersion.networkType) && ver.protocolNumber == protocol) {

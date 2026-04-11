@@ -21,6 +21,19 @@ import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w25a.r
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w27a.r12w27a;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w30a.r12w30a;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w30c.r12w30c;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w32a.r12w32a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w34a.r12w34a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w34b.r12w34b;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w36a.r12w36a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w37a.r12w37a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w38a.r12w38a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w39b.r12w39b;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w40a.r12w40a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w40b.r12w40b;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w41a.r12w41a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w42b.r12w42b;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w49a.r12w49a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w50a.r12w50a;
 
 public class ReleaseSnapshotVersion extends ReleaseVersion {
 
@@ -30,7 +43,7 @@ public class ReleaseSnapshotVersion extends ReleaseVersion {
 	}
 	
 	@Override
-	public void registerVersions() {
+	public void registerVersions() { // please note that some of these are basically copies of each other, but are added due to other incompatibilities, like new items or blocks
 		instance.registerVersion(new r11w49a(instance)); // 11w49a-11w50a
 		instance.registerVersion(new r12w01a(instance)); // 12w01a
 		instance.registerVersion(new r12w03a(instance)); // 12w03a
@@ -50,6 +63,19 @@ public class ReleaseSnapshotVersion extends ReleaseVersion {
 		instance.registerVersion(new r12w27a(instance)); // 12w27a
 		instance.registerVersion(new r12w30a(instance)); // 12w30a-b
 		instance.registerVersion(new r12w30c(instance)); // 12w30c-1.3.2
+		instance.registerVersion(new r12w32a(instance)); // 12w32a
+		instance.registerVersion(new r12w34a(instance)); // 12w34a
+		instance.registerVersion(new r12w34b(instance)); // 12w34b
+		instance.registerVersion(new r12w36a(instance)); // 12w36a
+		instance.registerVersion(new r12w37a(instance)); // 12w37a
+		instance.registerVersion(new r12w38a(instance)); // 12w38a-12w39a
+		instance.registerVersion(new r12w39b(instance)); // 12w39b
+		instance.registerVersion(new r12w40a(instance)); // 12w40a
+		instance.registerVersion(new r12w40b(instance)); // 12w40b
+		instance.registerVersion(new r12w41a(instance)); // 12w41a-12w42a
+		instance.registerVersion(new r12w42b(instance)); // 12w42b-1.4.2
+		instance.registerVersion(new r12w49a(instance)); // 12w49a
+		instance.registerVersion(new r12w50a(instance)); // 12w50a-1.4.7
 	}
 
 }
