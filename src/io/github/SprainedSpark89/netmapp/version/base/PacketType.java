@@ -143,5 +143,13 @@ public enum PacketType {
 	requestRespawn,
 	
 	// 12w27a
-	chunks
+	chunks,
+	
+	// 13w04a
+	scoreboardDisplay,
+	scoreboardObjective,
+	scoreboardScore,
+	
+	// 13w05a
+	teaming
 }

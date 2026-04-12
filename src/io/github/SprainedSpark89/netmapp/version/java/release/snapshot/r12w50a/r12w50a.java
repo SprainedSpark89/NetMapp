@@ -30,7 +30,6 @@ import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketInvData;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketInvVerify;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketOpenInv;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketSignData;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketItemSpawn;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketPaintingSpawn;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketPlayerActionChange;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b13.PacketEntityDataSync;

@@ -1,4 +1,4 @@
-package io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w18a;
+package io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w02a;
 
 import java.util.ArrayList;
 
@@ -10,16 +10,13 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a1013.PacketEntityLo
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.PacketAnimate;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.PacketPlayerMoveLook;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a1015.PacketPlayerPos;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a1017.PacketTime;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105.PacketKickDisconnect;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketBlockChange;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a105_01.PacketDig;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketEntity;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketEntityTP;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketNamedEntitySpawn;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRelEntityMove;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRelEntityMoveLook;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a106.PacketRemoveEntity;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketFlying;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a107.PacketPlayerLook;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a110.PacketSetSpawn;
@@ -27,18 +24,14 @@ import io.github.SprainedSpark89.netmapp.version.java.alpha.a122.PacketEntityMou
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a122.PacketEntityVelocity;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a123.PacketEntityClick;
 import io.github.SprainedSpark89.netmapp.version.java.alpha.a123.PacketEntityTrigger;
-import io.github.SprainedSpark89.netmapp.version.java.alpha.a123_05.PacketExplosion;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketCloseInv;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketCurrentSlot;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketInvData;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketInvVerify;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketOpenInv;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b10.PacketSignData;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketItemSpawn;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketPaintingSpawn;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketPlayerActionChange;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketSetSlot;
-import io.github.SprainedSpark89.netmapp.version.java.beta.b12.PacketTriggerBlockEvent;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b13.PacketEntityDataSync;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b13.PacketSleep;
 import io.github.SprainedSpark89.netmapp.version.java.beta.b14.PacketNotification;
@@ -49,36 +42,50 @@ import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.P
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketHealth;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketKeepAlive;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketPlayerListEntry;
-import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre1.PacketServerListEntry;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b18_pre2.PacketExecutionPointOrbAdd;
-import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre2.PacketInvClick;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre2.PacketInvContents;
-import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre2.PacketPlace;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre2.PacketSlotContents;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre4.PacketExecutionPoints;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre4.PacketMenuClick;
 import io.github.SprainedSpark89.netmapp.version.java.beta.prerelease.b19_pre5.PacketCreativeMenuSlot;
-import io.github.SprainedSpark89.netmapp.version.java.beta.preview.b16_preview.PacketMapData;
 import io.github.SprainedSpark89.netmapp.version.java.beta.test_build.b16_tb3.PacketBlockUpdate;
-import io.github.SprainedSpark89.netmapp.version.java.beta.test_build.b16_tb3.PacketVehicleSpawn;
+import io.github.SprainedSpark89.netmapp.version.java.release.r144.PacketMapData;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.ReleaseSnapshotVersion;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r11w49a.PacketModPluginDataTransfer;
-import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w03a.PacketAddEntity;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w03a.PacketHeadAngles;
-import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w06a.PacketTileEntityData;
-import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w07a.PacketMapChunk;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w08a.PacketMultiBlockChange;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w08a.PacketRespawn;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w16a.PacketCommandSuggestion;
-import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w17a.PacketClientEncryption;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w17a.PacketServerEncryption;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w18a.PacketHandshake;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w18a.PacketLogin;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w18a.PacketPerms;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w22a.PacketPlace;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w23a.PacketMiningProgress;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w23a.PacketSetSlot;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w24a.PacketExplosion;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w24a.PacketRespawnRequest;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w25a.PacketClientEncryption;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w25a.PacketSound;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w27a.PacketAddEntity;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w27a.PacketChunks;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w27a.PacketMapChunk;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w27a.PacketRemoveEntity;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w27a.PacketTriggerBlockEvent;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w30a.PacketNamedEntitySpawn;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w30c.PacketTileEntityData;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w32a.PacketTime;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w40a.PacketInvClick;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w41a.PacketClientSettings;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w42b.PacketServerListEntry;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r12w49a.PacketVehicleSpawn;
 
-public class r12w18a extends ReleaseSnapshotVersion {
+public class r13w02a extends ReleaseSnapshotVersion {
 
-	public r12w18a(Versions ver) {
+	public r13w02a(Versions ver) {
 		super(ver);
-		this.version = "12w18a";
-		this.protocolNumber = 32;
+		this.version = "13w02a";
+		this.protocolNumber = 53;
 		
 		Packet p;
 		
@@ -145,11 +152,8 @@ public class r12w18a extends ReleaseSnapshotVersion {
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketNamedEntitySpawn(new ArrayList<Class<?>>(), new ArrayList<String>()); // 20
-		p.packetID = 20;
 		this.packetList.put(p, p.packetType);
 		
-		p = new PacketItemSpawn(new ArrayList<Class<?>>(), new ArrayList<String>()); // 21
-		this.packetList.put(p, p.packetType);
 		
 		p = new PacketCollect(new ArrayList<Class<?>>(), new ArrayList<String>()); // 22
 		this.packetList.put(p, p.packetType);
@@ -171,7 +175,6 @@ public class r12w18a extends ReleaseSnapshotVersion {
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketRemoveEntity(new ArrayList<Class<?>>(), new ArrayList<String>()); // 29
-		p.packetID = 29;
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketEntity(new ArrayList<Class<?>>(), new ArrayList<String>()); // 30
@@ -224,10 +227,15 @@ public class r12w18a extends ReleaseSnapshotVersion {
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketBlockChange(new ArrayList<Class<?>>(), new ArrayList<String>()); // 53
-		p.packetID = 53;
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketTriggerBlockEvent(new ArrayList<Class<?>>(), new ArrayList<String>()); // 54
+		this.packetList.put(p, p.packetType);
+		
+		p = new PacketMiningProgress(new ArrayList<Class<?>>(), new ArrayList<String>()); // 55
+		this.packetList.put(p, p.packetType);
+		
+		p = new PacketChunks(new ArrayList<Class<?>>(), new ArrayList<String>()); // 56
 		this.packetList.put(p, p.packetType);
 		
 		
@@ -299,6 +307,9 @@ public class r12w18a extends ReleaseSnapshotVersion {
 		this.packetList.put(p, p.packetType);
 		
 		p = new PacketClientSettings(new ArrayList<Class<?>>(), new ArrayList<String>()); // 204
+		this.packetList.put(p, p.packetType);
+		
+		p = new PacketRespawnRequest(new ArrayList<Class<?>>(), new ArrayList<String>()); // 205
 		this.packetList.put(p, p.packetType);
 		
 		
