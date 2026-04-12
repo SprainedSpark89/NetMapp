@@ -151,5 +151,8 @@ public enum PacketType {
 	scoreboardScore,
 	
 	// 13w05a
-	teaming
+	teaming,
+	
+	// 13w09c
+	particles
 }
