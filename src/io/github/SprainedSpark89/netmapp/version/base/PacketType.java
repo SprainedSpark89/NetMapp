@@ -154,5 +154,11 @@ public enum PacketType {
 	teaming,
 	
 	// 13w09c
-	particles
+	particles,
+	
+	// 13w21a
+	entityData,
+	
+	// 1.6.2
+	signGui
 }

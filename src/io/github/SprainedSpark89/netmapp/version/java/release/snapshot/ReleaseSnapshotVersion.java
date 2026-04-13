@@ -40,6 +40,17 @@ import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w05a.r
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w06a.r13w06a;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w09a.r13w09a;
 import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w09c.r13w09c;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w16a.r13w16a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w16b.r13w16b;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w17a.r13w17a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w18a.r13w18a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w19a.r13w19a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w21a.r13w21a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w23a.r13w23b;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w24a.r13w24a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w24b.r13w24b;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w25a.r13w25a;
+import io.github.SprainedSpark89.netmapp.version.java.release.snapshot.r13w26a.r13w26a;
 
 public class ReleaseSnapshotVersion extends ReleaseVersion {
 
@@ -88,6 +99,17 @@ public class ReleaseSnapshotVersion extends ReleaseVersion {
 		instance.registerVersion(new r13w06a(instance)); // 13w06a-13w07a
 		instance.registerVersion(new r13w09a(instance)); // 13w09a-b
 		instance.registerVersion(new r13w09c(instance)); // 13w09c-1.5.1
+		instance.registerVersion(new r13w16a(instance)); // 13w16a
+		instance.registerVersion(new r13w16b(instance)); // 13w16b
+		instance.registerVersion(new r13w17a(instance)); // 13w17a
+		instance.registerVersion(new r13w18a(instance)); // 13w18a-13w18c
+		instance.registerVersion(new r13w19a(instance)); // 13w19a
+		instance.registerVersion(new r13w21a(instance)); // 13w21a-13w23a
+		instance.registerVersion(new r13w23b(instance)); // 13w23b
+		instance.registerVersion(new r13w24a(instance)); // 13w24a
+		instance.registerVersion(new r13w24b(instance)); // 13w24b
+		instance.registerVersion(new r13w25a(instance)); // 13w25a-13w25c
+		instance.registerVersion(new r13w26a(instance)); // 13w26a-1.6
 	}
 
 }
