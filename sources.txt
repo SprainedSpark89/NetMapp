@@ -157,61 +157,422 @@ D:.
 ¦                       ¦   ¦   ¦       b1_1_02.class
 ¦                       ¦   ¦   ¦       
 ¦                       ¦   ¦   +---b12
-¦                       ¦   ¦           b1_2.class
-¦                       ¦   ¦           PacketAddEntity.class
-¦                       ¦   ¦           PacketEntityDataSync.class
-¦                       ¦   ¦           PacketInvClick.class
-¦                       ¦   ¦           PacketItemSpawn.class
-¦                       ¦   ¦           PacketPaintingSpawn.class
-¦                       ¦   ¦           PacketPlace.class
-¦                       ¦   ¦           PacketPlayerActionChange.class
-¦                       ¦   ¦           PacketSetSlot.class
-¦                       ¦   ¦           PacketSlotContents.class
-¦                       ¦   ¦           PacketTriggerBlockEvent.class
-¦                       ¦   ¦           
+¦                       ¦   ¦   ¦       b1_2.class
+¦                       ¦   ¦   ¦       PacketAddEntity.class
+¦                       ¦   ¦   ¦       PacketEntityDataSync.class
+¦                       ¦   ¦   ¦       PacketInvClick.class
+¦                       ¦   ¦   ¦       PacketItemSpawn.class
+¦                       ¦   ¦   ¦       PacketPaintingSpawn.class
+¦                       ¦   ¦   ¦       PacketPlace.class
+¦                       ¦   ¦   ¦       PacketPlayerActionChange.class
+¦                       ¦   ¦   ¦       PacketSetSlot.class
+¦                       ¦   ¦   ¦       PacketSlotContents.class
+¦                       ¦   ¦   ¦       PacketTriggerBlockEvent.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b13
+¦                       ¦   ¦   ¦       b1_3.class
+¦                       ¦   ¦   ¦       PacketAddEntity.class
+¦                       ¦   ¦   ¦       PacketEntityDataSync.class
+¦                       ¦   ¦   ¦       PacketPlayerInput.class
+¦                       ¦   ¦   ¦       PacketSleep.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b14
+¦                       ¦   ¦   ¦       b1_4.class
+¦                       ¦   ¦   ¦       PacketNotification.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b15
+¦                       ¦   ¦   ¦       b1_5.class
+¦                       ¦   ¦   ¦       PacketForceAddEntity.class
+¦                       ¦   ¦   ¦       PacketInvClick.class
+¦                       ¦   ¦   ¦       PacketLogin.class
+¦                       ¦   ¦   ¦       PacketStat.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b16
+¦                       ¦   ¦   ¦       b1_6.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b17
+¦                       ¦   ¦   ¦       b1_7.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b18
+¦                       ¦   ¦   ¦       b1_8.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---prerelease
+¦                       ¦   ¦   ¦   ¦   BetaPrereleaseVersion.class
+¦                       ¦   ¦   ¦   ¦   
+¦                       ¦   ¦   ¦   +---b18_pre1
+¦                       ¦   ¦   ¦   ¦       b1_8_pre1.class
+¦                       ¦   ¦   ¦   ¦       PacketCreativeMenuSlot.class
+¦                       ¦   ¦   ¦   ¦       PacketEffectAdd.class
+¦                       ¦   ¦   ¦   ¦       PacketEffectRemove.class
+¦                       ¦   ¦   ¦   ¦       PacketExecutionPoints.class
+¦                       ¦   ¦   ¦   ¦       PacketHealth.class
+¦                       ¦   ¦   ¦   ¦       PacketKeepAlive.class
+¦                       ¦   ¦   ¦   ¦       PacketLogin.class
+¦                       ¦   ¦   ¦   ¦       PacketPlayerListEntry.class
+¦                       ¦   ¦   ¦   ¦       PacketRespawn.class
+¦                       ¦   ¦   ¦   ¦       PacketServerListEntry.class
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b18_pre2
+¦                       ¦   ¦   ¦   ¦       b1_8_pre2.class
+¦                       ¦   ¦   ¦   ¦       PacketExecutionPointOrbAdd.class
+¦                       ¦   ¦   ¦   ¦       PacketRespawn.class
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre1
+¦                       ¦   ¦   ¦   ¦       b1_9_pre1.class
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre2
+¦                       ¦   ¦   ¦   ¦       b1_9_pre2.class
+¦                       ¦   ¦   ¦   ¦       PacketInvClick.class
+¦                       ¦   ¦   ¦   ¦       PacketInvContents.class
+¦                       ¦   ¦   ¦   ¦       PacketPlace.class
+¦                       ¦   ¦   ¦   ¦       PacketSlotContents.class
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre3
+¦                       ¦   ¦   ¦   ¦       b1_9_pre3.class
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre4
+¦                       ¦   ¦   ¦   ¦       b1_9_pre4.class
+¦                       ¦   ¦   ¦   ¦       PacketExecutionPoints.class
+¦                       ¦   ¦   ¦   ¦       PacketMenuClick.class
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre5
+¦                       ¦   ¦   ¦   ¦       b1_9_pre5.class
+¦                       ¦   ¦   ¦   ¦       PacketCreativeMenuSlot.class
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre6
+¦                       ¦   ¦   ¦           b1_9_pre6.class
+¦                       ¦   ¦   ¦           
+¦                       ¦   ¦   +---preview
+¦                       ¦   ¦   ¦   ¦   BetaPreviewVersion.class
+¦                       ¦   ¦   ¦   ¦   
+¦                       ¦   ¦   ¦   +---b16_preview
+¦                       ¦   ¦   ¦   ¦       b1_6_preview.class
+¦                       ¦   ¦   ¦   ¦       PacketMapData.class
+¦                       ¦   ¦   ¦   ¦       PacketRespawn.class
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b17_preview
+¦                       ¦   ¦   ¦           b1_7_preview.class
+¦                       ¦   ¦   ¦           
+¦                       ¦   ¦   +---test_build
+¦                       ¦   ¦       ¦   BetaTestBuildVersion.class
+¦                       ¦   ¦       ¦   
+¦                       ¦   ¦       +---b16_tb3
+¦                       ¦   ¦               b1_6_tb3.class
+¦                       ¦   ¦               PacketBlockUpdate.class
+¦                       ¦   ¦               PacketVehicleSpawn.class
+¦                       ¦   ¦               
 ¦                       ¦   +---classic
-¦                       ¦       ¦   ClassicVersion.class
+¦                       ¦   ¦   ¦   ClassicVersion.class
+¦                       ¦   ¦   ¦   
+¦                       ¦   ¦   +---c15
+¦                       ¦   ¦   ¦       c0_0_15a.class
+¦                       ¦   ¦   ¦       PacketBlank.class
+¦                       ¦   ¦   ¦       PacketBlockUpdate.class
+¦                       ¦   ¦   ¦       PacketDisconnect.class
+¦                       ¦   ¦   ¦       PacketEntityMove.class
+¦                       ¦   ¦   ¦       PacketLevelData.class
+¦                       ¦   ¦   ¦       PacketLevelEnd.class
+¦                       ¦   ¦   ¦       PacketLevelInit.class
+¦                       ¦   ¦   ¦       PacketLogin.class
+¦                       ¦   ¦   ¦       PacketPlayerAdd.class
+¦                       ¦   ¦   ¦       PacketSetBlock.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c16
+¦                       ¦   ¦   ¦       c0_0_16a.class
+¦                       ¦   ¦   ¦       PacketChat.class
+¦                       ¦   ¦   ¦       PacketEntityMove.class
+¦                       ¦   ¦   ¦       PacketEntityMoveRotate.class
+¦                       ¦   ¦   ¦       PacketEntityRotation.class
+¦                       ¦   ¦   ¦       PacketEntityTP.class
+¦                       ¦   ¦   ¦       PacketKick.class
+¦                       ¦   ¦   ¦       PacketLogin.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c17
+¦                       ¦   ¦   ¦       c0_0_17a.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c18
+¦                       ¦   ¦   ¦       c0_0_18a.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c19
+¦                       ¦   ¦   ¦       c0_0_19a.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c20
+¦                       ¦   ¦   ¦       c0_0_20a.class
+¦                       ¦   ¦   ¦       PacketLogin.class
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c30
+¦                       ¦   ¦           c0_30.class
+¦                       ¦   ¦           PacketPermissions.class
+¦                       ¦   ¦           
+¦                       ¦   +---release
+¦                       ¦       ¦   ReleaseVersion.class
 ¦                       ¦       ¦   
-¦                       ¦       +---c15
-¦                       ¦       ¦       c0_0_15a.class
-¦                       ¦       ¦       PacketBlank.class
-¦                       ¦       ¦       PacketBlockUpdate.class
-¦                       ¦       ¦       PacketDisconnect.class
-¦                       ¦       ¦       PacketEntityMove.class
-¦                       ¦       ¦       PacketLevelData.class
-¦                       ¦       ¦       PacketLevelEnd.class
-¦                       ¦       ¦       PacketLevelInit.class
-¦                       ¦       ¦       PacketLogin.class
-¦                       ¦       ¦       PacketPlayerAdd.class
-¦                       ¦       ¦       PacketSetBlock.class
+¦                       ¦       +---candidate
+¦                       ¦       ¦       ReleaseCandidateVersion.class
 ¦                       ¦       ¦       
-¦                       ¦       +---c16
-¦                       ¦       ¦       c0_0_16a.class
-¦                       ¦       ¦       PacketChat.class
-¦                       ¦       ¦       PacketEntityMove.class
-¦                       ¦       ¦       PacketEntityMoveRotate.class
-¦                       ¦       ¦       PacketEntityRotation.class
-¦                       ¦       ¦       PacketEntityTP.class
-¦                       ¦       ¦       PacketKick.class
-¦                       ¦       ¦       PacketLogin.class
+¦                       ¦       +---r11
+¦                       ¦       ¦       r1_1.class
 ¦                       ¦       ¦       
-¦                       ¦       +---c17
-¦                       ¦       ¦       c0_0_17a.class
+¦                       ¦       +---r124
+¦                       ¦       ¦       PacketPerms.class
+¦                       ¦       ¦       r1_2_4.class
 ¦                       ¦       ¦       
-¦                       ¦       +---c18
-¦                       ¦       ¦       c0_0_18a.class
+¦                       ¦       +---r143
+¦                       ¦       ¦       r1_4_3.class
 ¦                       ¦       ¦       
-¦                       ¦       +---c19
-¦                       ¦       ¦       c0_0_19a.class
+¦                       ¦       +---r144
+¦                       ¦       ¦       PacketMapData.class
+¦                       ¦       ¦       r1_4_4.class
 ¦                       ¦       ¦       
-¦                       ¦       +---c20
-¦                       ¦       ¦       c0_0_20a.class
-¦                       ¦       ¦       PacketLogin.class
+¦                       ¦       +---r152
+¦                       ¦       ¦       r1_5_2.class
 ¦                       ¦       ¦       
-¦                       ¦       +---c30
-¦                       ¦               c0_30.class
-¦                       ¦               PacketPermissions.class
-¦                       ¦               
+¦                       ¦       +---r161
+¦                       ¦       ¦       PacketServerListEntry.class
+¦                       ¦       ¦       r1_6_1.class
+¦                       ¦       ¦       
+¦                       ¦       +---r162
+¦                       ¦       ¦       PacketEntityData.class
+¦                       ¦       ¦       PacketSignGui.class
+¦                       ¦       ¦       r1_6_2.class
+¦                       ¦       ¦       
+¦                       ¦       +---r163
+¦                       ¦       ¦       r1_6_3.class
+¦                       ¦       ¦       
+¦                       ¦       +---r164
+¦                       ¦       ¦       r1_6_4.class
+¦                       ¦       ¦       
+¦                       ¦       +---snapshot
+¦                       ¦           ¦   ReleaseSnapshotVersion.class
+¦                       ¦           ¦   
+¦                       ¦           +---r11w49a
+¦                       ¦           ¦       PacketModPluginDataTransfer.class
+¦                       ¦           ¦       r11w49a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w01a
+¦                       ¦           ¦       PacketLogin.class
+¦                       ¦           ¦       PacketRespawn.class
+¦                       ¦           ¦       r12w01a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w03a
+¦                       ¦           ¦       PacketAddEntity.class
+¦                       ¦           ¦       PacketHeadAngles.class
+¦                       ¦           ¦       r12w03a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w04a
+¦                       ¦           ¦       r12w04a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w06a
+¦                       ¦           ¦       PacketTileEntityData.class
+¦                       ¦           ¦       r12w06a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w07a
+¦                       ¦           ¦       PacketLogin.class
+¦                       ¦           ¦       PacketMapChunk.class
+¦                       ¦           ¦       PacketRespawn.class
+¦                       ¦           ¦       r12w07a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w08a
+¦                       ¦           ¦       PacketLogin.class
+¦                       ¦           ¦       PacketMultiBlockChange.class
+¦                       ¦           ¦       PacketRespawn.class
+¦                       ¦           ¦       r12w08a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w16a
+¦                       ¦           ¦       PacketClientSettings.class
+¦                       ¦           ¦       PacketCommandSuggestion.class
+¦                       ¦           ¦       r12w16a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w17a
+¦                       ¦           ¦       PacketClientEncryption.class
+¦                       ¦           ¦       PacketClientSettings.class
+¦                       ¦           ¦       PacketHandshake.class
+¦                       ¦           ¦       PacketServerEncryption.class
+¦                       ¦           ¦       r12w17a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w18a
+¦                       ¦           ¦       PacketClientSettings.class
+¦                       ¦           ¦       PacketHandshake.class
+¦                       ¦           ¦       PacketLogin.class
+¦                       ¦           ¦       PacketPerms.class
+¦                       ¦           ¦       PacketSound.class
+¦                       ¦           ¦       r12w18a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w19a
+¦                       ¦           ¦       r12w19a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w21a
+¦                       ¦           ¦       r12w21a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w22a
+¦                       ¦           ¦       PacketPlace.class
+¦                       ¦           ¦       r12w22a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w23a
+¦                       ¦           ¦       PacketMiningProgress.class
+¦                       ¦           ¦       PacketSetSlot.class
+¦                       ¦           ¦       r12w23a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w24a
+¦                       ¦           ¦       PacketExplosion.class
+¦                       ¦           ¦       PacketRespawnRequest.class
+¦                       ¦           ¦       r12w24a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w25a
+¦                       ¦           ¦       PacketClientEncryption.class
+¦                       ¦           ¦       PacketServerEncryption.class
+¦                       ¦           ¦       PacketSound.class
+¦                       ¦           ¦       r12w25a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w27a
+¦                       ¦           ¦       PacketAddEntity.class
+¦                       ¦           ¦       PacketChunks.class
+¦                       ¦           ¦       PacketMapChunk.class
+¦                       ¦           ¦       PacketRemoveEntity.class
+¦                       ¦           ¦       PacketTriggerBlockEvent.class
+¦                       ¦           ¦       r12w27a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w30a
+¦                       ¦           ¦       PacketBlockChange.class
+¦                       ¦           ¦       PacketNamedEntitySpawn.class
+¦                       ¦           ¦       r12w30a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w30c
+¦                       ¦           ¦       PacketTileEntityData.class
+¦                       ¦           ¦       r12w30c.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w32a
+¦                       ¦           ¦       PacketTime.class
+¦                       ¦           ¦       r12w32a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w34a
+¦                       ¦           ¦       r12w34a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w34b
+¦                       ¦           ¦       PacketItemSpawn.class
+¦                       ¦           ¦       r12w34b.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w36a
+¦                       ¦           ¦       r12w36a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w37a
+¦                       ¦           ¦       r12w37a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w38a
+¦                       ¦           ¦       r12w38a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w39b
+¦                       ¦           ¦       r12w39b.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w40a
+¦                       ¦           ¦       PacketInvClick.class
+¦                       ¦           ¦       r12w40a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w40b
+¦                       ¦           ¦       r12w40b.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w41a
+¦                       ¦           ¦       PacketClientSettings.class
+¦                       ¦           ¦       r12w41a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w42b
+¦                       ¦           ¦       PacketServerListEntry.class
+¦                       ¦           ¦       r12w42b.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w49a
+¦                       ¦           ¦       PacketVehicleSpawn.class
+¦                       ¦           ¦       r12w49a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r12w50a
+¦                       ¦           ¦       r12w50a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w01a
+¦                       ¦           ¦       r13w01a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w02a
+¦                       ¦           ¦       PacketOpenInv.class
+¦                       ¦           ¦       r13w02a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w03a
+¦                       ¦           ¦       r13w03a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w04a
+¦                       ¦           ¦       PacketScoreboardDisplay.class
+¦                       ¦           ¦       PacketScoreboardObjective.class
+¦                       ¦           ¦       PacketScoreboardScore.class
+¦                       ¦           ¦       r13w04a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w05a
+¦                       ¦           ¦       PacketTeaming.class
+¦                       ¦           ¦       r13w05a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w06a
+¦                       ¦           ¦       r13w06a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w09a
+¦                       ¦           ¦       PacketTeaming.class
+¦                       ¦           ¦       r13w09a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w09c
+¦                       ¦           ¦       PacketParticles.class
+¦                       ¦           ¦       r13w09c.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w16a
+¦                       ¦           ¦       PacketEntityMount.class
+¦                       ¦           ¦       PacketHealth.class
+¦                       ¦           ¦       PacketPerms.class
+¦                       ¦           ¦       PacketPlayerActionChange.class
+¦                       ¦           ¦       r13w16a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w16b
+¦                       ¦           ¦       PacketPlayerInput.class
+¦                       ¦           ¦       r13w16b.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w17a
+¦                       ¦           ¦       r13w17a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w18a
+¦                       ¦           ¦       r13w18a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w19a
+¦                       ¦           ¦       r13w19a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w21a
+¦                       ¦           ¦       PacketEntityData.class
+¦                       ¦           ¦       PacketOpenInv.class
+¦                       ¦           ¦       r13w21a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w23a
+¦                       ¦           ¦       r13w23b.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w24a
+¦                       ¦           ¦       r13w24a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w24b
+¦                       ¦           ¦       r13w24b.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w25a
+¦                       ¦           ¦       PacketStat.class
+¦                       ¦           ¦       r13w25a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w26a
+¦                       ¦           ¦       r13w26a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w36a
+¦                       ¦           ¦       PacketSound.class
+¦                       ¦           ¦       PacketStat.class
+¦                       ¦           ¦       r13w36a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w37a
+¦                       ¦           ¦       r13w37a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w38a
+¦                       ¦           ¦       r13w38a.class
+¦                       ¦           ¦       
+¦                       ¦           +---r13w39a
+¦                       ¦                   PacketNotification.class
+¦                       ¦                   r13w39a.class
+¦                       ¦                   
 ¦                       +---LCE
 ¦                           ¦   LCEVersion.class
 ¦                           ¦   
@@ -405,61 +766,422 @@ D:.
 ¦                       ¦   ¦   ¦       b1_1_02.java
 ¦                       ¦   ¦   ¦       
 ¦                       ¦   ¦   +---b12
-¦                       ¦   ¦           b1_2.java
-¦                       ¦   ¦           PacketAddEntity.java
-¦                       ¦   ¦           PacketEntityDataSync.java
-¦                       ¦   ¦           PacketInvClick.java
-¦                       ¦   ¦           PacketItemSpawn.java
-¦                       ¦   ¦           PacketPaintingSpawn.java
-¦                       ¦   ¦           PacketPlace.java
-¦                       ¦   ¦           PacketPlayerActionChange.java
-¦                       ¦   ¦           PacketSetSlot.java
-¦                       ¦   ¦           PacketSlotContents.java
-¦                       ¦   ¦           PacketTriggerBlockEvent.java
-¦                       ¦   ¦           
+¦                       ¦   ¦   ¦       b1_2.java
+¦                       ¦   ¦   ¦       PacketAddEntity.java
+¦                       ¦   ¦   ¦       PacketEntityDataSync.java
+¦                       ¦   ¦   ¦       PacketInvClick.java
+¦                       ¦   ¦   ¦       PacketItemSpawn.java
+¦                       ¦   ¦   ¦       PacketPaintingSpawn.java
+¦                       ¦   ¦   ¦       PacketPlace.java
+¦                       ¦   ¦   ¦       PacketPlayerActionChange.java
+¦                       ¦   ¦   ¦       PacketSetSlot.java
+¦                       ¦   ¦   ¦       PacketSlotContents.java
+¦                       ¦   ¦   ¦       PacketTriggerBlockEvent.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b13
+¦                       ¦   ¦   ¦       b1_3.java
+¦                       ¦   ¦   ¦       PacketAddEntity.java
+¦                       ¦   ¦   ¦       PacketEntityDataSync.java
+¦                       ¦   ¦   ¦       PacketPlayerInput.java
+¦                       ¦   ¦   ¦       PacketSleep.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b14
+¦                       ¦   ¦   ¦       b1_4.java
+¦                       ¦   ¦   ¦       PacketNotification.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b15
+¦                       ¦   ¦   ¦       b1_5.java
+¦                       ¦   ¦   ¦       PacketForceAddEntity.java
+¦                       ¦   ¦   ¦       PacketInvClick.java
+¦                       ¦   ¦   ¦       PacketLogin.java
+¦                       ¦   ¦   ¦       PacketStat.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b16
+¦                       ¦   ¦   ¦       b1_6.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b17
+¦                       ¦   ¦   ¦       b1_7.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---b18
+¦                       ¦   ¦   ¦       b1_8.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---prerelease
+¦                       ¦   ¦   ¦   ¦   BetaPrereleaseVersion.java
+¦                       ¦   ¦   ¦   ¦   
+¦                       ¦   ¦   ¦   +---b18_pre1
+¦                       ¦   ¦   ¦   ¦       b1_8_pre1.java
+¦                       ¦   ¦   ¦   ¦       PacketCreativeMenuSlot.java
+¦                       ¦   ¦   ¦   ¦       PacketEffectAdd.java
+¦                       ¦   ¦   ¦   ¦       PacketEffectRemove.java
+¦                       ¦   ¦   ¦   ¦       PacketExecutionPoints.java
+¦                       ¦   ¦   ¦   ¦       PacketHealth.java
+¦                       ¦   ¦   ¦   ¦       PacketKeepAlive.java
+¦                       ¦   ¦   ¦   ¦       PacketLogin.java
+¦                       ¦   ¦   ¦   ¦       PacketPlayerListEntry.java
+¦                       ¦   ¦   ¦   ¦       PacketRespawn.java
+¦                       ¦   ¦   ¦   ¦       PacketServerListEntry.java
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b18_pre2
+¦                       ¦   ¦   ¦   ¦       b1_8_pre2.java
+¦                       ¦   ¦   ¦   ¦       PacketExecutionPointOrbAdd.java
+¦                       ¦   ¦   ¦   ¦       PacketRespawn.java
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre1
+¦                       ¦   ¦   ¦   ¦       b1_9_pre1.java
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre2
+¦                       ¦   ¦   ¦   ¦       b1_9_pre2.java
+¦                       ¦   ¦   ¦   ¦       PacketInvClick.java
+¦                       ¦   ¦   ¦   ¦       PacketInvContents.java
+¦                       ¦   ¦   ¦   ¦       PacketPlace.java
+¦                       ¦   ¦   ¦   ¦       PacketSlotContents.java
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre3
+¦                       ¦   ¦   ¦   ¦       b1_9_pre3.java
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre4
+¦                       ¦   ¦   ¦   ¦       b1_9_pre4.java
+¦                       ¦   ¦   ¦   ¦       PacketExecutionPoints.java
+¦                       ¦   ¦   ¦   ¦       PacketMenuClick.java
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre5
+¦                       ¦   ¦   ¦   ¦       b1_9_pre5.java
+¦                       ¦   ¦   ¦   ¦       PacketCreativeMenuSlot.java
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b19_pre6
+¦                       ¦   ¦   ¦           b1_9_pre6.java
+¦                       ¦   ¦   ¦           
+¦                       ¦   ¦   +---preview
+¦                       ¦   ¦   ¦   ¦   BetaPreviewVersion.java
+¦                       ¦   ¦   ¦   ¦   
+¦                       ¦   ¦   ¦   +---b16_preview
+¦                       ¦   ¦   ¦   ¦       b1_6_preview.java
+¦                       ¦   ¦   ¦   ¦       PacketMapData.java
+¦                       ¦   ¦   ¦   ¦       PacketRespawn.java
+¦                       ¦   ¦   ¦   ¦       
+¦                       ¦   ¦   ¦   +---b17_preview
+¦                       ¦   ¦   ¦           b1_7_preview.java
+¦                       ¦   ¦   ¦           
+¦                       ¦   ¦   +---test_build
+¦                       ¦   ¦       ¦   BetaTestBuildVersion.java
+¦                       ¦   ¦       ¦   
+¦                       ¦   ¦       +---b16_tb3
+¦                       ¦   ¦               b1_6_tb3.java
+¦                       ¦   ¦               PacketBlockUpdate.java
+¦                       ¦   ¦               PacketVehicleSpawn.java
+¦                       ¦   ¦               
 ¦                       ¦   +---classic
-¦                       ¦       ¦   ClassicVersion.java
+¦                       ¦   ¦   ¦   ClassicVersion.java
+¦                       ¦   ¦   ¦   
+¦                       ¦   ¦   +---c15
+¦                       ¦   ¦   ¦       c0_0_15a.java
+¦                       ¦   ¦   ¦       PacketBlank.java
+¦                       ¦   ¦   ¦       PacketBlockUpdate.java
+¦                       ¦   ¦   ¦       PacketDisconnect.java
+¦                       ¦   ¦   ¦       PacketEntityMove.java
+¦                       ¦   ¦   ¦       PacketLevelData.java
+¦                       ¦   ¦   ¦       PacketLevelEnd.java
+¦                       ¦   ¦   ¦       PacketLevelInit.java
+¦                       ¦   ¦   ¦       PacketLogin.java
+¦                       ¦   ¦   ¦       PacketPlayerAdd.java
+¦                       ¦   ¦   ¦       PacketSetBlock.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c16
+¦                       ¦   ¦   ¦       c0_0_16a.java
+¦                       ¦   ¦   ¦       PacketChat.java
+¦                       ¦   ¦   ¦       PacketEntityMove.java
+¦                       ¦   ¦   ¦       PacketEntityMoveRotate.java
+¦                       ¦   ¦   ¦       PacketEntityRotation.java
+¦                       ¦   ¦   ¦       PacketEntityTP.java
+¦                       ¦   ¦   ¦       PacketKick.java
+¦                       ¦   ¦   ¦       PacketLogin.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c17
+¦                       ¦   ¦   ¦       c0_0_17a.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c18
+¦                       ¦   ¦   ¦       c0_0_18a.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c19
+¦                       ¦   ¦   ¦       c0_0_19a.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c20
+¦                       ¦   ¦   ¦       c0_0_20a.java
+¦                       ¦   ¦   ¦       PacketLogin.java
+¦                       ¦   ¦   ¦       
+¦                       ¦   ¦   +---c30
+¦                       ¦   ¦           c0_30.java
+¦                       ¦   ¦           PacketPermissions.java
+¦                       ¦   ¦           
+¦                       ¦   +---release
+¦                       ¦       ¦   ReleaseVersion.java
 ¦                       ¦       ¦   
-¦                       ¦       +---c15
-¦                       ¦       ¦       c0_0_15a.java
-¦                       ¦       ¦       PacketBlank.java
-¦                       ¦       ¦       PacketBlockUpdate.java
-¦                       ¦       ¦       PacketDisconnect.java
-¦                       ¦       ¦       PacketEntityMove.java
-¦                       ¦       ¦       PacketLevelData.java
-¦                       ¦       ¦       PacketLevelEnd.java
-¦                       ¦       ¦       PacketLevelInit.java
-¦                       ¦       ¦       PacketLogin.java
-¦                       ¦       ¦       PacketPlayerAdd.java
-¦                       ¦       ¦       PacketSetBlock.java
+¦                       ¦       +---candidate
+¦                       ¦       ¦       ReleaseCandidateVersion.java
 ¦                       ¦       ¦       
-¦                       ¦       +---c16
-¦                       ¦       ¦       c0_0_16a.java
-¦                       ¦       ¦       PacketChat.java
-¦                       ¦       ¦       PacketEntityMove.java
-¦                       ¦       ¦       PacketEntityMoveRotate.java
-¦                       ¦       ¦       PacketEntityRotation.java
-¦                       ¦       ¦       PacketEntityTP.java
-¦                       ¦       ¦       PacketKick.java
-¦                       ¦       ¦       PacketLogin.java
+¦                       ¦       +---r11
+¦                       ¦       ¦       r1_1.java
 ¦                       ¦       ¦       
-¦                       ¦       +---c17
-¦                       ¦       ¦       c0_0_17a.java
+¦                       ¦       +---r124
+¦                       ¦       ¦       PacketPerms.java
+¦                       ¦       ¦       r1_2_4.java
 ¦                       ¦       ¦       
-¦                       ¦       +---c18
-¦                       ¦       ¦       c0_0_18a.java
+¦                       ¦       +---r143
+¦                       ¦       ¦       r1_4_3.java
 ¦                       ¦       ¦       
-¦                       ¦       +---c19
-¦                       ¦       ¦       c0_0_19a.java
+¦                       ¦       +---r144
+¦                       ¦       ¦       PacketMapData.java
+¦                       ¦       ¦       r1_4_4.java
 ¦                       ¦       ¦       
-¦                       ¦       +---c20
-¦                       ¦       ¦       c0_0_20a.java
-¦                       ¦       ¦       PacketLogin.java
+¦                       ¦       +---r152
+¦                       ¦       ¦       r1_5_2.java
 ¦                       ¦       ¦       
-¦                       ¦       +---c30
-¦                       ¦               c0_30.java
-¦                       ¦               PacketPermissions.java
-¦                       ¦               
+¦                       ¦       +---r161
+¦                       ¦       ¦       PacketServerListEntry.java
+¦                       ¦       ¦       r1_6_1.java
+¦                       ¦       ¦       
+¦                       ¦       +---r162
+¦                       ¦       ¦       PacketEntityData.java
+¦                       ¦       ¦       PacketSignGui.java
+¦                       ¦       ¦       r1_6_2.java
+¦                       ¦       ¦       
+¦                       ¦       +---r163
+¦                       ¦       ¦       r1_6_3.java
+¦                       ¦       ¦       
+¦                       ¦       +---r164
+¦                       ¦       ¦       r1_6_4.java
+¦                       ¦       ¦       
+¦                       ¦       +---snapshot
+¦                       ¦           ¦   ReleaseSnapshotVersion.java
+¦                       ¦           ¦   
+¦                       ¦           +---r11w49a
+¦                       ¦           ¦       PacketModPluginDataTransfer.java
+¦                       ¦           ¦       r11w49a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w01a
+¦                       ¦           ¦       PacketLogin.java
+¦                       ¦           ¦       PacketRespawn.java
+¦                       ¦           ¦       r12w01a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w03a
+¦                       ¦           ¦       PacketAddEntity.java
+¦                       ¦           ¦       PacketHeadAngles.java
+¦                       ¦           ¦       r12w03a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w04a
+¦                       ¦           ¦       r12w04a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w06a
+¦                       ¦           ¦       PacketTileEntityData.java
+¦                       ¦           ¦       r12w06a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w07a
+¦                       ¦           ¦       PacketLogin.java
+¦                       ¦           ¦       PacketMapChunk.java
+¦                       ¦           ¦       PacketRespawn.java
+¦                       ¦           ¦       r12w07a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w08a
+¦                       ¦           ¦       PacketLogin.java
+¦                       ¦           ¦       PacketMultiBlockChange.java
+¦                       ¦           ¦       PacketRespawn.java
+¦                       ¦           ¦       r12w08a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w16a
+¦                       ¦           ¦       PacketClientSettings.java
+¦                       ¦           ¦       PacketCommandSuggestion.java
+¦                       ¦           ¦       r12w16a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w17a
+¦                       ¦           ¦       PacketClientEncryption.java
+¦                       ¦           ¦       PacketClientSettings.java
+¦                       ¦           ¦       PacketHandshake.java
+¦                       ¦           ¦       PacketServerEncryption.java
+¦                       ¦           ¦       r12w17a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w18a
+¦                       ¦           ¦       PacketClientSettings.java
+¦                       ¦           ¦       PacketHandshake.java
+¦                       ¦           ¦       PacketLogin.java
+¦                       ¦           ¦       PacketPerms.java
+¦                       ¦           ¦       PacketSound.java
+¦                       ¦           ¦       r12w18a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w19a
+¦                       ¦           ¦       r12w19a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w21a
+¦                       ¦           ¦       r12w21a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w22a
+¦                       ¦           ¦       PacketPlace.java
+¦                       ¦           ¦       r12w22a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w23a
+¦                       ¦           ¦       PacketMiningProgress.java
+¦                       ¦           ¦       PacketSetSlot.java
+¦                       ¦           ¦       r12w23a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w24a
+¦                       ¦           ¦       PacketExplosion.java
+¦                       ¦           ¦       PacketRespawnRequest.java
+¦                       ¦           ¦       r12w24a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w25a
+¦                       ¦           ¦       PacketClientEncryption.java
+¦                       ¦           ¦       PacketServerEncryption.java
+¦                       ¦           ¦       PacketSound.java
+¦                       ¦           ¦       r12w25a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w27a
+¦                       ¦           ¦       PacketAddEntity.java
+¦                       ¦           ¦       PacketChunks.java
+¦                       ¦           ¦       PacketMapChunk.java
+¦                       ¦           ¦       PacketRemoveEntity.java
+¦                       ¦           ¦       PacketTriggerBlockEvent.java
+¦                       ¦           ¦       r12w27a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w30a
+¦                       ¦           ¦       PacketBlockChange.java
+¦                       ¦           ¦       PacketNamedEntitySpawn.java
+¦                       ¦           ¦       r12w30a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w30c
+¦                       ¦           ¦       PacketTileEntityData.java
+¦                       ¦           ¦       r12w30c.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w32a
+¦                       ¦           ¦       PacketTime.java
+¦                       ¦           ¦       r12w32a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w34a
+¦                       ¦           ¦       r12w34a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w34b
+¦                       ¦           ¦       PacketItemSpawn.java
+¦                       ¦           ¦       r12w34b.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w36a
+¦                       ¦           ¦       r12w36a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w37a
+¦                       ¦           ¦       r12w37a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w38a
+¦                       ¦           ¦       r12w38a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w39b
+¦                       ¦           ¦       r12w39b.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w40a
+¦                       ¦           ¦       PacketInvClick.java
+¦                       ¦           ¦       r12w40a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w40b
+¦                       ¦           ¦       r12w40b.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w41a
+¦                       ¦           ¦       PacketClientSettings.java
+¦                       ¦           ¦       r12w41a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w42b
+¦                       ¦           ¦       PacketServerListEntry.java
+¦                       ¦           ¦       r12w42b.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w49a
+¦                       ¦           ¦       PacketVehicleSpawn.java
+¦                       ¦           ¦       r12w49a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r12w50a
+¦                       ¦           ¦       r12w50a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w01a
+¦                       ¦           ¦       r13w01a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w02a
+¦                       ¦           ¦       PacketOpenInv.java
+¦                       ¦           ¦       r13w02a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w03a
+¦                       ¦           ¦       r13w03a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w04a
+¦                       ¦           ¦       PacketScoreboardDisplay.java
+¦                       ¦           ¦       PacketScoreboardObjective.java
+¦                       ¦           ¦       PacketScoreboardScore.java
+¦                       ¦           ¦       r13w04a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w05a
+¦                       ¦           ¦       PacketTeaming.java
+¦                       ¦           ¦       r13w05a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w06a
+¦                       ¦           ¦       r13w06a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w09a
+¦                       ¦           ¦       PacketTeaming.java
+¦                       ¦           ¦       r13w09a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w09c
+¦                       ¦           ¦       PacketParticles.java
+¦                       ¦           ¦       r13w09c.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w16a
+¦                       ¦           ¦       PacketEntityMount.java
+¦                       ¦           ¦       PacketHealth.java
+¦                       ¦           ¦       PacketPerms.java
+¦                       ¦           ¦       PacketPlayerActionChange.java
+¦                       ¦           ¦       r13w16a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w16b
+¦                       ¦           ¦       PacketPlayerInput.java
+¦                       ¦           ¦       r13w16b.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w17a
+¦                       ¦           ¦       r13w17a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w18a
+¦                       ¦           ¦       r13w18a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w19a
+¦                       ¦           ¦       r13w19a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w21a
+¦                       ¦           ¦       PacketEntityData.java
+¦                       ¦           ¦       PacketOpenInv.java
+¦                       ¦           ¦       r13w21a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w23a
+¦                       ¦           ¦       r13w23b.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w24a
+¦                       ¦           ¦       r13w24a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w24b
+¦                       ¦           ¦       r13w24b.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w25a
+¦                       ¦           ¦       PacketStat.java
+¦                       ¦           ¦       r13w25a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w26a
+¦                       ¦           ¦       r13w26a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w36a
+¦                       ¦           ¦       PacketSound.java
+¦                       ¦           ¦       PacketStat.java
+¦                       ¦           ¦       r13w36a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w37a
+¦                       ¦           ¦       r13w37a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w38a
+¦                       ¦           ¦       r13w38a.java
+¦                       ¦           ¦       
+¦                       ¦           +---r13w39a
+¦                       ¦                   PacketNotification.java
+¦                       ¦                   r13w39a.java
+¦                       ¦                   
 ¦                       +---LCE
 ¦                           ¦   LCEVersion.java
 ¦                           ¦   
